@@ -219,6 +219,35 @@ export default function ZXTIPage() {
               >
                 开始测试
               </button>
+              <button
+                onClick={() => {
+                  setResult({
+                    rawScores: {} as Record<string, number>,
+                    levels: {} as Record<string, string>,
+                    ranked: [],
+                    bestNormal: { code: 'LATE', pattern: 'HHH-HMH-MHH-HHH-MHM', distance: 0, exact: 15, similarity: 100, cn: '卷王附体', intro: '这个点下班？不可能的。', desc: '' },
+                    finalType: { ...TYPE_LIBRARY.LATE, image: TYPE_IMAGE_MAP.LATE },
+                    modeKicker: '预览模式',
+                    badge: 'LATE · 卷王附体',
+                    sub: '（这是调试预览，实际结果取决于你的答题）',
+                    special: false
+                  });
+                  setScreen('result');
+                }}
+                style={{
+                  background: '#fff',
+                  color: '#4d6a53',
+                  border: '1px solid #dbe8dd',
+                  padding: '14px 20px',
+                  borderRadius: 14,
+                  fontWeight: 700,
+                  fontSize: 14,
+                  cursor: 'pointer',
+                  marginTop: 8,
+                }}
+              >
+                预览 LATE 结果
+              </button>
             </div>
             <div style={{ paddingTop: 32, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
               <span>作者：Fone</span>
