@@ -215,7 +215,7 @@ export default function ZXTIPage() {
               </button>
             </div>
             <div style={{ paddingTop: 32, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
-              <span>作者：方相栋</span>
+              <span>作者：Fone</span>
               <span>专为职场人设计的性格测试</span>
             </div>
           </div>
