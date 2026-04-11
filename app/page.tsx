@@ -78,6 +78,8 @@ function getVisibleQuestions(shuffled: typeof questions, answers: Record<string,
 
 export default function ZXTIPage() {
   const [screen, setScreen] = useState<Screen>('intro');
+  const questionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [skippedId, setSkippedId] = useState<string | null>(null);
   const [shuffledQuestions, setShuffledQuestions] = useState<typeof questions>([]);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [result, setResult] = useState<ReturnType<typeof computeResult> | null>(null);
@@ -163,6 +165,16 @@ export default function ZXTIPage() {
   }
 
   function handleSubmit() {
+    const missing = visibleQuestions.find(q => answers[q.id] === undefined);
+    if (missing) {
+      setSkippedId(missing.id);
+      setTimeout(() => {
+        const el = document.getElementById('q-' + missing.id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+      return;
+    }
+    setSkippedId(null);
     const res = computeResult();
     setResult(res);
     setScreen('result');
@@ -277,7 +289,10 @@ export default function ZXTIPage() {
             {/* Questions */}
             <div style={{ display: 'grid', gap: 16 }}>
               {visibleQuestions.map((q, index) => (
-                <div key={q.id} style={{
+                <div
+                  key={q.id}
+                  id={'q-' + q.id}
+                  style={{
                   border: '1px solid #dbe8dd',
                   borderRadius: 18,
                   padding: 18,
@@ -305,8 +320,9 @@ export default function ZXTIPage() {
                           onClick={() => setAnswers(prev => ({ ...prev, [q.id]: opt.value }))}
                           style={{
                             display: 'flex', alignItems: 'flex-start', gap: 12,
-                            padding: '14px', borderRadius: 14, border: `1px solid ${checked ? '#bcd0c1' : '#dbe8dd'}`,
-                            background: checked ? '#f8fcf9' : '#fff',
+                            padding: '14px', borderRadius: 14, border: `2px solid ${checked ? '#2e7d32' : '#dbe8dd'}`,
+                            background: checked ? '#c8e6c9' : '#fff',
+                            boxShadow: checked ? '0 0 0 3px rgba(46,125,50,0.12)' : 'none',
                             cursor: 'pointer',
                             transition: 'border-color .16s, background .16s',
                           }}
@@ -324,8 +340,8 @@ export default function ZXTIPage() {
 
             {/* Actions */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginTop: 18, paddingTop: 6 }}>
-              <span style={{ color: '#6a786f', fontSize: 13 }}>
-                {canSubmit ? '都做完了。现在可以把你的电子魂魄交给结果页审判。' : '全选完才会放行。世界已经够乱了，起码把题做完整。'}
+              <span style={{ color: skippedId ? '#c62828' : '#6a786f', fontSize: 13, fontWeight: skippedId ? 700 : 400 }}>
+                {skippedId ? '漏了一道题还想跑？往上滚，找到那道题，做完再来！' : canSubmit ? '都做完了。现在可以把你的电子魂魄交给结果页审判。' : '全选完才会放行。世界已经够乱了，起码把题做完整。'}
               </span>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <button
