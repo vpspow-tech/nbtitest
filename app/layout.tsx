@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'SBTI 人格测试',
-  description: 'MBTI已经过时，SBTI来了。',
+  title: 'NBTI 职场人格测试',
+  description: '职场人格 Hunters，NBTI来了。',
 };
 
 export default function RootLayout({

@@ -13,33 +13,31 @@ import {
 } from './data';
 
 const TYPE_IMAGE_MAP: Record<string, string> = {
-  GFG: '/types/GFG.png',
-  MASTER: '/types/MASTER.png',
-  EXCEED: '/types/EXCEED.png',
-  PERF: '/types/PERF.png',
-  REWORK: '/types/REWORK.png',
-  BOSS2: '/types/BOSS2.png',
+  LATE: '/types/LATE.png',
+  'Mr.Know': '/types/Mr.Know.png',
+  MAX: '/types/MAX.png',
+  NIT: '/types/NIT.png',
+  FLIP: '/types/FLIP.png',
+  ALL: '/types/ALL.png',
   FOMO: '/types/FOMO.png',
-  COLORG: '/types/COLORG.png',
-  ECO: '/types/ECO.png',
-  THINKL: '/types/THINKL.png',
-  TINDER: '/types/TINDER.png',
-  WATCHL: '/types/WATCHL.png',
-  SHAFT: '/types/SHAFT.png',
-  COMP: '/types/COMP.png',
-  SIBL: '/types/SIBL.png',
-  FLEX: '/types/FLEX.png',
-  CTRL2: '/types/CTRL2.png',
-  DUMP: '/types/DUMP.png',
-  INFLU: '/types/INFLU.png',
-  NOVA: '/types/NOVA.png',
-  LITE: '/types/LITE.png',
-  DRUNK2: '/types/DRUNK2.png',
-  DRUNK: '/types/DRUNK2.png',
-  NOBUD: '/types/NOBUD.png',
-  PROBI: '/types/PROBI.png',
-  HHHH2: '/types/HHHH2.png',
-  HHHH: '/types/HHHH2.png',
+  MASK: '/types/MASK.png',
+  CALM: '/types/CALM.png',
+  WHY: '/types/WHY.png',
+  EASY: '/types/EASY.png',
+  EYES: '/types/EYES.png',
+  GHOST: '/types/GHOST.png',
+  SHOW: '/types/SHOW.png',
+  WEAVE: '/types/WEAVE.png',
+  OLD: '/types/OLD.png',
+  SPIN: '/types/SPIN.png',
+  ZEN: '/types/ZEN.png',
+  TREND: '/types/TREND.png',
+  PANIC: '/types/PANIC.png',
+  JILL: '/types/JILL.png',
+  DRIFT: '/types/DRIFT.png',
+  POOR: '/types/POOR.png',
+  PRO: '/types/PRO.png',
+  SIMPLE: '/types/SIMPLE.png',
 };
 
 
@@ -140,7 +138,7 @@ export default function ZXTIPage() {
     let special = false;
 
     if (drunkTriggered) {
-      finalType = { ...TYPE_LIBRARY.DRUNK2, distance: 0, exact: 15, similarity: 100, image: TYPE_IMAGE_MAP.DRUNK2 };
+      finalType = { ...TYPE_LIBRARY.DRIFT, distance: 0, exact: 15, similarity: 100, image: TYPE_IMAGE_MAP.DRIFT };
       modeKicker = '隐藏人格已激活';
       badge = '匹配度 100% · 酒精异常因子已接管';
       sub = '乙醇亲和性过强，系统已直接跳过常规人格审判。';
@@ -196,7 +194,7 @@ export default function ZXTIPage() {
             justifyContent: 'center',
           }}>
             <h1 style={{ fontSize: 'clamp(28px, 5vw, 52px)', lineHeight: 1.08, letterSpacing: '-0.03em', margin: 0, maxWidth: 680 }}>
-MBTI已经过时，ZXTI来了。
+职场人格 Hunters，NBTI来了。
             </h1>
             <div style={{ marginTop: 28 }}>
               <button
@@ -217,8 +215,8 @@ MBTI已经过时，ZXTI来了。
               </button>
             </div>
             <div style={{ paddingTop: 32, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
-              <span>作者：FONE</span>
-              <span>专为装修人设计的性格测试</span>
+              <span>作者：方相栋</span>
+              <span>专为职场人设计的性格测试</span>
             </div>
           </div>
         )}
@@ -431,7 +429,7 @@ MBTI已经过时，ZXTI来了。
               </summary>
               <div style={{ borderTop: '1px solid #dbe8dd', padding: '0 18px 18px' }}>
                 <p style={{ margin: '14px 0 0', color: '#304034', fontSize: 14, lineHeight: 1.9 }}>
-                  ZXTI（FONE版）是一个专为装修人设计的性格测试。初衷是帮准备装修或在装修中挣扎的朋友，更了解自己在装修中的性格特点——毕竟装修是一场修行，而修行之前，得先知道自己是什么货色。
+                  NBTI 是一个专为职场人设计的性格测试。初衷是帮大家更了解自己在职场中的性格特点——毕竟工作是一场修行，而修行之前，得先知道自己是什么货色。
                 </p>
                 <p style={{ margin: '14px 0 0', color: '#304034', fontSize: 14, lineHeight: 1.9 }}>
                   装修没有标准答案，人格也没有。测完笑了，就够了。
