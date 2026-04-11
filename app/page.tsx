@@ -447,58 +447,47 @@ export default function ZXTIPage() {
 
               {/* Radar Chart */}
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-                <svg width="320" height="280" viewBox="0 0 320 280">
-                  {[60, 90, 120].map(r => (
-                    <circle key={r} cx="160" cy="140" r={r} fill="none" stroke="#dbe8dd" strokeWidth="1" />
-                  ))}
-                  {['内卷指数','摸鱼指数','社交恐惧','向上管理','甩锅指数'].map((_, i) => {
-                    const angle = (i * 72 - 90) * Math.PI / 180;
-                    return (
-                      <line
-                        key={i}
-                        x1="160" y1="140"
-                        x2={160 + 120 * Math.cos(angle)}
-                        y2={140 + 120 * Math.sin(angle)}
-                        stroke="#dbe8dd" strokeWidth="1"
-                      />
-                    );
-                  })}
-                  {(() => {
-                    const groups = [
-                      { dims: ['S1','S2','E1','E3'], label: '内卷指数' },
-                      { dims: ['E2','Ac3'], label: '摸鱼指数' },
-                      { dims: ['So1','So3'], label: '社交恐惧' },
-                      { dims: ['A1','A3'], label: '向上管理' },
-                      { dims: ['A2','So2'], label: '甩锅指数' },
-                    ];
-                    const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
-                    const points = groups.map((g, i) => {
-                      const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
+                <div style={{ position: 'relative', width: 300, height: 260 }}>
+                  <svg width="300" height="260" viewBox="0 0 300 260" style={{ position: 'absolute', top: 0, left: 0 }}>
+                    {[60, 90, 120].map(r => (
+                      <circle key={r} cx="150" cy="130" r={r} fill="none" stroke="#dbe8dd" strokeWidth="1" />
+                    ))}
+                    {[0, 1, 2, 3, 4].map(i => {
                       const angle = (i * 72 - 90) * Math.PI / 180;
-                      return `${160 + avg * 40 * Math.cos(angle)},${140 + avg * 40 * Math.sin(angle)}`;
-                    }).join(' ');
-                    return <polygon points={points} fill="rgba(77,106,83,0.25)" stroke="#4d6a53" strokeWidth="2" />;
-                  })()}
-                  {/* Labels with smart positioning to avoid clipping */}
-                  {[
-                    { label: '内卷指数', i: 0, anchor: 'middle' as const },
-                    { label: '摸鱼指数', i: 1, anchor: 'start' as const },
-                    { label: '社交恐惧', i: 2, anchor: 'start' as const },
-                    { label: '向上管理', i: 3, anchor: 'end' as const },
-                    { label: '甩锅指数', i: 4, anchor: 'end' as const },
-                  ].map(({ label, i, anchor }) => {
-                    const angle = (i * 72 - 90) * Math.PI / 180;
-                    const r = 148;
-                    const x = 160 + r * Math.cos(angle);
-                    const y = 140 + r * Math.sin(angle);
-                    return (
-                      <text key={i} x={x} y={y} textAnchor={anchor} dominantBaseline="middle"
-                        fontSize="12" fill="#4d6a53" fontWeight="700">
-                        {label}
-                      </text>
-                    );
-                  })}
-                </svg>
+                      return (
+                        <line
+                          key={i}
+                          x1="150" y1="130"
+                          x2={150 + 120 * Math.cos(angle)}
+                          y2={130 + 120 * Math.sin(angle)}
+                          stroke="#dbe8dd" strokeWidth="1"
+                        />
+                      );
+                    })}
+                    {(() => {
+                      const groups = [
+                        { dims: ['S1','S2','E1','E3'] },
+                        { dims: ['E2','Ac3'] },
+                        { dims: ['So1','So3'] },
+                        { dims: ['A1','A3'] },
+                        { dims: ['A2','So2'] },
+                      ];
+                      const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
+                      const points = groups.map((g, i) => {
+                        const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
+                        const angle = (i * 72 - 90) * Math.PI / 180;
+                        return `${150 + avg * 40 * Math.cos(angle)},${130 + avg * 40 * Math.sin(angle)}`;
+                      }).join(' ');
+                      return <polygon points={points} fill="rgba(77,106,83,0.25)" stroke="#4d6a53" strokeWidth="2" />;
+                    })()}
+                  </svg>
+                  {/* Fixed position labels - top, right, bottom-left, bottom-right, left */}
+                  <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>内卷指数</div>
+                  <div style={{ position: 'absolute', top: 55, right: 2, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>摸鱼指数</div>
+                  <div style={{ position: 'absolute', bottom: 8, right: 2, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>向上管理</div>
+                  <div style={{ position: 'absolute', bottom: 8, left: 2, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>社交恐惧</div>
+                  <div style={{ position: 'absolute', top: 55, left: 2, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>甩锅指数</div>
+                </div>
               </div>
 
               {/* Dimension cards */}
