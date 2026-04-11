@@ -448,12 +448,10 @@ export default function ZXTIPage() {
               {/* Radar Chart */}
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
                 <svg width="300" height="260" viewBox="0 0 300 260">
-                  {/* Background circles */}
                   {[60, 90, 120].map(r => (
                     <circle key={r} cx="150" cy="130" r={r} fill="none" stroke="#dbe8dd" strokeWidth="1" />
                   ))}
-                  {/* Axis lines */}
-                  {['S','E','A','Ac','So'].map((_, i) => {
+                  {['工作态度','向上管理','协作风格','执行效率','社交政治'].map((_, i) => {
                     const angle = (i * 72 - 90) * Math.PI / 180;
                     return (
                       <line
@@ -465,25 +463,23 @@ export default function ZXTIPage() {
                       />
                     );
                   })}
-                  {/* Data polygon */}
                   {(() => {
                     const groups = [
-                      { dims: ['S1','S2','S3'], label: '自我认知' },
-                      { dims: ['E1','E2','E3'], label: '情感模式' },
-                      { dims: ['A1','A2','A3'], label: '协作风格' },
-                      { dims: ['Ac1','Ac2','Ac3'], label: '行动模式' },
-                      { dims: ['So1','So2','So3'], label: '社交属性' },
+                      { dims: ['S1','S2','S3','E1','E2','E3'], label: '工作态度' },
+                      { dims: ['A1','A3'], label: '向上管理' },
+                      { dims: ['A2'], label: '协作风格' },
+                      { dims: ['Ac1','Ac2','Ac3'], label: '执行效率' },
+                      { dims: ['So1','So2','So3'], label: '社交政治' },
                     ];
                     const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
                     const points = groups.map((g, i) => {
-                      const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / 3;
+                      const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
                       const angle = (i * 72 - 90) * Math.PI / 180;
                       return `${150 + avg * 40 * Math.cos(angle)},${130 + avg * 40 * Math.sin(angle)}`;
                     }).join(' ');
                     return <polygon points={points} fill="rgba(77,106,83,0.25)" stroke="#4d6a53" strokeWidth="2" />;
                   })()}
-                  {/* Labels */}
-                  {['自我认知','情感模式','协作风格','行动模式','社交属性'].map((label, i) => {
+                  {['工作态度','向上管理','协作风格','执行效率','社交政治'].map((label, i) => {
                     const angle = (i * 72 - 90) * Math.PI / 180;
                     const x = 150 + 145 * Math.cos(angle);
                     const y = 130 + 145 * Math.sin(angle);
@@ -498,14 +494,14 @@ export default function ZXTIPage() {
               </div>
 
               {/* Grouped bars */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                 {[
-                  { group: '自我认知', dims: ['S1','S2','S3'], icon: '🧠' },
-                  { group: '情感模式', dims: ['E1','E2','E3'], icon: '💭' },
-                  { group: '协作风格', dims: ['A1','A2','A3'], icon: '🤝' },
-                  { group: '行动模式', dims: ['Ac1','Ac2','Ac3'], icon: '⚡' },
-                  { group: '社交属性', dims: ['So1','So2','So3'], icon: '🌐' },
-                ].map(({ group, dims, icon }) => {
+                  { group: '工作态度', dims: ['S1','S2','S3','E1','E2','E3'], icon: '💼', color: '#8b6f9e' },
+                  { group: '向上管理', dims: ['A1','A3'], icon: '👆', color: '#c49a6c' },
+                  { group: '协作风格', dims: ['A2'], icon: '🤝', color: '#5b8a6f' },
+                  { group: '执行效率', dims: ['Ac1','Ac2','Ac3'], icon: '⚡', color: '#d4a059' },
+                  { group: '社交政治', dims: ['So1','So2','So3'], icon: '🌐', color: '#6b8fa8' },
+                ].map(({ group, dims, icon, color }) => {
                   const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
                   const avg = dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / dims.length;
                   const pct = Math.round(avg / 3 * 100);
@@ -513,10 +509,10 @@ export default function ZXTIPage() {
                     <div key={group} style={{ border: '1px solid #dbe8dd', borderRadius: 14, padding: 12, background: '#fff' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                         <span style={{ fontWeight: 700, fontSize: 13 }}>{icon} {group}</span>
-                        <span style={{ color: '#4d6a53', fontWeight: 800, fontSize: 13 }}>{pct}%</span>
+                        <span style={{ color, fontWeight: 800, fontSize: 13 }}>{pct}%</span>
                       </div>
                       <div style={{ height: 8, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
-                        <div style={{ width: `${pct}%`, height: '100%', background: 'linear-gradient(90deg, #97b59c, #5b7a62)', borderRadius: 'inherit', transition: 'width .3s ease' }} />
+                        <div style={{ width: `${pct}%`, height: '100%', background: `linear-gradient(90deg, ${color}cc, ${color})`, borderRadius: 'inherit', transition: 'width .3s ease' }} />
                       </div>
                     </div>
                   );
