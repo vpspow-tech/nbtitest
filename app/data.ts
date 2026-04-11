@@ -90,7 +90,7 @@ export interface TypeEntry {
 }
 
 export const TYPE_LIBRARY: Record<string, TypeEntry> = {
-  "LATE": { code: "LATE", image: "https://media.c1aile.com/1fcb6185-e612-4656-9533-02b1cf6916be", cn: "卷王附体", intro: "这个点下班？不可能的。", desc: `恭喜你，你就是传说中的卷王附体。你对加班的理解超越了大多数人，你不是在上班，你是在修仙。别人下班你加班，别人周末你加班，别人晋升你还是加班。你的工位就是你的家，你的电脑就是你的爱人。卷王的结局只有两个：要么卷到高层，要么卷进医院。` },
+  "LATE": { code: "LATE", image: "https://minimax-algeng-chat-tts.oss-cn-wulanchabu.aliyuncs.com/ccv2%2F2026-04-11%2FMiniMax-M2.7-highspeed%2F2036245995431403904%2F4eca5c994c890ad888a8e2a97f7dd67626a3753e156a7997fbda7bc1a6a4de7f..jpeg?Expires=1775965740&OSSAccessKeyId=LTAI5tGLnRTkBjLuYPjNcKQ8&Signature=PBgAy2K%2BKUHZBvYGAVk8xinzPZ8%3D", cn: "卷王附体", intro: "这个点下班？不可能的。", desc: `恭喜你，你就是传说中的卷王附体。你对加班的理解超越了大多数人，你不是在上班，你是在修仙。别人下班你加班，别人周末你加班，别人晋升你还是加班。你的工位就是你的家，你的电脑就是你的爱人。卷王的结局只有两个：要么卷到高层，要么卷进医院。` },
   "Mr.Know": { code: "Mr.Know", image: "https://media.c1aile.com/75caf9b3-57d0-4430-8cbb-4be9db43f58d", cn: "职场懂王", intro: "这个问题我来回答一下。", desc: `恭喜你，你是办公室里最愿意分享知识的那个人。你的职场信条是：我不说你们永远不懂。你的会议发言永远比老板还长，你的朋友圈永远在转发行业分析。你不是不懂，是太懂了，懂到别人已经不想听你懂了。` },
   "MAX": { code: "MAX", image: "https://media.c1aile.com/9d1b10a7-ba6e-4951-93b0-6a61e99c6fd5", cn: "KPI超标侠", intro: "这个月KPI？提前完成了。", desc: `恭喜你，你是KPI的奴隶，也是KPI的主人。你的人生字典里没有"不够"，只有"超额"。老板定的目标你嫌低，自己给自己加码是你的日常。但夜深人静的时候，你也会想：我这么拼，到底是为了什么？为了下一个KPI。` },
   "NIT": { code: "NIT", image: "https://media.c1aile.com/b66f806f-554c-4f99-ba53-3d1a7a0a52c0", cn: "完美主义社畜", intro: "这个PPT第五遍了，还是不够好。", desc: `恭喜你，你是办公室里的完美主义战士。你对细节的追求已经超越了工作的需要，一份文档你能调三遍格式，一个配色你能换十次。你最大的痛苦不是做不好，是别人觉得你做得太慢。但说实话，你自己也不知道什么时候该停下来。` },
