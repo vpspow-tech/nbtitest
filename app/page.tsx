@@ -355,12 +355,11 @@ export default function ZXTIPage() {
                 </button>
                 <button
                   onClick={handleSubmit}
-                  disabled={!canSubmit}
                   style={{
-                    background: canSubmit ? '#4d6a53' : '#ccc', color: '#fff',
+                    background: '#4d6a53', color: '#fff',
                     padding: '14px 20px', borderRadius: 14, border: 0, fontWeight: 700,
-                    cursor: canSubmit ? 'pointer' : 'not-allowed',
-                    boxShadow: canSubmit ? '0 12px 30px rgba(77,106,83,0.18)' : 'none',
+                    cursor: 'pointer',
+                    boxShadow: '0 12px 30px rgba(77,106,83,0.18)',
                   }}
                 >
                   提交并查看结果
