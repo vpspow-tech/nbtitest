@@ -14,7 +14,7 @@ import {
 
 const TYPE_IMAGE_MAP: Record<string, string> = {
   LATE: '/types/LATE.png',
-  'Mr.Know': '/types/Mr.Know.png',
+  'Mr.Know': '/types/mr.know.png',
   MAX: '/types/MAX.png',
   NIT: '/types/NIT.png',
   FLIP: '/types/FLIP.png',
