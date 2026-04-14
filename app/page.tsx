@@ -348,8 +348,31 @@ export default function ZXTIPage() {
             display: 'grid',
             gap: 18,
           }}>
+            {/* Header bar */}
+            <div style={{
+              background: '#2d4a38',
+              padding: '16px 24px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderRadius: '22px 22px 0 0',
+            }}>
+              <div style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>你的主类型</div>
+              <div style={{
+                background: '#4d6a53',
+                color: '#fff',
+                padding: '6px 14px',
+                borderRadius: 999,
+                fontSize: 13,
+                fontWeight: 700,
+              }}>
+                {result.badge}
+              </div>
+            </div>
+
+            <div style={{ padding: 24, display: 'grid', gap: 18 }}>
             {/* Top section */}
-            <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 18, alignItems: 'stretch' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: 20, alignItems: 'stretch' }}>
               {/* Poster */}
               <div style={{
                 border: '1px solid #dbe8dd', borderRadius: 18, padding: 18,
@@ -557,7 +580,32 @@ export default function ZXTIPage() {
               </div>
             </details>
 
+            </div>
+
             {/* Actions */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', padding: '0 24px 24px' }}>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <button
+                  onClick={startTest}
+                  style={{
+                    background: '#fff', color: '#4d6a53', padding: '14px 20px',
+                    borderRadius: 14, border: '1px solid #dbe8dd', fontWeight: 700, cursor: 'pointer',
+                  }}
+                >
+                  重新测试
+                </button>
+                <button
+                  onClick={() => setScreen('intro')}
+                  style={{
+                    background: '#4d6a53', color: '#fff', padding: '14px 20px',
+                    borderRadius: 14, border: 0, fontWeight: 700, cursor: 'pointer',
+                    boxShadow: '0 12px 30px rgba(77,106,83,0.18)',
+                  }}
+                >
+                  回到首页
+                </button>
+              </div>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <button
