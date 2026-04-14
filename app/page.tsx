@@ -34,9 +34,10 @@ const TYPE_IMAGE_MAP: Record<string, string> = {
   TREND: '/types/TREND.png',
   PANIC: '/types/PANIC.png',
   JILL: '/types/JILL.png',
-  DRIFT: '/types/DRIFT.jpeg',
+  DRIFT: '/types/DRIFT.png',
   POOR: '/types/POOR.png',
-  PRO: '/types/PRO.jpeg',
+  PRO: '/types/PRO.png',
+  SIMPLE: '/types/SIMPLE.png',
 };
 
 
@@ -145,21 +146,19 @@ export default function ZXTIPage() {
     let special = false;
 
     if (drunkTriggered) {
-      finalType = { ...TYPE_LIBRARY.DRIFT, distance: 0, exact: 15, similarity: 100, image: TYPE_IMAGE_MAP.DRIFT || TYPE_LIBRARY.DRIFT.image };
+      finalType = { ...TYPE_LIBRARY.DRIFT, distance: 0, exact: 15, similarity: 100, image: TYPE_IMAGE_MAP.DRIFT };
       modeKicker = '隐藏人格已激活';
       badge = '匹配度 100% · 酒精异常因子已接管';
       sub = '乙醇亲和性过强，系统已直接跳过常规人格审判。';
       special = true;
     } else if (bestNormal.similarity < 60) {
-      const img = TYPE_IMAGE_MAP[bestNormal.code] || bestNormal.image;
-      finalType = { ...bestNormal, image: img };
+      finalType = { ...bestNormal, image: TYPE_IMAGE_MAP[bestNormal.code] };
       modeKicker = '系统强制兜底';
       badge = `标准人格库最高匹配仅 ${bestNormal.similarity}%`;
-      sub = `标准人格库对你的脑回路匹配度仅${bestNormal.similarity}%，已分配最相似人格${bestNormal.code}。`;
+      sub = '标准人格库对你的脑回路集体罢工了，于是系统把你强制分配给了 HHHH。';
       special = true;
     } else {
-      const img = TYPE_IMAGE_MAP[bestNormal.code] || bestNormal.image;
-      finalType = { ...bestNormal, image: img };
+      finalType = { ...bestNormal, image: TYPE_IMAGE_MAP[bestNormal.code] };
     }
 
     return { rawScores, levels, ranked, bestNormal, finalType, modeKicker, badge, sub, special };
@@ -188,7 +187,7 @@ export default function ZXTIPage() {
   const canSubmit = doneCount === totalCount && totalCount > 0;
 
   return (
-    <div className="shell" style={{
+    <div style={{
       minHeight: '100vh',
       background: 'radial-gradient(circle at top left, #f8fff8 0, #f6faf6 36%, #f2f7f3 100%)',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
