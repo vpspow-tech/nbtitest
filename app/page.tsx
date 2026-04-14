@@ -189,15 +189,15 @@ export default function ZXTIPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'radial-gradient(circle at top left, #f8fff8 0, #f6faf6 36%, #f2f7f3 100%)',
+      background: '#f4f8f4',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
       color: '#1e2a22',
     }}>
-      <div style={{ maxWidth: 980, margin: '0 auto', padding: '24px 16px 56px' }}>
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '24px 16px 56px' }}>
 
         {/* INTRO */}
         {screen === 'intro' && (
-          <div style={{
+              <div style={{
             marginTop: 20,
             background: '#fff',
             border: '1px solid #dbe8dd',
@@ -212,8 +212,9 @@ export default function ZXTIPage() {
             justifyContent: 'center',
           }}>
             <h1 style={{ fontSize: 'clamp(28px, 5vw, 52px)', lineHeight: 1.08, letterSpacing: '-0.03em', margin: 0, maxWidth: 680 }}>
-职场人格 Hunters，NBTI来了。
+SBTI 2.0 职业人格测试NBTI来了
             </h1>
+            <p style={{ marginTop: 12, fontSize: 16, color: '#6a786f' }}>分享前别忘了屏蔽你的老板</p>
             <div style={{ marginTop: 28 }}>
               <button
                 onClick={startTest}
@@ -230,35 +231,6 @@ export default function ZXTIPage() {
                 }}
               >
                 开始测试
-              </button>
-              <button
-                onClick={() => {
-                  setResult({
-                    rawScores: {} as Record<string, number>,
-                    levels: {} as Record<string, string>,
-                    ranked: [],
-                    bestNormal: { code: 'LATE', pattern: 'HHH-HMH-MHH-HHH-MHM', distance: 0, exact: 15, similarity: 100, cn: '卷王附体', intro: '这个点下班？不可能的。', desc: '' },
-                    finalType: { ...TYPE_LIBRARY.LATE, image: TYPE_IMAGE_MAP.LATE },
-                    modeKicker: '预览模式',
-                    badge: 'LATE · 卷王附体',
-                    sub: '（这是调试预览，实际结果取决于你的答题）',
-                    special: false
-                  });
-                  setScreen('result');
-                }}
-                style={{
-                  background: '#fff',
-                  color: '#4d6a53',
-                  border: '1px solid #dbe8dd',
-                  padding: '14px 20px',
-                  borderRadius: 14,
-                  fontWeight: 700,
-                  fontSize: 14,
-                  cursor: 'pointer',
-                  marginTop: 8,
-                }}
-              >
-                预览 LATE 结果
               </button>
             </div>
             <div style={{ paddingTop: 32, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
@@ -299,14 +271,6 @@ export default function ZXTIPage() {
                   background: 'linear-gradient(180deg, #ffffff, #fbfdfb)',
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                    <span style={{
-                      display: 'inline-flex', alignItems: 'center', gap: 6,
-                      borderRadius: 999, padding: '6px 10px',
-                      background: '#edf6ef', border: '1px solid #dbe8dd',
-                      fontSize: 12, color: '#4d6a53',
-                    }}>
-                      第 {index + 1} 题
-                    </span>
                     <span style={{ fontSize: 12, color: '#6a786f' }}>维度已隐藏</span>
                   </div>
                   <div style={{ fontSize: 16, lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: 14 }}>{q.text}</div>
