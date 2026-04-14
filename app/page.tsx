@@ -37,7 +37,6 @@ const TYPE_IMAGE_MAP: Record<string, string> = {
   DRIFT: '/types/DRIFT.png',
   POOR: '/types/POOR.png',
   PRO: '/types/PRO.png',
-  SIMPLE: '/types/SIMPLE.png',
 };
 
 

@@ -142,7 +142,6 @@ export const NORMAL_TYPES = [
   { code: "DRIFT", pattern: "LLM-LMM-LLL-LLL-MLM" },
   { code: "POOR", pattern: "LML-LLH-LHL-LML-LHM" },
   { code: "PRO", pattern: "MLL-LHL-LLM-MLL-HLH" },
-  { code: "SIMPLE", pattern: "HHHH-HHHH" },
 ];
 
 export const DIM_EXPLANATIONS: Record<string, Record<string, string>> = {
