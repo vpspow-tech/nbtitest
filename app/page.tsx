@@ -145,19 +145,21 @@ export default function ZXTIPage() {
     let special = false;
 
     if (drunkTriggered) {
-      finalType = { ...TYPE_LIBRARY.DRIFT, distance: 0, exact: 15, similarity: 100, image: TYPE_IMAGE_MAP.DRIFT };
+      finalType = { ...TYPE_LIBRARY.DRIFT, distance: 0, exact: 15, similarity: 100, image: TYPE_IMAGE_MAP.DRIFT || TYPE_LIBRARY.DRIFT.image };
       modeKicker = '隐藏人格已激活';
       badge = '匹配度 100% · 酒精异常因子已接管';
       sub = '乙醇亲和性过强，系统已直接跳过常规人格审判。';
       special = true;
     } else if (bestNormal.similarity < 60) {
-      finalType = { ...bestNormal, image: TYPE_IMAGE_MAP[bestNormal.code] };
+      const img = TYPE_IMAGE_MAP[bestNormal.code] || bestNormal.image;
+      finalType = { ...bestNormal, image: img };
       modeKicker = '系统强制兜底';
       badge = `标准人格库最高匹配仅 ${bestNormal.similarity}%`;
-      sub = '标准人格库对你的脑回路集体罢工了，于是系统把你强制分配给了 HHHH。';
+      sub = `标准人格库对你的脑回路匹配度仅${bestNormal.similarity}%，已分配最相似人格${bestNormal.code}。`;
       special = true;
     } else {
-      finalType = { ...bestNormal, image: TYPE_IMAGE_MAP[bestNormal.code] };
+      const img = TYPE_IMAGE_MAP[bestNormal.code] || bestNormal.image;
+      finalType = { ...bestNormal, image: img };
     }
 
     return { rawScores, levels, ranked, bestNormal, finalType, modeKicker, badge, sub, special };
