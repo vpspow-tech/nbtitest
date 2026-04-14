@@ -14,7 +14,7 @@ import {
 
 const TYPE_IMAGE_MAP: Record<string, string> = {
   LATE: '/types/LATE.png',
-  'Mr.Know': '/types/mr.know.png',
+  'Mr.Know': '/types/Mr.Know.png',
   MAX: '/types/MAX.png',
   NIT: '/types/NIT.png',
   FLIP: '/types/FLIP.png',
@@ -190,11 +190,11 @@ export default function ZXTIPage() {
   return (
     <div className="shell" style={{
       minHeight: '100vh',
-      background: '#f4f8f4',
+      background: 'radial-gradient(circle at top left, #f8fff8 0, #f6faf6 36%, #f2f7f3 100%)',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
       color: '#1e2a22',
     }}>
-      <div style={{ maxWidth: 680, margin: '0 auto', padding: '16px 12px 48px' }}>
+      <div style={{ maxWidth: 980, margin: '0 auto', padding: '24px 16px 56px' }}>
 
         {/* INTRO */}
         {screen === 'intro' && (
@@ -212,11 +212,9 @@ export default function ZXTIPage() {
             minHeight: '60vh',
             justifyContent: 'center',
           }}>
-            <h1 style={{ fontSize: 'clamp(36px, 10vw, 64px)', lineHeight: 1.05, letterSpacing: '-0.04em', margin: 0 }}>
-              SBTI<span style={{ color: '#4d6a53' }}>2.0</span>
+            <h1 style={{ fontSize: 'clamp(28px, 5vw, 52px)', lineHeight: 1.08, letterSpacing: '-0.03em', margin: 0, maxWidth: 680 }}>
+职场人格 Hunters，NBTI来了。
             </h1>
-            <div style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, color: '#1a2e1f', marginTop: 10 }}>职业人格测试NBTI来了</div>
-            <div style={{ fontSize: 13, color: '#97b59c', fontWeight: 600, marginTop: 6 }}>分享前别忘了屏蔽你的老板</div>
             <div style={{ marginTop: 28 }}>
               <button
                 onClick={startTest}
@@ -385,7 +383,7 @@ export default function ZXTIPage() {
             gap: 18,
           }}>
             {/* Top section */}
-            <div className="result-top" style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 18, alignItems: 'stretch' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 18, alignItems: 'stretch' }}>
               {/* Poster */}
               <div style={{
                 border: '1px solid #dbe8dd', borderRadius: 18, padding: 18,
