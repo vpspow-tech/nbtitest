@@ -384,7 +384,7 @@ export default function ZXTIPage() {
                   <img
                     src={result.finalType.image}
                     alt={result.finalType.cn}
-                    style={{ width: 120, height: 120, borderRadius: 16, objectFit: 'cover', marginBottom: 12 }}
+                    style={{ width: 160, height: 160, borderRadius: 16, objectFit: 'cover', marginBottom: 0 }}
                   />
                 )}
                 {!result.finalType.image && (
@@ -396,28 +396,30 @@ export default function ZXTIPage() {
                     {result.finalType.code.slice(0, 4)}
                   </div>
                 )}
-                <div style={{ marginTop: 12, fontSize: 14, color: '#6a786f', textAlign: 'center' }}>
-                  {result.finalType.intro}
-                </div>
+
               </div>
 
               {/* Type info */}
-              <div style={{ border: '1px solid #dbe8dd', borderRadius: 18, padding: 18, background: 'linear-gradient(180deg, #ffffff, #fbfdfb)' }}>
-                <div style={{ fontSize: 12, color: '#4d6a53', marginBottom: 8, letterSpacing: '.06em' }}>
+              <div style={{ border: '1px solid #dbe8dd', borderRadius: 18, padding: 18, background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ fontSize: 11, color: '#999', marginBottom: 6, letterSpacing: '.08em', textTransform: 'uppercase' }}>
                   {result.modeKicker}
                 </div>
-                <div style={{ fontSize: 'clamp(30px, 5vw, 48px)', lineHeight: 1.08, letterSpacing: '-0.03em', fontWeight: 900 }}>
-                  {result.finalType.code}（{result.finalType.cn}）
+                <div style={{ fontSize: 40, lineHeight: 1.05, letterSpacing: '-0.02em', fontWeight: 900, color: '#1a1a1a' }}>
+                  {result.finalType.code}
                 </div>
-                <div style={{
-                  marginTop: 18, display: 'inline-flex', alignItems: 'center', gap: 8,
-                  borderRadius: 999, padding: '10px 14px',
-                  background: '#edf6ef', border: '1px solid #dbe8dd',
-                  color: '#4d6a53', fontWeight: 700, fontSize: 14,
-                }}>
-                  {result.badge}
+                <div style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 700, color: '#4d6a53', marginTop: 4 }}>
+                  {result.finalType.cn}
                 </div>
-                <div style={{ marginTop: 10, color: '#6a786f', fontSize: 14, lineHeight: 1.8 }}>
+                <div style={{ marginTop: 14 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6a786f', marginBottom: 5 }}>
+                    <span>匹配度</span>
+                    <span style={{ fontWeight: 700, color: '#4d6a53' }}>{result.badge}</span>
+                  </div>
+                  <div style={{ height: 6, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
+                    <div style={{ width: '75%', height: '100%', background: 'linear-gradient(90deg, #4d6a53, #6b8c73)', borderRadius: 'inherit', transition: 'width .4s ease' }} />
+                  </div>
+                </div>
+                <div style={{ marginTop: 12, color: '#6a786f', fontSize: 13, lineHeight: 1.8 }}>
                   {result.sub}
                 </div>
               </div>
@@ -588,42 +590,25 @@ export default function ZXTIPage() {
                 <button
                   onClick={startTest}
                   style={{
-                    background: '#fff', color: '#4d6a53', padding: '14px 20px',
-                    borderRadius: 14, border: '1px solid #dbe8dd', fontWeight: 700, cursor: 'pointer',
+                    background: '#fff', color: '#4d6a53', padding: '12px 20px',
+                    borderRadius: 12, border: '1.5px solid #4d6a53', fontWeight: 700, cursor: 'pointer',
+                    transition: 'all .2s',
                   }}
+                  onMouseOver={e => { (e.target as HTMLButtonElement).style.background = '#4d6a53'; (e.target as HTMLButtonElement).style.color = '#fff'; }}
+                  onMouseOut={e => { (e.target as HTMLButtonElement).style.background = '#fff'; (e.target as HTMLButtonElement).style.color = '#4d6a53'; }}
                 >
                   重新测试
                 </button>
                 <button
                   onClick={() => setScreen('intro')}
                   style={{
-                    background: '#4d6a53', color: '#fff', padding: '14px 20px',
-                    borderRadius: 14, border: 0, fontWeight: 700, cursor: 'pointer',
-                    boxShadow: '0 12px 30px rgba(77,106,83,0.18)',
+                    background: '#2d4a38', color: '#fff', padding: '12px 20px',
+                    borderRadius: 12, border: 0, fontWeight: 700, cursor: 'pointer',
+                    boxShadow: '0 8px 24px rgba(45,74,56,0.25)',
+                    transition: 'all .2s',
                   }}
-                >
-                  回到首页
-                </button>
-              </div>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <button
-                  onClick={startTest}
-                  style={{
-                    background: '#fff', color: '#4d6a53', padding: '14px 20px',
-                    borderRadius: 14, border: '1px solid #dbe8dd', fontWeight: 700, cursor: 'pointer',
-                  }}
-                >
-                  重新测试
-                </button>
-                <button
-                  onClick={() => setScreen('intro')}
-                  style={{
-                    background: '#4d6a53', color: '#fff', padding: '14px 20px',
-                    borderRadius: 14, border: 0, fontWeight: 700, cursor: 'pointer',
-                    boxShadow: '0 12px 30px rgba(77,106,83,0.18)',
-                  }}
+                  onMouseOver={e => { (e.target as HTMLButtonElement).style.background = '#1e3327'; }}
+                  onMouseOut={e => { (e.target as HTMLButtonElement).style.background = '#2d4a38'; }}
                 >
                   回到首页
                 </button>
