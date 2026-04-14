@@ -189,7 +189,7 @@ export default function ZXTIPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#f4f8f4',
+      background: 'linear-gradient(160deg, #e8eef2 0%, #d4dde4 30%, #c8d4dc 60%, #b8c8d4 100%)',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
       color: '#1e2a22',
     }}>
@@ -200,10 +200,10 @@ export default function ZXTIPage() {
               <div style={{
             marginTop: 20,
             background: '#fff',
-            border: '1px solid #dbe8dd',
-            borderRadius: 22,
-            boxShadow: '0 16px 40px rgba(47,73,55,0.08)',
-            padding: '42px 20px',
+            border: '1px solid rgba(255,255,255,0.8)',
+            borderRadius: 28,
+            boxShadow: '0 20px 60px rgba(47,73,55,0.15), 0 8px 24px rgba(47,73,55,0.1)',
+            padding: '48px 24px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -211,10 +211,13 @@ export default function ZXTIPage() {
             minHeight: '60vh',
             justifyContent: 'center',
           }}>
-            <h1 style={{ fontSize: 'clamp(28px, 5vw, 52px)', lineHeight: 1.08, letterSpacing: '-0.03em', margin: 0, maxWidth: 680 }}>
-SBTI 2.0 职业人格测试NBTI来了
+            <h1 style={{ fontSize: 'clamp(32px, 6vw, 56px)', lineHeight: 1.06, letterSpacing: '-0.04em', margin: 0, fontWeight: 900 }}>
+              SBTI<span style={{ color: '#4d6a53' }}>2.0</span>
             </h1>
-            <p style={{ marginTop: 12, fontSize: 16, color: '#6a786f' }}>分享前别忘了屏蔽你的老板</p>
+            <div style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, color: '#1a2e1f', marginTop: 10 }}>
+              职业人格测试NBTI来了
+            </div>
+            <p style={{ marginTop: 8, fontSize: 13, color: '#97b59c', fontWeight: 600 }}>分享前别忘了屏蔽你的老板</p>
             <div style={{ marginTop: 28 }}>
               <button
                 onClick={startTest}
@@ -222,9 +225,9 @@ SBTI 2.0 职业人格测试NBTI来了
                   background: '#4d6a53',
                   color: '#fff',
                   border: 0,
-                  padding: '14px 20px',
-                  borderRadius: 14,
-                  boxShadow: '0 12px 30px rgba(77,106,83,0.18)',
+                  padding: '15px 28px',
+                  borderRadius: 16,
+                  boxShadow: '0 14px 36px rgba(77,106,83,0.25)',
                   fontWeight: 700,
                   fontSize: 16,
                   cursor: 'pointer',
@@ -245,10 +248,10 @@ SBTI 2.0 职业人格测试NBTI来了
           <div style={{
             marginTop: 22,
             background: '#fff',
-            border: '1px solid #dbe8dd',
-            borderRadius: 22,
-            boxShadow: '0 16px 40px rgba(47,73,55,0.08)',
-            padding: 22,
+            border: '1px solid rgba(255,255,255,0.8)',
+            borderRadius: 24,
+            boxShadow: '0 20px 56px rgba(47,73,55,0.14), 0 8px 20px rgba(47,73,55,0.08)',
+            padding: 24,
           }}>
             {/* Progress */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, marginBottom: 18, flexWrap: 'wrap' }}>
