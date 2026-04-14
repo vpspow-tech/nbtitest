@@ -34,9 +34,9 @@ const TYPE_IMAGE_MAP: Record<string, string> = {
   TREND: '/types/TREND.png',
   PANIC: '/types/PANIC.png',
   JILL: '/types/JILL.png',
-  DRIFT: '/types/DRIFT.png',
+  DRIFT: '/types/DRIFT.jpeg',
   POOR: '/types/POOR.png',
-  PRO: '/types/PRO.png',
+  PRO: '/types/PRO.jpeg',
 };
 
 
