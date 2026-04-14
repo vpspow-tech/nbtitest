@@ -188,7 +188,7 @@ export default function ZXTIPage() {
   const canSubmit = doneCount === totalCount && totalCount > 0;
 
   return (
-    <div style={{
+    <div className="shell" style={{
       minHeight: '100vh',
       background: '#f4f8f4',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
@@ -385,7 +385,7 @@ export default function ZXTIPage() {
             gap: 18,
           }}>
             {/* Top section */}
-            <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 18, alignItems: 'stretch' }}>
+            <div className="result-top" style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 18, alignItems: 'stretch' }}>
               {/* Poster */}
               <div style={{
                 border: '1px solid #dbe8dd', borderRadius: 18, padding: 18,
