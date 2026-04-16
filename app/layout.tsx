@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   description: '职场人格 Hunters，NBTI来了。',
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: {

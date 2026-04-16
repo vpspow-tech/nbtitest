@@ -468,8 +468,8 @@ export default function ZXTIPage() {
 
               {/* Radar Chart */}
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-                <div style={{ position: 'relative', width: 320, height: 280 }}>
-                  <svg width="320" height="280" viewBox="0 0 320 280" style={{ position: 'absolute', top: 0, left: 0 }}>
+                <div style={{ position: 'relative', width: '100%', maxWidth: 320, aspectRatio: '320/280', margin: '0 auto' }}>
+                  <svg width="100%" height="100%" viewBox="0 0 320 280" style={{ position: 'absolute', top: 0, left: 0 }}>
                     {[60, 90, 120].map(r => (
                       <circle key={r} cx="160" cy="140" r={r} fill="none" stroke="#dbe8dd" strokeWidth="1" />
                     ))}
