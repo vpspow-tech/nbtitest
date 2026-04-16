@@ -192,17 +192,17 @@ export default function ZXTIPage() {
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
       color: '#1e2a22',
     }}>
-      <div style={{ maxWidth: 680, margin: '0 auto', padding: '24px 16px 56px' }}>
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '12px 12px 48px' }}>
 
         {/* INTRO */}
         {screen === 'intro' && (
               <div style={{
-            marginTop: 20,
+            marginTop: 0,
             background: '#fff',
             border: '1px solid rgba(255,255,255,0.8)',
             borderRadius: 28,
             boxShadow: '0 20px 60px rgba(47,73,55,0.15), 0 8px 24px rgba(47,73,55,0.1)',
-            padding: '48px 24px',
+            padding: '32px 20px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -266,10 +266,7 @@ export default function ZXTIPage() {
                 随机预览结果
               </button>
             </div>
-            <div style={{ paddingTop: 32, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
-              <span>作者：Fone</span>
-              <span>专为职场人设计的性格测试</span>
-            </div>
+
           </div>
         )}
 
@@ -400,7 +397,7 @@ export default function ZXTIPage() {
               </div>
             </div>
 
-            <div style={{ padding: 24, display: 'grid', gap: 18 }}>
+            <div style={{ padding: '16px 0', display: 'grid', gap: 18 }}>
             {/* Top section - vertical stack for easy screenshot sharing */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
               {/* Poster */}
@@ -594,22 +591,6 @@ export default function ZXTIPage() {
                   : '本测试仅供娱乐，请勿把它当成职场晋升攻略、划水手册、或者和HR吵架的呈堂证供。你可以笑，但别太当真。'}
               </p>
             </div>
-
-            {/* Author note */}
-            <details style={{ border: '1px solid #dbe8dd', borderRadius: 18, background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', overflow: 'hidden' }}>
-              <summary style={{ listStyle: 'none', cursor: 'pointer', padding: 18, fontSize: 16, fontWeight: 700, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                作者的话
-                <span style={{ fontSize: 12, fontWeight: 700, color: '#4d6a53', border: '1px solid #dbe8dd', background: '#edf6ef', padding: '6px 10px', borderRadius: 999 }}>展开</span>
-              </summary>
-              <div style={{ borderTop: '1px solid #dbe8dd', padding: '0 18px 18px' }}>
-                <p style={{ margin: '14px 0 0', color: '#304034', fontSize: 14, lineHeight: 1.9 }}>
-                  NBTI 是一个专为职场人设计的性格测试。初衷是帮大家更了解自己在职场中的性格特点——毕竟工作是一场修行，而修行之前，得先知道自己是什么货色。
-                </p>
-                <p style={{ margin: '14px 0 0', color: '#304034', fontSize: 14, lineHeight: 1.9 }}>
-                  装修没有标准答案，人格也没有。测完笑了，就够了。
-                </p>
-              </div>
-            </details>
 
             </div>
 
