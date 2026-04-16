@@ -401,14 +401,14 @@ export default function ZXTIPage() {
             </div>
 
             <div style={{ padding: 24, display: 'grid', gap: 18 }}>
-            {/* Top section */}
-            <div style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: 20, alignItems: 'stretch' }}>
+            {/* Top section - vertical stack for easy screenshot sharing */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
               {/* Poster */}
               <div style={{
-                border: '1px solid #dbe8dd', borderRadius: 18, padding: 18,
+                border: '1px solid #dbe8dd', borderRadius: 20, padding: 16,
                 background: 'radial-gradient(circle at top right, rgba(127,165,134,0.16), rgba(127,165,134,0) 40%), linear-gradient(180deg, #ffffff, #f7fbf8)',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                minHeight: 280, position: 'relative', overflow: 'hidden',
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                width: '100%', maxWidth: 340, position: 'relative', overflow: 'hidden',
               }}>
                 {result.finalType.image && (
                   <img
@@ -426,21 +426,20 @@ export default function ZXTIPage() {
                     {result.finalType.code.slice(0, 4)}
                   </div>
                 )}
-
               </div>
 
               {/* Type info */}
-              <div style={{ border: '1px solid #dbe8dd', borderRadius: 18, padding: 18, background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ width: '100%', maxWidth: 340, border: '1px solid #dbe8dd', borderRadius: 18, padding: '16px 20px', background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                 <div style={{ fontSize: 11, color: '#999', marginBottom: 6, letterSpacing: '.08em', textTransform: 'uppercase' }}>
                   {result.modeKicker}
                 </div>
-                <div style={{ fontSize: 40, lineHeight: 1.05, letterSpacing: '-0.02em', fontWeight: 900, color: '#1a1a1a' }}>
+                <div style={{ fontSize: 42, lineHeight: 1.05, letterSpacing: '-0.02em', fontWeight: 900, color: '#1a1a1a' }}>
                   {result.finalType.code}
                 </div>
                 <div style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 700, color: '#4d6a53', marginTop: 4 }}>
                   {result.finalType.cn}
                 </div>
-                <div style={{ marginTop: 14 }}>
+                <div style={{ marginTop: 10, width: '100%' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6a786f', marginBottom: 5 }}>
                     <span>匹配度</span>
                     <span style={{ fontWeight: 700, color: '#4d6a53' }}>{result.badge}</span>
@@ -449,7 +448,7 @@ export default function ZXTIPage() {
                     <div style={{ width: '75%', height: '100%', background: 'linear-gradient(90deg, #4d6a53, #6b8c73)', borderRadius: 'inherit', transition: 'width .4s ease' }} />
                   </div>
                 </div>
-                <div style={{ marginTop: 12, color: '#6a786f', fontSize: 13, lineHeight: 1.8 }}>
+                <div style={{ marginTop: 12, color: '#6a786f', fontSize: 13, lineHeight: 1.8, textAlign: 'left', width: '100%' }}>
                   {result.sub}
                 </div>
               </div>
