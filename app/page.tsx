@@ -218,7 +218,7 @@ export default function ZXTIPage() {
               职业人格测试NBTI来了
             </div>
             <p style={{ marginTop: 8, fontSize: 13, color: '#97b59c', fontWeight: 600 }}>分享前别忘了屏蔽你的老板</p>
-            <div style={{ marginTop: 28 }}>
+            <div style={{ marginTop: 28, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={startTest}
                 style={{
@@ -234,6 +234,37 @@ export default function ZXTIPage() {
                 }}
               >
                 开始测试
+              </button>
+              <button
+                onClick={() => {
+                  const codes = Object.keys(TYPE_LIBRARY);
+                  const randomCode = codes[Math.floor(Math.random() * codes.length)];
+                  const type = TYPE_LIBRARY[randomCode];
+                  setResult({
+                    finalType: { ...type, image: TYPE_IMAGE_MAP[randomCode] || type.image },
+                    modeKicker: '随机预览模式',
+                    badge: `随机展示 · ${type.cn}`,
+                    sub: '（随机展示一种人格，实际结果取决于你的答题）',
+                    special: false,
+                    levels: {},
+                    ranked: [],
+                    bestNormal: null as any,
+                    rawScores: {},
+                  });
+                  setScreen('result');
+                }}
+                style={{
+                  background: '#fff',
+                  color: '#4d6a53',
+                  border: '1.5px solid #4d6a53',
+                  padding: '14px 20px',
+                  borderRadius: 16,
+                  fontWeight: 700,
+                  fontSize: 14,
+                  cursor: 'pointer',
+                }}
+              >
+                随机预览结果
               </button>
             </div>
             <div style={{ paddingTop: 32, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
@@ -384,7 +415,7 @@ export default function ZXTIPage() {
                   <img
                     src={result.finalType.image}
                     alt={result.finalType.cn}
-                    style={{ width: 160, height: 160, borderRadius: 16, objectFit: 'cover', marginBottom: 0 }}
+                    style={{ width: 240, height: 240, borderRadius: 20, objectFit: 'cover', marginBottom: 0 }}
                   />
                 )}
                 {!result.finalType.image && (
