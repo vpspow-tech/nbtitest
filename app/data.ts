@@ -34,49 +34,177 @@ export interface Question {
 
 export const questions: Question[] = [
   // S1 职场自我认知
-  { id: 'q1', dim: 'S1', text: '周一早上闹钟响的时候，你的内心真实反应是？', options: [{ label: '装死，再睡五分钟。', value: 1 }, { label: '叹了口气，接受现实。', value: 2 }, { label: '居然有点期待今天的工作。', value: 3 }] },
-  { id: 'q2', dim: 'S1', text: '你对自己的工作能力评价是？', options: [{ label: '说实话，我自己都替公司担心。', value: 1 }, { label: '还行吧，勉强能糊弄过去。', value: 2 }, { label: '我为公司创造的价值被严重低估了。', value: 3 }] },
-  { id: 'q3', dim: 'S2', text: '你上班最核心的目的是？', options: [{ label: '纯粹为了那点工资，别跟我谈理想。', value: 1 }, { label: '工资+成长，各占一半吧。', value: 2 }, { label: '我在做一件有意义的事。', value: 3 }] },
-  { id: 'q4', dim: 'S2', text: '看到工资条的时候，你通常的表情是？', options: [{ label: '这数字是认真的吗？', value: 1 }, { label: '意料之中，波澜不惊。', value: 2 }, { label: '我的价值终于被体现了！', value: 3 }] },
-  { id: 'q5', dim: 'S3', text: '驱动你上班的最大动力是？', options: [{ label: '下个月房租，不能失业。', value: 1 }, { label: '同事还行，不上班也没事干。', value: 2 }, { label: '我真的想把这个项目做成。', value: 3 }] },
-  { id: 'q6', dim: 'S3', text: '你对自己的职业发展有规划吗？', options: [{ label: '规划个屁，走一步看一步。', value: 1 }, { label: '有个大概方向，但很模糊。', value: 2 }, { label: '三年后我要到哪个位置，我想得很清楚。', value: 3 }] },
+  { id: 'q1', dim: 'S1', text: '年终述职 begins，你心里在想：', options: [
+    { label: '我这一年到底干了啥？HR会不会发现我啥都没做？', value: 1 },
+    { label: '还行吧，把重点包装一下，应该能糊弄过去。', value: 2 },
+    { label: '我的价值被严重低估了，PPT已经准备好证据。', value: 3 }
+  ]},
+  { id: 'q2', dim: 'S1', text: '同事在群里发："这个方案我做了很久，非常用心"，你的反应是：', options: [
+    { label: '我上周也交了方案，但没人理我，是不是我不够用心？', value: 1 },
+    { label: '挺好的，但和我有什么关系？', value: 2 },
+    { label: '就这？我做的比他好多了，只是不想显摆。', value: 3 }
+  ]},
+  { id: 'q3', dim: 'S2', text: '工资到账短信来了，你的第一反应是：', options: [
+    { label: '这数字是来侮辱我的吧？我是不是该跳槽了？', value: 1 },
+    { label: '意料之中，够交房租就行，还要啥自行车。', value: 2 },
+    { label: '还行，但我的市场价应该更高，下次谈判有底气了。', value: 3 }
+  ]},
+  { id: 'q4', dim: 'S2', text: '朋友问你"工作图啥"，你会说：', options: [
+    { label: '图啥？图不被饿死呗，别跟我谈理想。', value: 1 },
+    { label: '钱和意义各一半，没有钱提不起劲，但没有意义也空虚。', value: 2 },
+    { label: '我在做一件有意义的事，顺便把钱赚了，完美。', value: 3 }
+  ]},
+  { id: 'q5', dim: 'S3', text: '周末阳光明媚，老板突然发消息："这个项目周一要交"，你会：', options: [
+    { label: '假装没看见，周一再说，周末属于我自己。', value: 1 },
+    { label: '看一眼，如果真的紧急就处理一下。', value: 2 },
+    { label: '立刻打开电脑，这是我的战场，周末算什么！', value: 3 }
+  ]},
+  { id: 'q6', dim: 'S3', text: '说到职业规划，你的真实状态是：', options: [
+    { label: '规划个鬼，35岁被裁了再说，及时行乐。', value: 1 },
+    { label: '有个大概方向，但走一步看一步吧，想太远没用。', value: 2 },
+    { label: '未来三年我要到哪个位置，我想得非常清楚。', value: 3 }
+  ]},
 
   // E1 打工安全感
-  { id: 'q7', dim: 'E1', text: '老板突然把你叫进办公室，你的第一反应是？', options: [{ label: '完了，是不是要裁我了。', value: 1 }, { label: '应该是有什么任务要派吧。', value: 2 }, { label: '正好有事要找他，主动送上门了。', value: 3 }] },
-  { id: 'q8', dim: 'E1', text: '公司传来裁员风声，你的反应是？', options: [{ label: '已经开始刷简历了。', value: 1 }, { label: '先观望一下，等官宣再说。', value: 2 }, { label: '不是我，先稳住。', value: 3 }] },
-  { id: 'q9', dim: 'E2', text: '你在工作中的投入程度是？', options: [{ label: '上班能摸则摸，下班一秒都不想多待。', value: 1 }, { label: '工作时间内认真干，到点就走。', value: 2 }, { label: '上班是打工，下班想的是工作。', value: 3 }] },
-  { id: 'q10', dim: 'E2', text: '发现一个工作问题，你会？', options: [{ label: '不是我的活，不归我管。', value: 1 }, { label: '顺手的话会说一下，不管也行。', value: 2 }, { label: '必须解决它，这是我的责任。', value: 3 }] },
-  { id: 'q11', dim: 'E3', text: '同事在下班前五分钟找你帮忙做个东西，你的反应是？', options: [{ label: '下班了，明天再说。', value: 1 }, { label: '看内容，简单就帮，复杂就说来不及。', value: 2 }, { label: '没问题，我帮你。', value: 3 }] },
-  { id: 'q12', dim: 'E3', text: '老板在周末发消息让你处理个事，你会？', options: [{ label: '周一看，已经周六了。', value: 1 }, { label: '先回一句"收到，周一处理"。', value: 2 }, { label: '立刻处理，工作是第一位。', value: 3 }] },
+  { id: 'q7', dim: 'E1', text: '老板突然在群里@你："在吗？"，你的第一反应是：', options: [
+    { label: '完了完了，是不是我捅篓子了？我最近做啥了？', value: 1 },
+    { label: '派任务吧，等他说完再看，反正我不主动认领。', value: 2 },
+    { label: '正好有事找他，主动送上门了，缘分啊。', value: 3 }
+  ]},
+  { id: 'q8', dim: 'E1', text: '公司群里突然发了一条"请各部门自查近期工作"，你会：', options: [
+    { label: '已经开始刷简历了，这次轮到我了是吧？', value: 1 },
+    { label: '观望一下，等官方消息再说，别自己吓自己。', value: 2 },
+    { label: '无所谓，不是我的锅，查也查不出问题。', value: 3 }
+  ]},
+  { id: 'q9', dim: 'E2', text: '周三下午三点，你突然不想工作了，你会：', options: [
+    { label: '刷手机摸鱼到下班，反正也没人管我。', value: 1 },
+    { label: '站起来走走，喝杯咖啡续续命，熬到下班。', value: 2 },
+    { label: '反思一下是不是目标设定有问题，然后继续干活。', value: 3 }
+  ]},
+  { id: 'q10', dim: 'E2', text: '你发现项目里有个大坑，但没人提，你会：', options: [
+    { label: '又不是我挖的，关我什么事，别出头。', value: 1 },
+    { label: '汇报一下，让决策者知道，让领导决定怎么办。', value: 2 },
+    { label: '这坑不填迟早要爆，我来！体现我价值的时候到了。', value: 3 }
+  ]},
+  { id: 'q11', dim: 'E3', text: '周五下午六点，你正准备下班，同事发来消息："有个文件急等"，你会：', options: [
+    { label: '周一见，周末不要找我，这是基本礼仪。', value: 1 },
+    { label: '看一下，如果真的紧急就处理一下，职业素养还是要有。', value: 2 },
+    { label: '立刻处理，工作第一，其他事都可以等。', value: 3 }
+  ]},
+  { id: 'q12', dim: 'E3', text: '你正在度假，老板发来消息："有个紧急情况"，你会：', options: [
+    { label: '关机，或者回复"信号不好，先挂了"。', value: 1 },
+    { label: '看一眼，能远程解决就处理，不想撕破脸。', value: 2 },
+    { label: '订最早的机票回去，这种时候不表现什么时候表现？', value: 3 }
+  ]},
 
   // A1 向上管理
-  { id: 'q13', dim: 'A1', text: '老板布置了一个你觉得不靠谱的任务，你的反应是？', options: [{ label: '嘴上好好好，心里已经开始骂。', value: 1 }, { label: '会适当表达一下疑虑，看他怎么说。', value: 2 }, { label: '直接说出我的不同意见。', value: 3 }] },
-  { id: 'q14', dim: 'A1', text: '你向老板汇报工作的频率是？', options: [{ label: '他不找我我也不找他。', value: 1 }, { label: '做完了一个阶段性的再汇报。', value: 2 }, { label: '主动汇报进度，让他随时知道我在干嘛。', value: 3 }] },
-  { id: 'q15', dim: 'A2', text: '同事在会议上公开反对你的方案，你？', options: [{ label: '会后一定要让他知道谁是对的。', value: 1 }, { label: '解释一下，采纳合理的部分。', value: 2 }, { label: '你说得对，按你说的来。', value: 3 }] },
-  { id: 'q16', dim: 'A2', text: '跨部门合作时，你的风格是？', options: [{ label: '对方不配合我就告状给老板。', value: 1 }, { label: '尽量协商，实在不行再升级。', value: 2 }, { label: '对方舒服就行，我多干点没事。', value: 3 }] },
-  { id: 'q17', dim: 'A3', text: '老板在公开场合说了一个你觉得不对的观点，你？', options: [{ label: '当面：您说得对。背后：这人懂个屁。', value: 1 }, { label: '私下找老板聊，不公开场合让他难堪。', value: 2 }, { label: '当场提出不同看法，对事不对人。', value: 3 }] },
-  { id: 'q18', dim: 'A3', text: '被老板当众批评的时候，你？', options: [{ label: '想找个地缝钻进去，或者想辞职。', value: 1 }, { label: '先忍着，下来再复盘。', value: 2 }, { label: '觉得是误会就当场解释清楚。', value: 3 }] },
+  { id: 'q13', dim: 'A1', text: '老板布置了一个你觉得是馊主意的任务，你会：', options: [
+    { label: '嘴上：好的老板。心里：这人脑子有问题吧。', value: 1 },
+    { label: '委婉提出疑虑："这个方向我有一点点不同的想法……"', value: 2 },
+    { label: '直接说不行，给出专业理由，老板也得讲道理。', value: 3 }
+  ]},
+  { id: 'q14', dim: 'A1', text: '你出差三天回来，第一件事是：', options: [
+    { label: '先整理行李休息一下，工作回来再说，又不是急事。', value: 1 },
+    { label: '给老板发个消息简要汇报，等他安排时间再聊。', value: 2 },
+    { label: '立刻约老板面聊，当面汇报行程和结果，请示下一步。', value: 3 }
+  ]},
+  { id: 'q15', dim: 'A2', text: '会议上同事公开反驳你的方案，说"你这个有问题"，你：', options: [
+    { label: '忍着，会后发消息给他："你行你来啊。"', value: 1 },
+    { label: '让他说完，采纳合理的部分，没必要当场翻脸。', value: 2 },
+    { label: '当场辩论，必须说清楚谁对谁错，我有数据我有底气。', value: 3 }
+  ]},
+  { id: 'q16', dim: 'A2', text: '跨部门合作，对方一直不配合你的需求，你：', options: [
+    { label: '告状给双方老板，让老板们去协调，我不陪你玩。', value: 1 },
+    { label: '主动约对方喝杯咖啡，当面聊聊，找个双方都能接受的方案。', value: 2 },
+    { label: '算了他不配合我，我就自己干，反正我也会，欠他什么？', value: 3 }
+  ]},
+  { id: 'q17', dim: 'A3', text: '老板在全员大会上说了一个你认为是错误的方向，你：', options: [
+    { label: '内心翻白眼，但表面点头称是，谁敢当众拆台啊。', value: 1 },
+    { label: '会后私下找老板聊，不让他公开难堪，给足面子。', value: 2 },
+    { label: '当场举手提问："老板，关于这个方案我有个问题想确认……"（用问题让他自己发现漏洞）', value: 3 }
+  ]},
+  { id: 'q18', dim: 'A3', text: '季度复盘会上，老板当众说："这个项目失败你责任很大"，你：', options: [
+    { label: '想立刻辞职，或者找个地缝钻进去，当众被骂太丢人了。', value: 1 },
+    { label: '低头认了，会后再找老板单独聊，私下解释清楚。', value: 2 },
+    { label: '当场拿出数据复盘，说明客观原因，责任不全在我。', value: 3 }
+  ]},
 
   // Ac1 执行力
-  { id: 'q19', dim: 'Ac1', text: '你收到一个deadline很紧的任务，你会？', options: [{ label: '先拖两天，实在不行再加班。', value: 1 }, { label: '尽快开始，争取按时交就行。', value: 2 }, { label: '立刻开始加急处理，提前交。', value: 3 }] },
-  { id: 'q20', dim: 'Ac1', text: '你收到一封有很多待办事项的邮件，你的反应是？', options: [{ label: '不回了，等对方再催。', value: 1 }, { label: '挑重要的回，其他假装没看见。', value: 2 }, { label: '逐条回复，一个不落。', value: 3 }] },
-  { id: 'q21', dim: 'Ac2', text: '面对多个任务同时需要你处理，你会？', options: [{ label: '哪个催得急先做哪个，最后一起糊弄。', value: 1 }, { label: '按重要性排个序，一个个来。', value: 2 }, { label: '能同时处理几个，我效率很高。', value: 3 }] },
-  { id: 'q22', dim: 'Ac2', text: '此题没有题目，请盲选', options: [{ label: '这道题选A？', value: 1 }, { label: '这道题选B？', value: 2 }, { label: '这道题选C？', value: 3 }] },
-  { id: 'q23', dim: 'Ac3', text: '你的一天通常怎么度过的？', options: [{ label: '好像没干什么就下班了。', value: 1 }, { label: '有忙的时候也有摸鱼的时候。', value: 2 }, { label: '每一分钟都花在刀刃上。', value: 3 }] },
-  { id: 'q24', dim: 'Ac3', text: '你对加班的态度是？', options: [{ label: '加班是不可能的，这辈子都不可能。', value: 1 }, { label: '紧急情况可以加，但不能常态化。', value: 2 }, { label: '加班是能力的证明，我愿意。', value: 3 }] },
+  { id: 'q19', dim: 'Ac1', text: '周三下午老板突然给你一个周五要交的紧急任务，你会：', options: [
+    { label: '先放着，周四周五再说，deadline是第一生产力。', value: 1 },
+    { label: '尽快开始，争取周五前完成，不影响其他工作就行。', value: 2 },
+    { label: '立刻放下手头所有事，通宵也要周三搞定，不睡觉也要干完。', value: 3 }
+  ]},
+  { id: 'q20', dim: 'Ac1', text: '你的工作邮箱积压着多少封未读邮件？', options: [
+    { label: '200+封，我选择性忽略，反正没人一封封查。', value: 1 },
+    { label: '几十封，看重要的回，不重要的就让它沉下去。', value: 2 },
+    { label: '尽量保持零未读，每封都处理，这是我的职业素养。', value: 3 }
+  ]},
+  { id: 'q21', dim: 'Ac2', text: '同时收到老板、客服、客户三个地方的消息，都要你处理，你：', options: [
+    { label: '哪个先催我我做哪个，其他就糊弄一下算了。', value: 1 },
+    { label: '按紧急程度排序，客服>老板>客户，一个个来。', value: 2 },
+    { label: '我能并行处理，同时开搞，效率就是这么高。', value: 3 }
+  ]},
+  { id: 'q22', dim: 'Ac2', text: '老板说"这个任务很急，越快越好"，你会：', options: [
+    { label: '先放一边，等老板催再说，反正他说急也不一定真急。', value: 1 },
+    { label: '尽快做，但不影响其他工作节奏，稳中求进。', value: 2 },
+    { label: '放下一切先做这个，老板说急就是真急，不能等。', value: 3 }
+  ]},
+  { id: 'q23', dim: 'Ac3', text: '周一早上你坐到工位上，第一个小时通常在：', options: [
+    { label: '吃早餐、回消息、看热搜，感觉没干什么就中午了。', value: 1 },
+    { label: '看看邮件，看看日程，有紧急的处理一下。', value: 2 },
+    { label: '列今日计划，按优先级排好，颗粒度精确到半小时。', value: 3 }
+  ]},
+  { id: 'q24', dim: 'Ac3', text: '你对加班的真实态度是：', options: [
+    { label: '加班费给多少？给不够别想让我加班，我的时间不是免费的。', value: 1 },
+    { label: '紧急情况可以加，但不能常态化，身体是革命的本钱。', value: 2 },
+    { label: '加班是能力的证明，说明老板信任我，我愿意。', value: 3 }
+  ]},
 
   // So1 职场社交
-  { id: 'q25', dim: 'So1', text: '你在公司午餐通常和谁吃？', options: [{ label: '自己点外卖，回工位吃。', value: 1 }, { label: '看情况，有人约就和，没人约就自己。', value: 2 }, { label: '必须和同事一起，这是社交时间。', value: 3 }] },
-  { id: 'q26', dim: 'So1', text: '公司团建活动，你的态度是？', options: [{ label: '能不去就不去，比上班还累。', value: 1 }, { label: '看什么活动，有的可以参加。', value: 2 }, { label: '必须去，这是建立感情的好机会。', value: 3 }] },
-  { id: 'q27', dim: 'So2', text: '你注意到老板最近对某同事态度特别好，你的反应是？', options: [{ label: '开始研究这个同事有什么门道。', value: 1 }, { label: '无所谓，可能只是巧合。', value: 2 }, { label: '没什么想法，工作归工作。', value: 3 }] },
-  { id: 'q28', dim: 'So2', text: '部门里有人在背后说别人坏话，你会？', options: [{ label: '跟着一起说，不说显得我不合群。', value: 1 }, { label: '听听就行，不插嘴也不传播。', value: 2 }, { label: '找个借口走开，不想参与。', value: 3 }] },
-  { id: 'q29', dim: 'So3', text: '你在朋友圈发工作相关内容的频率是？', options: [{ label: '我的朋友圈没有工作，谢谢。', value: 1 }, { label: '偶尔转发公司的宣传。', value: 2 }, { label: '经常发，展现我的职业形象。', value: 3 }] },
-  { id: 'q30', dim: 'So3', text: '你愿意在简历上写"精通Excel"吗？', options: [{ label: '写，反正进去再说。', value: 1 }, { label: '写，因为我会基本操作。', value: 2 }, { label: '不写，我真的很精通。', value: 3 }] },
+  { id: 'q25', dim: 'So1', text: '午餐时间，你的选择是：', options: [
+    { label: '点外卖回工位，边吃边看剧，不打扰任何人，自己最舒服。', value: 1 },
+    { label: '看情况，有人约就去，没人就在工位，不强求。', value: 2 },
+    { label: '必须和同事一起，这是每日社交必修课，午餐社交是职场生存法则。', value: 3 }
+  ]},
+  { id: 'q26', dim: 'So1', text: '公司组织周末团建，要求全员参加，你的反应是：', options: [
+    { label: '装病，或者找借口推掉，周末是我自己的时间。', value: 1 },
+    { label: '去一下也行，但待一会就撤，不想玩太晚。', value: 2 },
+    { label: '必须去！这是和同事增进感情的好机会，必须刷存在感！', value: 3 }
+  ]},
+  { id: 'q27', dim: 'So2', text: '茶水间两个人在低声聊天，看到你来了突然不说了，你会：', options: [
+    { label: '心里翻白眼：肯定在说我，但无所谓，爱说说去。', value: 1 },
+    { label: '假装没看到，拿了水就走，不给自己加戏。', value: 2 },
+    { label: '回去立刻打听，肯定有什么八卦是我不知道的。', value: 3 }
+  ]},
+  { id: 'q28', dim: 'So2', text: '你发现老板连续三天对某个同事态度特别好，你的反应是：', options: [
+    { label: '开始研究这个同事有什么背景，或者是不是要升职了。', value: 1 },
+    { label: '无所谓，可能只是巧合，每个人的工作方式不同。', value: 2 },
+    { label: '不管，与我工作无关，我只关心我自己的事。', value: 3 }
+  ]},
+  { id: 'q29', dim: 'So3', text: '你在朋友圈发工作相关内容的目的是：', options: [
+    { label: '工作的事不给朋友圈看，谁知道有没有竞争对手或老板在看。', value: 1 },
+    { label: '偶尔转发公司宣传内容，给老板看的，维护职业形象。', value: 2 },
+    { label: '经常发，精心打造我的专业职场形象，这是个人品牌建设。', value: 3 }
+  ]},
+  { id: 'q30', dim: 'So3', text: '年终总结里你会怎么写自己的缺点？', options: [
+    { label: '"太拼了，工作太认真"——经典套话，反正也没人当真。', value: 1 },
+    { label: '说一个真实但无伤大雅的缺点，显得真诚但不扣分。', value: 2 },
+    { label: '不写或者写"暂无"，我的缺点凭什么让他们知道？', value: 3 }
+  ]},
 ];
 
 export const specialQuestions: Question[] = [
-  { id: 'drink_gate_q1', special: true, kind: 'drink_gate', text: '你做这个测试的主要目的是？', options: [{ label: '纯好奇，看看自己是什么类型。', value: 1 }, { label: '最近工作有点迷茫，想找点方向。', value: 2 }, { label: '就是在摸鱼，打发时间。', value: 3 }, { label: '刚被裁，想看看自己是什么类型的打工人。', value: 4 }] },
-  { id: 'drink_gate_q2', special: true, kind: 'drink_trigger', text: '你目前的工作状态是？', options: [{ label: '在职，但随时想跑。', value: 1 }, { label: '刚入职或者准备换工作。', value: 2 }] },
+  { id: 'drink_gate_q1', special: true, kind: 'drink_gate', text: '你做这个测试的真实原因是？', options: [
+    { label: '纯好奇，就想知道自己是哪种打工人。', value: 1 },
+    { label: '最近工作有点迷茫，想找点方向。', value: 2 },
+    { label: '在摸鱼，反正闲着也是闲着。', value: 3 },
+    { label: '刚被裁，想看看自己是什么类型的韭菜。', value: 4 }
+  ]},
+  { id: 'drink_gate_q2', special: true, kind: 'drink_trigger', text: '你目前的工作状态是？', options: [
+    { label: '在职，但随时想跑。', value: 1 },
+    { label: '刚入职或者准备换工作。', value: 2 }
+  ]},
 ];
 
 export const DRUNK_TRIGGER_QUESTION_ID = 'drink_gate_q2';
@@ -107,7 +235,7 @@ export const TYPE_LIBRARY: Record<string, TypeEntry> = {
   "WEAVE": { code: "WEAVE", image: "/types/weave.png", cn: "PPT纺织工", intro: "这个动画要柔和，这个配色要专业。", desc: `恭喜你，你是PPT纺织工。你的工作内容不是完成业务，是把业务装进一个漂亮的壳子里。你的PPT有32种字体，48种配色方案，64种动画效果。但说实话，内容一页就够写完的东西，你用了三十页。PPT纺织工的命运：永远在纺织，永远不被看见。` },
   "OLD": { code: "OLD", image: "/types/old.png", cn: "职场老油条", intro: "我知道了，这个明天再说。", desc: `恭喜你，你是职场生存大师。你的技能不是工作能力，是"如何在职场优雅地不干活"。你知道每一件事的边界在哪里，你知道每一个老板的底线在哪里。老油条的信条：不是我的活不接，不是我的锅不背。你的每一天都在用力地"少干点"，精疲程度超过所有人。` },
   "SPIN": { code: "SPIN", image: "/types/spin.png", cn: "汇报艺术家", intro: "这个季度的成果主要是……", desc: `恭喜你，你是汇报艺术家。你的工作能力不一定最强，但你的汇报能力一定最顶级。你能把一个星期的摸鱼说成两周的攻坚，你能把失败的项目说成"大胆的尝试"。汇报艺术家的人生真理：干得好不如说得好。但常在河边走，哪有不湿鞋？` },
-  "ZEN": { code: "ZEN", image: "/types/zen.png", cn: "佛系打工人", intro: "涨薪？随缘吧。", desc: `恭喜你，你是职场躺平协会会员。你不争不抢，不急不躁，老板夸你无所谓，老板骂你也无所谓。你的人生哲学是：地球离了谁都转，我的班上了就够了。佛系打工人的内心独白：不是不想争，是争也争不过，算了吧。` },
+  "ZEN": { code: "ZEN", image: "/types/zen.png", cn: "佛系打工人", intro: "涨薪？随缘吧。", desc: `恭喜你，你是职场躺平协会会员。你不争不抢，不急不燥，老板夸你无所谓，老板骂你也无所谓。你的人生哲学是：地球离了谁都转，我的班上了就到了。佛系打工人的内心独白：不是不想争，是争也争不过，算了吧。` },
   "TREND": { code: "TREND", image: "/types/trend.png", cn: "职场网红粉", intro: "那个博主说这样汇报最有效！", desc: `恭喜你，你是职场知识付费的忠实用户。你关注了47个职场博主，你的收藏夹比你的大脑更有知识。你学过的课比你看过的书多，你记过的笔记比你做过的事多。职场网红粉的悲剧：买课如山倒，做事如抽丝。` },
   "PANIC": { code: "PANIC", image: "/types/panic.png", cn: "职场焦虑制造机", intro: "完了完了，这个没做过怎么办？", desc: `恭喜你，你是职场焦虑发生器。你对任何新任务的第一反应永远是恐惧，你觉得每一个困难都能要了你的命。你在做事之前就开始焦虑，你在焦虑之中忘了做事。焦虑制造机，你的情绪是部门里最贵的成本，因为大家都要花时间安抚你。` },
   "JILL": { code: "JILL", image: "/types/JILL.png", cn: "职场多面手", intro: "我同时在推进七个项目。", desc: `恭喜你，你是职场多线程处理器。你同时开很多个窗口，同时聊很多个群，同时推进很多个项目。你的一天是别人的三天，你的注意力是别人的十分之一。但多面手的诅咒：每一面都沾一点，每一面都不精。` },
@@ -117,30 +245,30 @@ export const TYPE_LIBRARY: Record<string, TypeEntry> = {
 };
 
 export const NORMAL_TYPES = [
-  { code: "LATE", pattern: "HHH-HMH-MHH-HHH-MHM" },
-  { code: "Mr.Know", pattern: "HMH-HMH-MHH-HHH-LHL" },
-  { code: "MAX", pattern: "HHH-HHM-HHH-HMH-MHL" },
-  { code: "NIT", pattern: "MHM-MMH-MHM-HMH-LHL" },
-  { code: "FLIP", pattern: "HHH-HMH-MMH-HHH-LHL" },
-  { code: "ALL", pattern: "MHM-HMM-HHM-MMH-MHL" },
-  { code: "FOMO", pattern: "HHL-LMH-LHH-HHM-LHL" },
-  { code: "MASK", pattern: "HHM-HMH-MMH-HHH-MHM" },
-  { code: "CALM", pattern: "HMH-HHL-HMM-HMM-HLH" },
-  { code: "WHY", pattern: "MLH-LHL-HLH-MLM-MLH" },
-  { code: "EASY", pattern: "MMH-MHL-HMM-LMM-HLL" },
-  { code: "EYES", pattern: "HLM-MML-MLM-MLM-HLH" },
-  { code: "GHOST", pattern: "MMH-MMM-HML-LMM-MML" },
-  { code: "SHOW", pattern: "MLH-MHM-MLH-MLH-LMH" },
-  { code: "WEAVE", pattern: "LLH-LHL-LML-LLL-MLM" },
-  { code: "OLD", pattern: "HHL-HMH-MMH-HHM-LHH" },
-  { code: "SPIN", pattern: "HHL-HMH-MLH-MHM-LHH" },
-  { code: "ZEN", pattern: "HHL-HLH-LMM-HHM-LHH" },
-  { code: "TREND", pattern: "MHL-MLH-LML-MML-LHM" },
-  { code: "PANIC", pattern: "HHL-MLH-LMH-HHH-LHL" },
-  { code: "JILL", pattern: "HHL-LLH-LLM-MML-LHM" },
-  { code: "DRIFT", pattern: "LLM-LMM-LLL-LLL-MLM" },
-  { code: "POOR", pattern: "LML-LLH-LHL-LML-LHM" },
-  { code: "PRO", pattern: "MLL-LHL-LLM-MLL-HLH" },
+  { code: "LATE", pattern: "HHH-HHH-HHM-HHH-HMM" },
+  { code: "Mr.Know", pattern: "HMM-HMM-MMM-MMM-HMM" },
+  { code: "MAX", pattern: "HHH-HHH-HHH-HHH-HMM" },
+  { code: "NIT", pattern: "MMM-HHL-LML-LLH-LHM" },
+  { code: "FLIP", pattern: "HMM-MLL-MMM-LLL-MMM" },
+  { code: "ALL", pattern: "HHH-HHH-HHH-HHH-LMM" },
+  { code: "FOMO", pattern: "LML-LLL-LLL-LLL-LML" },
+  { code: "MASK", pattern: "MMM-MMM-MHH-HMM-HHL" },
+  { code: "CALM", pattern: "HML-HLL-LLL-LMH-LLH" },
+  { code: "WHY", pattern: "MML-LLL-LLL-LLL-MMM" },
+  { code: "EASY", pattern: "MML-LLL-LMM-MML-LLL" },
+  { code: "EYES", pattern: "MML-MMM-LMH-HHH-HHH" },
+  { code: "GHOST", pattern: "HLL-LLL-LLL-LLL-LLH" },
+  { code: "SHOW", pattern: "HHH-HHH-HHH-HHH-HHM" },
+  { code: "WEAVE", pattern: "MMM-MMM-MLL-LLL-LMM" },
+  { code: "OLD", pattern: "HHL-LLH-HHH-LMH-HHH" },
+  { code: "SPIN", pattern: "HML-LLL-LMH-LML-HHH" },
+  { code: "ZEN", pattern: "MHL-HLL-LLL-LLM-LLM" },
+  { code: "TREND", pattern: "MMM-MLL-LMM-LLL-MMM" },
+  { code: "PANIC", pattern: "LML-LLL-LLL-LLL-LLL" },
+  { code: "JILL", pattern: "MMM-MMM-MMH-LLL-HMM" },
+  { code: "DRIFT", pattern: "LML-LLL-LLL-LLL-LLL" },
+  { code: "POOR", pattern: "LLL-LHH-LLL-LLL-LLL" },
+  { code: "PRO", pattern: "MHH-HMM-MHH-HHH-LMH" },
 ];
 
 export const DIM_EXPLANATIONS: Record<string, Record<string, string>> = {
