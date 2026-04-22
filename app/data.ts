@@ -34,15 +34,20 @@ export interface Question {
 
 export const questions: Question[] = [
   // S1 职场自我认知
-  { id: 'q1', dim: 'S1', text: '年终述职 begins，你心里在想：', options: [
-    { label: '我这一年到底干了啥？HR会不会发现我啥都没做？', value: 1 },
-    { label: '还行吧，把重点包装一下，应该能糊弄过去。', value: 2 },
-    { label: '我的价值被严重低估了，PPT已经准备好证据。', value: 3 }
+  { id: 'q1', dim: 'S1', text: '年终述职PPT打开第一页，你的大脑：', options: [
+    { label: '我这一年到底干了啥...算了先放张好看的封面图糊弄一下', value: 1 },
+    { label: '把"参与了"改成"主导了"，把"学习了"改成"精通了"，完美', value: 2 },
+    { label: '我的价值被严重低估了，这PPT里每一个像素都在诉说我的伟大', value: 3 }
   ]},
   { id: 'q2', dim: 'S1', text: '同事在群里发："这个方案我做了很久，非常用心"，你的反应是：', options: [
     { label: '我上周也交了方案，但没人理我，是不是我不够用心？', value: 1 },
     { label: '挺好的，但和我有什么关系？', value: 2 },
     { label: '就这？我做的比他好多了，只是不想显摆。', value: 3 }
+  ]},
+  { id: 'q2b', dim: 'S1', text: '老板在群里表扬了另一个同事，没提你，你会：', options: [
+    { label: '果然我不行，下次述职我得好好表现。', value: 1 },
+    { label: '各人有各人的长处，我做好自己的事就行。', value: 2 },
+    { label: '老板眼光不行，我的贡献他根本看不到。', value: 3 }
   ]},
   { id: 'q3', dim: 'S2', text: '工资到账短信来了，你的第一反应是：', options: [
     { label: '这数字是来侮辱我的吧？我是不是该跳槽了？', value: 1 },
@@ -64,6 +69,11 @@ export const questions: Question[] = [
     { label: '有个大概方向，但走一步看一步吧，想太远没用。', value: 2 },
     { label: '未来三年我要到哪个位置，我想得非常清楚。', value: 3 }
   ]},
+  { id: 'q6b', dim: 'S3', text: '如果明天突然中了500万，你还会上班吗？', options: [
+    { label: '立刻辞职，这班谁爱上谁上。', value: 1 },
+    { label: '可能会换个轻松点的工作，但不想完全闲着。', value: 2 },
+    { label: '继续上班，但心态会好很多，毕竟不是为了钱。', value: 3 }
+  ]},
 
   // E1 打工安全感
   { id: 'q7', dim: 'E1', text: '老板突然在群里@你："在吗？"，你的第一反应是：', options: [
@@ -76,7 +86,7 @@ export const questions: Question[] = [
     { label: '观望一下，等官方消息再说，别自己吓自己。', value: 2 },
     { label: '无所谓，不是我的锅，查也查不出问题。', value: 3 }
   ]},
-  { id: 'q9', dim: 'E2', text: '周三下午三点，你突然不想工作了，你会：', options: [
+  { id: 'q9', dim: 'E2', text: '周三下午三点，你的灵魂突然出窍，看着电脑屏幕上的Excel，你：', options: [
     { label: '刷手机摸鱼到下班，反正也没人管我。', value: 1 },
     { label: '站起来走走，喝杯咖啡续续命，熬到下班。', value: 2 },
     { label: '反思一下是不是目标设定有问题，然后继续干活。', value: 3 }
@@ -96,9 +106,14 @@ export const questions: Question[] = [
     { label: '看一眼，能远程解决就处理，不想撕破脸。', value: 2 },
     { label: '订最早的机票回去，这种时候不表现什么时候表现？', value: 3 }
   ]},
+  { id: 'q12b', dim: 'E3', text: '晚上11点，老板在工作群里发了一条消息，你会：', options: [
+    { label: '假装 asleep，明天早上再回，晚上11点发消息的老板都有病。', value: 1 },
+    { label: '如果@我了就回，没@我就当没看见。', value: 2 },
+    { label: '立刻回复"收到"，并追问具体需求，展现我的敬业精神。', value: 3 }
+  ]},
 
   // A1 向上管理
-  { id: 'q13', dim: 'A1', text: '老板布置了一个你觉得是馊主意的任务，你会：', options: [
+  { id: 'q13', dim: 'A1', text: '老板布置了一个你觉得是馊主意的任务，你的内心OS：', options: [
     { label: '嘴上：好的老板。心里：这人脑子有问题吧。', value: 1 },
     { label: '委婉提出疑虑："这个方向我有一点点不同的想法……"', value: 2 },
     { label: '直接说不行，给出专业理由，老板也得讲道理。', value: 3 }
@@ -127,6 +142,11 @@ export const questions: Question[] = [
     { label: '想立刻辞职，或者找个地缝钻进去，当众被骂太丢人了。', value: 1 },
     { label: '低头认了，会后再找老板单独聊，私下解释清楚。', value: 2 },
     { label: '当场拿出数据复盘，说明客观原因，责任不全在我。', value: 3 }
+  ]},
+  { id: 'q18b', dim: 'A3', text: '项目deadline提前了一周，团队怨声载道，你作为负责人会：', options: [
+    { label: '和团队一起骂老板，然后一起摆烂，反正完不成。', value: 1 },
+    { label: '安抚团队情绪，重新分配任务，尽量争取延期。', value: 2 },
+    { label: '带头加班，身先士卒，用行动证明没有完不成的任务。', value: 3 }
   ]},
 
   // Ac1 执行力
@@ -160,9 +180,14 @@ export const questions: Question[] = [
     { label: '紧急情况可以加，但不能常态化，身体是革命的本钱。', value: 2 },
     { label: '加班是能力的证明，说明老板信任我，我愿意。', value: 3 }
   ]},
+  { id: 'q24b', dim: 'Ac3', text: '你的一天中，真正高效工作的时间大约是：', options: [
+    { label: '2-3小时吧，其他时间在开会、回消息和发呆。', value: 1 },
+    { label: '5-6小时，有忙有闲，整体还行。', value: 2 },
+    { label: '8小时以上，我的时间颗粒度很细，每分钟都在工作。', value: 3 }
+  ]},
 
   // So1 职场社交
-  { id: 'q25', dim: 'So1', text: '午餐时间，你的选择是：', options: [
+  { id: 'q25', dim: 'So1', text: '中午12:01，你的胃和社交恐惧症同时发作，你：', options: [
     { label: '点外卖回工位，边吃边看剧，不打扰任何人，自己最舒服。', value: 1 },
     { label: '看情况，有人约就去，没人就在工位，不强求。', value: 2 },
     { label: '必须和同事一起，这是每日社交必修课，午餐社交是职场生存法则。', value: 3 }
@@ -178,9 +203,9 @@ export const questions: Question[] = [
     { label: '回去立刻打听，肯定有什么八卦是我不知道的。', value: 3 }
   ]},
   { id: 'q28', dim: 'So2', text: '你发现老板连续三天对某个同事态度特别好，你的反应是：', options: [
-    { label: '开始研究这个同事有什么背景，或者是不是要升职了。', value: 1 },
+    { label: '管我屁事，我只关心我的KPI能不能完成。', value: 1 },
     { label: '无所谓，可能只是巧合，每个人的工作方式不同。', value: 2 },
-    { label: '不管，与我工作无关，我只关心我自己的事。', value: 3 }
+    { label: '开始研究这个同事有什么背景，或者是不是要升职了。', value: 3 }
   ]},
   { id: 'q29', dim: 'So3', text: '你在朋友圈发工作相关内容的目的是：', options: [
     { label: '工作的事不给朋友圈看，谁知道有没有竞争对手或老板在看。', value: 1 },
@@ -191,6 +216,11 @@ export const questions: Question[] = [
     { label: '"太拼了，工作太认真"——经典套话，反正也没人当真。', value: 1 },
     { label: '说一个真实但无伤大雅的缺点，显得真诚但不扣分。', value: 2 },
     { label: '不写或者写"暂无"，我的缺点凭什么让他们知道？', value: 3 }
+  ]},
+  { id: 'q30b', dim: 'So3', text: '同事问你工资多少，你会：', options: [
+    { label: '如实告知，反正大家差不多，没什么好藏的。', value: 1 },
+    { label: '打个哈哈糊弄过去，"够花就行"。', value: 2 },
+    { label: '反问"你多少？"然后视情况决定说多少。', value: 3 }
   ]},
 ];
 
@@ -266,7 +296,7 @@ export const NORMAL_TYPES = [
   { code: "TREND", pattern: "MMM-MLL-LMM-LLL-MMM" },
   { code: "PANIC", pattern: "LML-LLL-LLL-LLL-LLL" },
   { code: "JILL", pattern: "MMM-MMM-MMH-LLL-HMM" },
-  { code: "DRIFT", pattern: "LML-LLL-LLL-LLL-LLL" },
+  { code: "DRIFT", pattern: "LLL-LLM-LML-LLL-LLM" },
   { code: "POOR", pattern: "LLL-LHH-LLL-LLL-LLL" },
   { code: "PRO", pattern: "MHH-HMM-MHH-HHH-LMH" },
 ];

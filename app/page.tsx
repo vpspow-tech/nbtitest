@@ -146,9 +146,9 @@ export default function ZXTIPage() {
 
     if (drunkTriggered) {
       finalType = { ...TYPE_LIBRARY.DRIFT, distance: 0, exact: 15, similarity: 100, image: TYPE_IMAGE_MAP.DRIFT };
-      modeKicker = '隐藏人格已激活';
-      badge = '匹配度 100% · 酒精异常因子已接管';
-      sub = '乙醇亲和性过强，系统已直接跳过常规人格审判。';
+      modeKicker = '职业变动期检测';
+      badge = '匹配度 100% · 职业不稳定因子激活';
+      sub = '系统检测到你正处于职业变动期。以上结果反映的是你当前状态，建议稳定后再测一次。职场流浪汉不是终点，只是中转站。';
       special = true;
     } else if (bestNormal.similarity < 60) {
       finalType = { ...bestNormal, image: TYPE_IMAGE_MAP[bestNormal.code] };
@@ -489,11 +489,11 @@ export default function ZXTIPage() {
                     })}
                     {(() => {
                       const groups = [
-                        { dims: ['S1','S2','E1','E3'] },
-                        { dims: ['E2','Ac3'] },
+                        { dims: ['S1','S2','S3'] },
+                        { dims: ['E2','Ac1','Ac3'] },
                         { dims: ['So1','So3'] },
                         { dims: ['A1','A3'] },
-                        { dims: ['A2','So2'] },
+                        { dims: ['A2','So2','E1'] },
                       ];
                       const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
                       const points = groups.map((g, i) => {
@@ -519,7 +519,7 @@ export default function ZXTIPage() {
                 {[
                   {
                     group: '内卷指数', icon: '🔥', color: '#c0392b',
-                    dims: ['S1','S2','E1','E3'],
+                    dims: ['S1','S2','S3'],
                     jokes: {
                       L: '你是来上班的还是来渡劫的？卷不动就算了，躺平也是一种美德。',
                       M: '还行，偶尔卷一下，但大部分时间在摸鱼和假装忙碌之间横跳。',
@@ -528,7 +528,7 @@ export default function ZXTIPage() {
                   },
                   {
                     group: '摸鱼指数', icon: '🐟', color: '#27ae60',
-                    dims: ['E2','Ac3'],
+                    dims: ['E2','Ac1','Ac3'],
                     jokes: {
                       L: '摸鱼？不存在的。你是那种周末加班会觉得充实的人，病得不轻。',
                       M: '你摸鱼属于"战略性摸鱼"，该干的活也没落下，就是过程有点曲折。',
@@ -555,7 +555,7 @@ export default function ZXTIPage() {
                   },
                   {
                     group: '甩锅指数', icon: '🔄', color: '#2980b9',
-                    dims: ['A2','So2'],
+                    dims: ['A2','So2','E1'],
                     jokes: {
                       L: '你是部门的背锅侠，永远在为别人的错误买单。吃亏是福，但小心福报太多。',
                       M: '你甩锅属于"技术性甩锅"——明面上没甩，实际上甩得干干净净。',
