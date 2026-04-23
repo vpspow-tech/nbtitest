@@ -174,10 +174,67 @@ export default function ZXTIPage() {
         backgroundColor: null,
         useCORS: true,
       });
-      const link = document.createElement('a');
-      link.download = `NBTI-${result?.finalType?.cn || '结果'}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      
+      // 显示预览弹窗，让用户长按保存
+      const dataUrl = canvas.toDataURL('image/png');
+      const previewDiv = document.createElement('div');
+      previewDiv.style.cssText = `
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.85);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 20px;
+      `;
+      
+      const img = document.createElement('img');
+      img.src = dataUrl;
+      img.style.cssText = `
+        max-width: 90%;
+        max-height: 70vh;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      `;
+      
+      const hint = document.createElement('div');
+      hint.textContent = '长按图片保存到相册';
+      hint.style.cssText = `
+        color: #fff;
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: 600;
+      `;
+      
+      const closeBtn = document.createElement('button');
+      closeBtn.textContent = '关闭';
+      closeBtn.style.cssText = `
+        margin-top: 20px;
+        padding: 12px 32px;
+        background: #4d6a53;
+        color: #fff;
+        border: none;
+        border-radius: 24px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      `;
+      
+      previewDiv.appendChild(img);
+      previewDiv.appendChild(hint);
+      previewDiv.appendChild(closeBtn);
+      document.body.appendChild(previewDiv);
+      
+      closeBtn.onclick = () => {
+        document.body.removeChild(previewDiv);
+      };
+      previewDiv.onclick = (e) => {
+        if (e.target === previewDiv) {
+          document.body.removeChild(previewDiv);
+        }
+      };
     } finally {
       setGeneratingShare(false);
     }
