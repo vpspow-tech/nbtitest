@@ -14,6 +14,23 @@ import {
   calculateDimensionScore,
 } from './data';
 
+const rarityColors: Record<string, string> = {
+  SSR: '#FFD700',
+  SR: '#9370DB',
+  R: '#4169E1',
+  N: '#808080',
+};
+
+function getRarityText(rarity: string, similarity?: number): string {
+  const rarityMap: Record<string, string> = {
+    SSR: '传说级！你解锁了前1%的稀有职场人格！',
+    SR: '史诗级！你解锁了前5%的稀有职场人格！',
+    R: '稀有级！你解锁了前20%的职场人格！',
+    N: '常见级！这种职场人格随处可见~',
+  };
+  return rarityMap[rarity] || '';
+}
+
 const TYPE_IMAGE_MAP: Record<string, string> = {
   LATE: '/types/LATE.png',
   'Mr.Know': '/types/mr.know.png',
@@ -335,42 +352,12 @@ export default function ZXTIPage() {
               >
                 开始测试
               </button>
-              <button
-                onClick={() => {
-                  const codes = Object.keys(TYPE_LIBRARY);
-                  const randomCode = codes[Math.floor(Math.random() * codes.length)];
-                  const type = TYPE_LIBRARY[randomCode];
-                  setResult({
-                    finalType: { ...type, image: TYPE_IMAGE_MAP[randomCode] || type.image },
-                    modeKicker: '随机预览模式',
-                    badge: `随机展示 · ${type.cn}`,
-                    sub: '（随机展示一种人格，实际结果取决于你的答题）',
-                    special: false,
-                    levels: {},
-                    ranked: [],
-                    bestNormal: null as any,
-                    rawScores: {},
-                  });
-                  setScreen('result');
-                }}
-                style={{
-                  background: '#fff',
-                  color: '#4d6a53',
-                  border: '1.5px solid #4d6a53',
-                  padding: '14px 20px',
-                  borderRadius: 16,
-                  fontWeight: 700,
-                  fontSize: 14,
-                  cursor: 'pointer',
-                  minHeight: 48,
-                }}
-              >
-                随机预览结果
-              </button>
             </div>
 
             <div style={{ paddingTop: 24, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
-              <span>作者：Fone</span>
+              <a href="https://xhslink.com/m/731un2gGvJj" target="_blank" rel="noopener noreferrer" style={{ color: '#4d6a53', textDecoration: 'none', fontWeight: 600 }}>
+                作者：Fone
+              </a>
               <span>专为职场人设计的性格测试</span>
             </div>
 
@@ -546,8 +533,25 @@ export default function ZXTIPage() {
                 <div className="mobile-type-code" style={{ fontSize: 42, lineHeight: 1.05, letterSpacing: '-0.02em', fontWeight: 900, color: '#1a1a1a' }}>
                   {result.finalType.code}
                 </div>
-                <div className="mobile-type-name" style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 700, color: '#4d6a53', marginTop: 4 }}>
-                  {result.finalType.cn}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
+                  <div className="mobile-type-name" style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 700, color: '#4d6a53' }}>
+                    {result.finalType.cn}
+                  </div>
+                  {result.finalType.rarity && (
+                    <div style={{
+                      background: rarityColors[result.finalType.rarity],
+                      color: '#fff',
+                      padding: '4px 10px',
+                      borderRadius: 6,
+                      fontSize: 12,
+                      fontWeight: 800,
+                    }}>
+                      {result.finalType.rarity}
+                    </div>
+                  )}
+                </div>
+                <div style={{ fontSize: 14, color: '#6a786f', marginTop: 8 }}>
+                  {getRarityText(result.finalType.rarity, result.bestNormal?.similarity)}
                 </div>
                 <div style={{ marginTop: 10, width: '100%' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6a786f', marginBottom: 5 }}>
@@ -817,6 +821,23 @@ export default function ZXTIPage() {
                 }}>
                   {result.bestNormal?.similarity || 87}%
                 </div>
+                {/* Rarity badge */}
+                {result.finalType.rarity && (
+                  <div style={{
+                    position: 'absolute',
+                    top: -10,
+                    right: -10,
+                    background: rarityColors[result.finalType.rarity] || '#808080',
+                    color: '#fff',
+                    padding: '6px 12px',
+                    borderRadius: 20,
+                    fontSize: 14,
+                    fontWeight: 800,
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                  }}>
+                    {result.finalType.rarity}
+                  </div>
+                )}
               </div>
 
               {/* Type code & name */}
