@@ -355,7 +355,7 @@ export default function ZXTIPage() {
             </div>
 
             <div style={{ paddingTop: 24, display: 'flex', flexDirection: 'column', gap: 4, fontSize: 14, color: '#6a786f' }}>
-              <a href="https://xhslink.com/m/731un2gGvJj" target="_blank" rel="noopener noreferrer" style={{ color: '#4d6a53', textDecoration: 'none', fontWeight: 600 }}>
+              <a href="https://xhslink.com/m/731un2gGvJj" target="_blank" rel="noopener noreferrer" style={{ color: '#4d6a53', textDecoration: 'underline', fontWeight: 600, cursor: 'pointer' }}>
                 作者：Fone
               </a>
               <span>专为职场人设计的性格测试</span>
@@ -474,7 +474,7 @@ export default function ZXTIPage() {
             display: 'grid',
             gap: 18,
           }}>
-            {/* Header bar */}
+            {/* Header bar - merged title and badge */}
             <div style={{
               background: '#2d4a38',
               padding: '16px 24px',
@@ -482,24 +482,28 @@ export default function ZXTIPage() {
               justifyContent: 'space-between',
               alignItems: 'center',
               borderRadius: '22px 22px 0 0',
+              gap: 12,
+              flexWrap: 'wrap',
             }}>
-              <div style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>你的主类型</div>
-              <div style={{
-                background: '#4d6a53',
-                color: '#fff',
-                padding: '6px 14px',
-                borderRadius: 999,
-                fontSize: 13,
-                fontWeight: 700,
-              }}>
-                {result.badge}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <div style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>你的主类型</div>
+                <div style={{
+                  background: '#4d6a53',
+                  color: '#fff',
+                  padding: '4px 12px',
+                  borderRadius: 999,
+                  fontSize: 12,
+                  fontWeight: 700,
+                }}>
+                  {result.badge}
+                </div>
               </div>
             </div>
 
             <div style={{ padding: '16px 0', display: 'grid', gap: 18 }}>
             {/* Top section - vertical stack for easy screenshot sharing */}
             <div className="mobile-result-top" style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
-              {/* Poster */}
+              {/* Poster - enhanced image with shadow and radius */}
               <div style={{
                 border: '1px solid #dbe8dd', borderRadius: 20, padding: 16,
                 background: 'radial-gradient(circle at top right, rgba(127,165,134,0.16), rgba(127,165,134,0) 40%), linear-gradient(180deg, #ffffff, #f7fbf8)',
@@ -511,7 +515,7 @@ export default function ZXTIPage() {
                     src={result.finalType.image}
                     alt={result.finalType.cn}
                     className="mobile-type-img"
-                    style={{ width: 240, height: 240, borderRadius: 20, objectFit: 'cover', marginBottom: 0 }}
+                    style={{ width: 240, height: 240, borderRadius: 20, objectFit: 'cover', marginBottom: 0, boxShadow: '0 8px 24px rgba(0,0,0,0.12)' }}
                   />
                 )}
                 {!result.finalType.image && (
@@ -519,24 +523,26 @@ export default function ZXTIPage() {
                     width: 120, height: 120, borderRadius: '50%', background: 'linear-gradient(180deg, #97b59c, #5b7a62)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 48, fontWeight: 900, color: '#fff', letterSpacing: -2,
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
                   }}>
                     {result.finalType.code.slice(0, 4)}
                   </div>
                 )}
               </div>
 
-              {/* Type info */}
-              <div style={{ width: '100%', maxWidth: 340, border: '1px solid #dbe8dd', borderRadius: 18, padding: '16px 20px', background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+              {/* Type info - improved padding and hierarchy */}
+              <div style={{ width: '100%', maxWidth: 340, border: '1px solid #dbe8dd', borderRadius: 18, padding: '20px 24px', background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                 <div style={{ fontSize: 11, color: '#999', marginBottom: 6, letterSpacing: '.08em', textTransform: 'uppercase' }}>
                   {result.modeKicker}
                 </div>
-                <div className="mobile-type-code" style={{ fontSize: 42, lineHeight: 1.05, letterSpacing: '-0.02em', fontWeight: 900, color: '#1a1a1a' }}>
+                {/* Chinese name emphasized, English code smaller */}
+                <div className="mobile-type-name" style={{ fontSize: 28, lineHeight: 1.2, fontWeight: 900, color: '#1a1a1a' }}>
+                  {result.finalType.cn}
+                </div>
+                <div className="mobile-type-code" style={{ fontSize: 16, lineHeight: 1.05, letterSpacing: '0.05em', fontWeight: 600, color: '#4d6a53', marginTop: 4 }}>
                   {result.finalType.code}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
-                  <div className="mobile-type-name" style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 700, color: '#4d6a53' }}>
-                    {result.finalType.cn}
-                  </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
                   {result.finalType.rarity && (
                     <div style={{
                       background: rarityColors[result.finalType.rarity],
@@ -625,7 +631,7 @@ export default function ZXTIPage() {
                 </div>
               </div>
 
-              {/* Dimension cards */}
+              {/* Dimension cards - unified height */}
               <div className="mobile-dim-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                 {[
                   {
@@ -680,7 +686,7 @@ export default function ZXTIPage() {
                   const level: 'L' | 'M' | 'H' = avg >= 2 ? 'H' : avg >= 1.5 ? 'M' : 'L';
                   const joke = jokes[level];
                   return (
-                    <div key={group} style={{ border: '1px solid #dbe8dd', borderRadius: 14, padding: 14, background: '#fff', height: 'fit-content' }}>
+                    <div key={group} style={{ border: '1px solid #dbe8dd', borderRadius: 14, padding: 14, background: '#fff', height: '100%', display: 'flex', flexDirection: 'column' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                         <span style={{ fontWeight: 700, fontSize: 14 }}>{icon} {group}</span>
                         <span style={{ color, fontWeight: 800, fontSize: 14 }}>{pct}%</span>
@@ -688,7 +694,7 @@ export default function ZXTIPage() {
                       <div style={{ height: 8, background: '#edf3ee', borderRadius: 999, overflow: 'hidden', marginBottom: 8 }}>
                         <div style={{ width: `${pct}%`, height: '100%', background: `linear-gradient(90deg, ${color}cc, ${color})`, borderRadius: 'inherit', transition: 'width .3s ease' }} />
                       </div>
-                      <p style={{ margin: 0, color: '#6a786f', fontSize: 12, lineHeight: 1.7 }}>{joke}</p>
+                      <p style={{ margin: 0, color: '#6a786f', fontSize: 12, lineHeight: 1.7, flex: 1 }}>{joke}</p>
                     </div>
                   );
                 })}
@@ -707,49 +713,53 @@ export default function ZXTIPage() {
               </p>
             </div>
 
-            {/* Actions */}
-            <div className="mobile-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', padding: '0 24px 24px' }}>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <button
-                  onClick={generateShareImage}
-                  disabled={generatingShare}
-                  style={{
-                    background: generatingShare ? '#97b59c' : '#4d6a53', color: '#fff', padding: '12px 20px',
-                    borderRadius: 12, border: 0, fontWeight: 700, cursor: generatingShare ? 'wait' : 'pointer',
-                    boxShadow: '0 8px 24px rgba(77,106,83,0.25)',
-                    transition: 'all .2s',
-                    opacity: generatingShare ? 0.7 : 1,
-                    minHeight: 48,
-                  }}
-                  onMouseOver={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#3d5a43'; } }}
-                  onMouseOut={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#4d6a53'; } }}
-                >
-                  {generatingShare ? '生成中...' : '生成分享图'}
-                </button>
+            {/* Actions - primary/secondary button hierarchy */}
+            <div className="mobile-actions" style={{ display: 'flex', justifyContent: 'center', gap: 12, flexWrap: 'wrap', padding: '0 24px 24px' }}>
+              <button
+                onClick={generateShareImage}
+                disabled={generatingShare}
+                style={{
+                  background: generatingShare ? '#97b59c' : '#4d6a53', color: '#fff', padding: '14px 32px',
+                  borderRadius: 14, border: 0, fontWeight: 700, cursor: generatingShare ? 'wait' : 'pointer',
+                  boxShadow: '0 12px 32px rgba(77,106,83,0.3)',
+                  transition: 'all .2s',
+                  opacity: generatingShare ? 0.7 : 1,
+                  minHeight: 52,
+                  fontSize: 16,
+                  flex: '1 1 200px',
+                  maxWidth: 280,
+                }}
+                onMouseOver={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#3d5a43'; } }}
+                onMouseOut={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#4d6a53'; } }}
+              >
+                {generatingShare ? '生成中...' : '✨ 生成分享图'}
+              </button>
+              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
                 <button
                   onClick={startTest}
                   style={{
-                    background: '#fff', color: '#4d6a53', padding: '14px 20px',
-                    borderRadius: 12, border: '1.5px solid #4d6a53', fontWeight: 700, cursor: 'pointer',
+                    background: 'transparent', color: '#4d6a53', padding: '12px 20px',
+                    borderRadius: 12, border: '1.5px solid #c5d5c8', fontWeight: 600, cursor: 'pointer',
                     transition: 'all .2s',
-                    minHeight: 48,
+                    minHeight: 44,
+                    fontSize: 14,
                   }}
-                  onMouseOver={e => { (e.target as HTMLButtonElement).style.background = '#4d6a53'; (e.target as HTMLButtonElement).style.color = '#fff'; }}
-                  onMouseOut={e => { (e.target as HTMLButtonElement).style.background = '#fff'; (e.target as HTMLButtonElement).style.color = '#4d6a53'; }}
+                  onMouseOver={e => { (e.target as HTMLButtonElement).style.borderColor = '#4d6a53'; (e.target as HTMLButtonElement).style.background = 'rgba(77,106,83,0.05)'; }}
+                  onMouseOut={e => { (e.target as HTMLButtonElement).style.borderColor = '#c5d5c8'; (e.target as HTMLButtonElement).style.background = 'transparent'; }}
                 >
                   重新测试
                 </button>
                 <button
                   onClick={() => setScreen('intro')}
                   style={{
-                    background: '#2d4a38', color: '#fff', padding: '14px 20px',
-                    borderRadius: 12, border: 0, fontWeight: 700, cursor: 'pointer',
-                    boxShadow: '0 8px 24px rgba(45,74,56,0.25)',
+                    background: 'transparent', color: '#6a786f', padding: '12px 20px',
+                    borderRadius: 12, border: '1.5px solid #dbe8dd', fontWeight: 600, cursor: 'pointer',
                     transition: 'all .2s',
-                    minHeight: 48,
+                    minHeight: 44,
+                    fontSize: 14,
                   }}
-                  onMouseOver={e => { (e.target as HTMLButtonElement).style.background = '#1e3327'; }}
-                  onMouseOut={e => { (e.target as HTMLButtonElement).style.background = '#2d4a38'; }}
+                  onMouseOver={e => { (e.target as HTMLButtonElement).style.borderColor = '#97b59c'; (e.target as HTMLButtonElement).style.color = '#4d6a53'; }}
+                  onMouseOut={e => { (e.target as HTMLButtonElement).style.borderColor = '#dbe8dd'; (e.target as HTMLButtonElement).style.color = '#6a786f'; }}
                 >
                   回到首页
                 </button>
@@ -765,129 +775,192 @@ export default function ZXTIPage() {
                 width: 375,
                 height: 667,
                 background: 'linear-gradient(180deg, #1a2e1f 0%, #2d4a38 40%, #1a2e1f 100%)',
-                padding: '28px 24px',
+                padding: '24px 20px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 16,
+                gap: 10,
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
                 boxSizing: 'border-box',
+                overflow: 'hidden',
               }}
             >
               {/* Top badge */}
               <div style={{
                 background: 'rgba(255,255,255,0.15)',
                 color: '#fff',
-                padding: '6px 16px',
+                padding: '5px 14px',
                 borderRadius: 999,
-                fontSize: 12,
+                fontSize: 11,
                 fontWeight: 700,
                 letterSpacing: '0.1em',
               }}>
                 NBTI 职业人格测试
               </div>
 
-              {/* Type image with match percentage */}
-              <div style={{ position: 'relative' }}>
+              {/* Type image with rarity background */}
+              <div style={{
+                position: 'relative',
+                padding: '5px',
+                borderRadius: 22,
+                background: result.finalType.rarity === 'SSR'
+                  ? 'linear-gradient(135deg, #FFD700, #FFA500, #FF6347)'
+                  : result.finalType.rarity === 'SR'
+                  ? 'linear-gradient(135deg, #9370DB, #8A2BE2, #4B0082)'
+                  : result.finalType.rarity === 'R'
+                  ? 'linear-gradient(135deg, #4169E1, #1E90FF, #00BFFF)'
+                  : 'linear-gradient(135deg, #808080, #A9A9A9, #D3D3D3)',
+                boxShadow: result.finalType.rarity === 'SSR'
+                  ? '0 8px 32px rgba(255, 215, 0, 0.4)'
+                  : result.finalType.rarity === 'SR'
+                  ? '0 8px 32px rgba(147, 112, 219, 0.4)'
+                  : result.finalType.rarity === 'R'
+                  ? '0 8px 32px rgba(65, 105, 225, 0.4)'
+                  : '0 8px 32px rgba(128, 128, 128, 0.3)',
+              }}>
                 {result.finalType.image && (
                   <img
                     src={result.finalType.image}
                     alt={result.finalType.cn}
-                    style={{ width: 160, height: 160, borderRadius: 20, objectFit: 'cover', border: '3px solid rgba(255,255,255,0.2)' }}
+                    style={{ width: 180, height: 180, borderRadius: 16, objectFit: 'cover', display: 'block' }}
                   />
                 )}
                 {!result.finalType.image && (
                   <div style={{
-                    width: 160, height: 160, borderRadius: 20,
+                    width: 180, height: 180, borderRadius: 16,
                     background: 'linear-gradient(180deg, #97b59c, #5b7a62)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 48, fontWeight: 900, color: '#fff',
+                    fontSize: 40, fontWeight: 900, color: '#fff',
                   }}>
                     {result.finalType.code.slice(0, 4)}
                   </div>
                 )}
-                {/* Match percentage badge */}
+                {/* Rarity badge */}
                 <div style={{
                   position: 'absolute',
-                  bottom: -10,
-                  right: -10,
+                  top: -4,
+                  right: -4,
+                  background: 'rgba(0,0,0,0.75)',
+                  color: result.finalType.rarity === 'SSR' ? '#FFD700'
+                    : result.finalType.rarity === 'SR' ? '#9370DB'
+                    : result.finalType.rarity === 'R' ? '#4169E1'
+                    : '#808080',
+                  padding: '3px 8px',
+                  borderRadius: 8,
+                  fontSize: 12,
+                  fontWeight: 900,
+                  border: `2px solid ${result.finalType.rarity === 'SSR' ? '#FFD700'
+                    : result.finalType.rarity === 'SR' ? '#9370DB'
+                    : result.finalType.rarity === 'R' ? '#4169E1'
+                    : '#808080'}`,
+                }}>
+                  {result.finalType.rarity}
+                </div>
+                {/* Match percentage badge - with label */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: -4,
+                  left: -4,
                   background: 'linear-gradient(135deg, #ff6b6b, #ee5a5a)',
                   color: '#fff',
-                  padding: '6px 12px',
-                  borderRadius: 20,
-                  fontSize: 14,
+                  padding: '4px 8px',
+                  borderRadius: 10,
+                  fontSize: 11,
                   fontWeight: 800,
                   boxShadow: '0 4px 12px rgba(238,90,90,0.4)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  lineHeight: 1.2,
                 }}>
-                  {result.bestNormal?.similarity || 87}%
+                  <span style={{ fontSize: 9, opacity: 0.9 }}>匹配度</span>
+                  <span>{result.bestNormal?.similarity || 87}%</span>
                 </div>
-                {/* Rarity badge */}
-                {result.finalType.rarity && (
-                  <div style={{
-                    position: 'absolute',
-                    top: -10,
-                    right: -10,
-                    background: rarityColors[result.finalType.rarity] || '#808080',
-                    color: '#fff',
-                    padding: '6px 12px',
-                    borderRadius: 20,
-                    fontSize: 14,
-                    fontWeight: 800,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                  }}>
-                    {result.finalType.rarity}
-                  </div>
-                )}
               </div>
 
-              {/* Type code & name */}
+              {/* Type name - Chinese emphasized */}
               <div style={{ textAlign: 'center' }}>
                 <div style={{
-                  fontSize: 48,
+                  fontSize: 28,
                   fontWeight: 900,
                   color: '#fff',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1,
+                  lineHeight: 1.2,
                   textShadow: '0 4px 20px rgba(0,0,0,0.3)',
-                }}>
-                  {result.finalType.code}
-                </div>
-                <div style={{
-                  fontSize: 22,
-                  fontWeight: 700,
-                  color: '#97b59c',
-                  marginTop: 6,
                 }}>
                   {result.finalType.cn}
                 </div>
-              </div>
-
-              {/* Fun tagline */}
-              <div style={{
-                background: 'rgba(255,255,255,0.1)',
-                borderRadius: 12,
-                padding: '10px 16px',
-                width: '100%',
-                textAlign: 'center',
-              }}>
-                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.5, fontWeight: 500 }}>
-                  {result.finalType.intro}
+                <div style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: '#97b59c',
+                  marginTop: 4,
+                  letterSpacing: '0.05em',
+                }}>
+                  {result.finalType.code}
                 </div>
               </div>
 
-              {/* Share prompt */}
+              {/* Rarity text */}
+              <div style={{
+                fontSize: 12,
+                color: result.finalType.rarity === 'SSR' ? '#FFD700'
+                  : result.finalType.rarity === 'SR' ? '#9370DB'
+                  : result.finalType.rarity === 'R' ? '#4169E1'
+                  : '#808080',
+                fontWeight: 700,
+                textAlign: 'center',
+                padding: '0 8px',
+              }}>
+                {getRarityText(result.finalType.rarity, result.bestNormal?.similarity)}
+              </div>
+
+              {/* Personality description - improved readability */}
+              <div style={{
+                background: 'rgba(255,255,255,0.08)',
+                borderRadius: 12,
+                padding: '10px 14px',
+                width: '100%',
+                maxHeight: 110,
+                overflow: 'hidden',
+              }}>
+                <div style={{ fontSize: 11, color: '#97b59c', marginBottom: 4, fontWeight: 600 }}>💡 人格解析</div>
+                <div style={{ fontSize: 12, color: '#fff', lineHeight: 1.7, fontWeight: 400 }}>
+                  {result.finalType.desc?.slice(0, 80) || result.finalType.intro}...
+                </div>
+              </div>
+
+              {/* Bottom area with QR code placeholder */}
               <div style={{
                 marginTop: 'auto',
                 width: '100%',
-                textAlign: 'center',
-                padding: '12px 0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px 0 0',
                 borderTop: '1px solid rgba(255,255,255,0.1)',
+                gap: 12,
               }}>
-                <div style={{ fontSize: 13, color: '#97b59c', marginBottom: 4 }}>
-                  扫码测测你的职场人格
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 13, color: '#97b59c', marginBottom: 4, fontWeight: 600 }}>
+                    扫码测测你的职场人格
+                  </div>
+                  <div style={{ fontSize: 10, color: '#6a786f' }}>
+                    nbittest.com · 分享前别忘了屏蔽老板
+                  </div>
                 </div>
-                <div style={{ fontSize: 11, color: '#6a786f' }}>
-                  nbittest.com · 分享前别忘了屏蔽老板
+                {/* QR code placeholder */}
+                <div style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 8,
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1.5px dashed rgba(255,255,255,0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}>
+                  <span style={{ fontSize: 20 }}>📱</span>
                 </div>
               </div>
             </div>
