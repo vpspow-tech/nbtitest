@@ -213,10 +213,28 @@ export default function ZXTIPage() {
       color: '#1e2a22',
     }}>
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '12px 12px 48px' }}>
+        <style>{`
+          @media (max-width: 480px) {
+            .mobile-shell { padding: 8px 8px 32px !important; }
+            .mobile-intro { padding: 24px 16px !important; border-radius: 20px !important; }
+            .mobile-intro h1 { font-size: 36px !important; }
+            .mobile-intro .subtitle { font-size: 18px !important; }
+            .mobile-test { padding: 16px !important; border-radius: 18px !important; }
+            .mobile-question { padding: 14px !important; border-radius: 14px !important; }
+            .mobile-question-text { font-size: 15px !important; }
+            .mobile-option { padding: 14px 12px !important; min-height: 44px !important; }
+            .mobile-option span { font-size: 15px !important; }
+            .mobile-result { padding: 16px !important; border-radius: 16px !important; }
+            .mobile-type-code { font-size: 32px !important; }
+            .mobile-type-name { font-size: 18px !important; }
+            .mobile-dim-grid { grid-template-columns: 1fr !important; }
+            .mobile-actions { padding: 0 16px 16px !important; }
+          }
+        `}</style>
 
         {/* INTRO */}
         {screen === 'intro' && (
-              <div style={{
+              <div className="mobile-intro" style={{
             marginTop: 0,
             background: '#fff',
             border: '1px solid rgba(255,255,255,0.8)',
@@ -230,10 +248,10 @@ export default function ZXTIPage() {
             minHeight: '60vh',
             justifyContent: 'center',
           }}>
-            <h1 style={{ fontSize: 'clamp(32px, 6vw, 56px)', lineHeight: 1.06, letterSpacing: '-0.04em', margin: 0, fontWeight: 900 }}>
+            <h1 style={{ fontSize: 'clamp(28px, 6vw, 56px)', lineHeight: 1.06, letterSpacing: '-0.04em', margin: 0, fontWeight: 900 }}>
               SBTI<span style={{ color: '#4d6a53' }}>2.0</span>
             </h1>
-            <div style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, color: '#1a2e1f', marginTop: 10 }}>
+            <div className="subtitle" style={{ fontSize: 'clamp(16px, 4vw, 26px)', fontWeight: 700, color: '#1a2e1f', marginTop: 10 }}>
               职业人格测试NBTI来了
             </div>
             <p style={{ marginTop: 8, fontSize: 13, color: '#97b59c', fontWeight: 600 }}>分享前别忘了屏蔽你的老板</p>
@@ -250,6 +268,7 @@ export default function ZXTIPage() {
                   fontWeight: 700,
                   fontSize: 16,
                   cursor: 'pointer',
+                  minHeight: 48,
                 }}
               >
                 开始测试
@@ -281,6 +300,7 @@ export default function ZXTIPage() {
                   fontWeight: 700,
                   fontSize: 14,
                   cursor: 'pointer',
+                  minHeight: 48,
                 }}
               >
                 随机预览结果
@@ -297,7 +317,7 @@ export default function ZXTIPage() {
 
         {/* TEST */}
         {screen === 'test' && (
-          <div style={{
+          <div className="mobile-test" style={{
             marginTop: 22,
             background: '#fff',
             border: '1px solid rgba(255,255,255,0.8)',
@@ -319,6 +339,7 @@ export default function ZXTIPage() {
                 <div
                   key={q.id}
                   id={'q-' + q.id}
+                  className="mobile-question"
                   style={{
                   border: '1px solid #dbe8dd',
                   borderRadius: 18,
@@ -328,7 +349,7 @@ export default function ZXTIPage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 10 }}>
                     <span style={{ fontSize: 12, color: '#6a786f' }}>维度已隐藏</span>
                   </div>
-                  <div style={{ fontSize: 16, lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: 14 }}>{q.text}</div>
+                  <div className="mobile-question-text" style={{ fontSize: 'clamp(14px, 4vw, 16px)', lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: 14 }}>{q.text}</div>
                   <div style={{ display: 'grid', gap: 10 }}>
                     {q.options.map((opt, i) => {
                       const code = ['A', 'B', 'C', 'D'][i] || String(i + 1);
@@ -336,19 +357,21 @@ export default function ZXTIPage() {
                       return (
                         <label
                           key={i}
+                          className="mobile-option"
                           onClick={() => setAnswers(prev => ({ ...prev, [q.id]: opt.value }))}
                           style={{
                             display: 'flex', alignItems: 'flex-start', gap: 12,
-                            padding: '14px', borderRadius: 14, border: `2px solid ${checked ? '#2e7d32' : '#dbe8dd'}`,
+                            padding: '16px 14px', borderRadius: 14, border: `2px solid ${checked ? '#2e7d32' : '#dbe8dd'}`,
                             background: checked ? '#c8e6c9' : '#fff',
                             boxShadow: checked ? '0 0 0 3px rgba(46,125,50,0.12)' : 'none',
                             cursor: 'pointer',
                             transition: 'border-color .16s, background .16s',
+                            minHeight: 48,
                           }}
                         >
                           <input type="radio" name={q.id} value={opt.value} checked={checked} onChange={() => {}} style={{ display: 'none' }} />
-                          <span style={{ fontWeight: 800, color: '#4d6a53', minWidth: 22 }}>{code}</span>
-                          <span>{opt.label}</span>
+                          <span style={{ fontWeight: 800, color: '#4d6a53', minWidth: 22, fontSize: 'clamp(14px, 3.5vw, 16px)' }}>{code}</span>
+                          <span style={{ fontSize: 'clamp(14px, 3.5vw, 16px)' }}>{opt.label}</span>
                         </label>
                       );
                     })}
@@ -366,8 +389,9 @@ export default function ZXTIPage() {
                 <button
                   onClick={() => setScreen('intro')}
                   style={{
-                    background: '#fff', color: '#4d6a53', padding: '14px 20px',
+                    background: '#fff', color: '#4d6a53', padding: '16px 20px',
                     borderRadius: 14, border: '1px solid #dbe8dd', fontWeight: 700, cursor: 'pointer',
+                    minHeight: 48,
                   }}
                 >
                   返回首页
@@ -376,9 +400,10 @@ export default function ZXTIPage() {
                   onClick={handleSubmit}
                   style={{
                     background: '#4d6a53', color: '#fff',
-                    padding: '14px 20px', borderRadius: 14, border: 0, fontWeight: 700,
+                    padding: '16px 20px', borderRadius: 14, border: 0, fontWeight: 700,
                     cursor: 'pointer',
                     boxShadow: '0 12px 30px rgba(77,106,83,0.18)',
+                    minHeight: 48,
                   }}
                 >
                   提交并查看结果
@@ -617,7 +642,7 @@ export default function ZXTIPage() {
             </div>
 
             {/* Actions */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', padding: '0 24px 24px' }}>
+            <div className="mobile-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', padding: '0 24px 24px' }}>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <button
                   onClick={generateShareImage}
@@ -628,6 +653,7 @@ export default function ZXTIPage() {
                     boxShadow: '0 8px 24px rgba(77,106,83,0.25)',
                     transition: 'all .2s',
                     opacity: generatingShare ? 0.7 : 1,
+                    minHeight: 48,
                   }}
                   onMouseOver={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#3d5a43'; } }}
                   onMouseOut={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#4d6a53'; } }}
@@ -637,9 +663,10 @@ export default function ZXTIPage() {
                 <button
                   onClick={startTest}
                   style={{
-                    background: '#fff', color: '#4d6a53', padding: '12px 20px',
+                    background: '#fff', color: '#4d6a53', padding: '14px 20px',
                     borderRadius: 12, border: '1.5px solid #4d6a53', fontWeight: 700, cursor: 'pointer',
                     transition: 'all .2s',
+                    minHeight: 48,
                   }}
                   onMouseOver={e => { (e.target as HTMLButtonElement).style.background = '#4d6a53'; (e.target as HTMLButtonElement).style.color = '#fff'; }}
                   onMouseOut={e => { (e.target as HTMLButtonElement).style.background = '#fff'; (e.target as HTMLButtonElement).style.color = '#4d6a53'; }}
@@ -649,10 +676,11 @@ export default function ZXTIPage() {
                 <button
                   onClick={() => setScreen('intro')}
                   style={{
-                    background: '#2d4a38', color: '#fff', padding: '12px 20px',
+                    background: '#2d4a38', color: '#fff', padding: '14px 20px',
                     borderRadius: 12, border: 0, fontWeight: 700, cursor: 'pointer',
                     boxShadow: '0 8px 24px rgba(45,74,56,0.25)',
                     transition: 'all .2s',
+                    minHeight: 48,
                   }}
                   onMouseOver={e => { (e.target as HTMLButtonElement).style.background = '#1e3327'; }}
                   onMouseOut={e => { (e.target as HTMLButtonElement).style.background = '#2d4a38'; }}
@@ -669,12 +697,13 @@ export default function ZXTIPage() {
                 position: 'absolute',
                 left: '-9999px',
                 width: 375,
+                minHeight: 667,
                 background: 'linear-gradient(180deg, #1a2e1f 0%, #2d4a38 50%, #1a2e1f 100%)',
-                padding: '32px 24px',
+                padding: '28px 20px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 20,
+                gap: 16,
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
               }}
             >
@@ -726,19 +755,19 @@ export default function ZXTIPage() {
               </div>
 
               {/* Radar Chart */}
-              <div style={{ position: 'relative', width: 280, height: 240, margin: '10px 0' }}>
-                <svg width="280" height="240" viewBox="0 0 280 240">
-                  {[60, 90, 120].map(r => (
-                    <circle key={r} cx="140" cy="120" r={r} fill="none" stroke="rgba(151,181,156,0.3)" strokeWidth="1" />
+              <div style={{ position: 'relative', width: 240, height: 200, margin: '5px 0' }}>
+                <svg width="240" height="200" viewBox="0 0 240 200">
+                  {[50, 75, 100].map(r => (
+                    <circle key={r} cx="120" cy="100" r={r} fill="none" stroke="rgba(151,181,156,0.3)" strokeWidth="1" />
                   ))}
                   {[0, 1, 2, 3, 4].map(i => {
                     const angle = (i * 72 - 90) * Math.PI / 180;
                     return (
                       <line
                         key={i}
-                        x1="140" y1="120"
-                        x2={140 + 120 * Math.cos(angle)}
-                        y2={120 + 120 * Math.sin(angle)}
+                        x1="120" y1="100"
+                        x2={120 + 100 * Math.cos(angle)}
+                        y2={100 + 100 * Math.sin(angle)}
                         stroke="rgba(151,181,156,0.3)" strokeWidth="1"
                       />
                     );
@@ -755,16 +784,16 @@ export default function ZXTIPage() {
                     const points = groups.map((g, i) => {
                       const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
                       const angle = (i * 72 - 90) * Math.PI / 180;
-                      return `${140 + avg * 40 * Math.cos(angle)},${120 + avg * 40 * Math.sin(angle)}`;
+                      return `${120 + avg * 33 * Math.cos(angle)},${100 + avg * 33 * Math.sin(angle)}`;
                     }).join(' ');
                     return <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />;
                   })()}
                 </svg>
-                <div style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)', fontSize: 11, color: '#97b59c', fontWeight: 700 }}>内卷指数</div>
-                <div style={{ position: 'absolute', top: 82, right: 0, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>摸鱼指数</div>
-                <div style={{ position: 'absolute', bottom: 0, right: 70, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>向上管理</div>
-                <div style={{ position: 'absolute', bottom: 0, left: 70, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>社交恐惧</div>
-                <div style={{ position: 'absolute', top: 82, left: 0, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>甩锅指数</div>
+                <div style={{ position: 'absolute', top: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 10, color: '#97b59c', fontWeight: 700 }}>内卷指数</div>
+                <div style={{ position: 'absolute', top: 68, right: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>摸鱼指数</div>
+                <div style={{ position: 'absolute', bottom: 0, right: 60, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>向上管理</div>
+                <div style={{ position: 'absolute', bottom: 0, left: 60, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>社交恐惧</div>
+                <div style={{ position: 'absolute', top: 68, left: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>甩锅指数</div>
               </div>
 
               {/* Fun quote */}
@@ -774,10 +803,12 @@ export default function ZXTIPage() {
                 padding: '16px 20px',
                 width: '100%',
                 textAlign: 'center',
+                maxHeight: 140,
+                overflow: 'hidden',
               }}>
                 <div style={{ fontSize: 13, color: '#97b59c', marginBottom: 8, fontWeight: 600 }}>💡 职场诊断</div>
-                <div style={{ fontSize: 15, color: '#fff', lineHeight: 1.6, fontWeight: 500 }}>
-                  {result.finalType.desc?.slice(0, 60) || '一个神秘的职场人格'}...
+                <div style={{ fontSize: 14, color: '#fff', lineHeight: 1.5, fontWeight: 500 }}>
+                  {result.finalType.intro}
                 </div>
               </div>
 
@@ -786,12 +817,13 @@ export default function ZXTIPage() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 12,
-                marginTop: 8,
+                marginTop: 'auto',
                 width: '100%',
+                paddingTop: 10,
               }}>
                 <div style={{
-                  width: 56,
-                  height: 56,
+                  width: 72,
+                  height: 72,
                   background: '#fff',
                   borderRadius: 8,
                   display: 'flex',
@@ -805,11 +837,11 @@ export default function ZXTIPage() {
                   QR
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, color: '#fff', fontWeight: 700, marginBottom: 4 }}>
+                  <div style={{ fontSize: 15, color: '#fff', fontWeight: 700, marginBottom: 4 }}>
                     扫码测测你的职场人格
                   </div>
-                  <div style={{ fontSize: 11, color: '#97b59c' }}>
-                    nbittest.com · NBTI 职业人格测试
+                  <div style={{ fontSize: 12, color: '#97b59c' }}>
+                    nbittest.com
                   </div>
                 </div>
               </div>
