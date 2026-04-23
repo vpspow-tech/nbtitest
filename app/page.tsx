@@ -286,6 +286,11 @@ export default function ZXTIPage() {
             .mobile-type-name { font-size: 18px !important; }
             .mobile-dim-grid { grid-template-columns: 1fr !important; }
             .mobile-actions { padding: 0 16px 16px !important; }
+            .mobile-actions > div { flex-direction: column !important; width: 100% !important; }
+            .mobile-actions button { width: 100% !important; }
+            .mobile-radar { display: none !important; }
+            .mobile-result-top { flex-direction: column !important; gap: 12px !important; }
+            .mobile-type-img { width: 180px !important; height: 180px !important; }
           }
         `}</style>
 
@@ -506,7 +511,7 @@ export default function ZXTIPage() {
 
             <div style={{ padding: '16px 0', display: 'grid', gap: 18 }}>
             {/* Top section - vertical stack for easy screenshot sharing */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
+            <div className="mobile-result-top" style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}>
               {/* Poster */}
               <div style={{
                 border: '1px solid #dbe8dd', borderRadius: 20, padding: 16,
@@ -518,6 +523,7 @@ export default function ZXTIPage() {
                   <img
                     src={result.finalType.image}
                     alt={result.finalType.cn}
+                    className="mobile-type-img"
                     style={{ width: 240, height: 240, borderRadius: 20, objectFit: 'cover', marginBottom: 0 }}
                   />
                 )}
@@ -537,10 +543,10 @@ export default function ZXTIPage() {
                 <div style={{ fontSize: 11, color: '#999', marginBottom: 6, letterSpacing: '.08em', textTransform: 'uppercase' }}>
                   {result.modeKicker}
                 </div>
-                <div style={{ fontSize: 42, lineHeight: 1.05, letterSpacing: '-0.02em', fontWeight: 900, color: '#1a1a1a' }}>
+                <div className="mobile-type-code" style={{ fontSize: 42, lineHeight: 1.05, letterSpacing: '-0.02em', fontWeight: 900, color: '#1a1a1a' }}>
                   {result.finalType.code}
                 </div>
-                <div style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 700, color: '#4d6a53', marginTop: 4 }}>
+                <div className="mobile-type-name" style={{ fontSize: 20, lineHeight: 1.2, fontWeight: 700, color: '#4d6a53', marginTop: 4 }}>
                   {result.finalType.cn}
                 </div>
                 <div style={{ marginTop: 10, width: '100%' }}>
@@ -571,7 +577,7 @@ export default function ZXTIPage() {
               <h3 style={{ fontSize: 16, marginBottom: 16 }}>人格五维图</h3>
 
               {/* Radar Chart */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+              <div className="mobile-radar" style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
                 <div style={{ position: 'relative', width: '100%', maxWidth: 280, aspectRatio: '280/240', margin: '0 auto' }}>
                   <svg width="100%" height="100%" viewBox="0 0 280 240" style={{ position: 'absolute', top: 0, left: 0 }}>
                     {[50, 75, 100].map(r => (
@@ -616,51 +622,51 @@ export default function ZXTIPage() {
               </div>
 
               {/* Dimension cards */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+              <div className="mobile-dim-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                 {[
                   {
                     group: '内卷指数', icon: '🔥', color: '#c0392b',
                     dims: ['S1','S2','S3'],
                     jokes: {
-                      L: '你是来上班的还是来渡劫的？卷不动就算了，躺平也是一种美德。',
-                      M: '还行，偶尔卷一下，但大部分时间在摸鱼和假装忙碌之间横跳。',
-                      H: '你不是卷王转世就是工作狂投胎。你的人生简历可以写：曾为工作活过。',
+                      L: '你对自己的职场价值比较佛系，不追求超额表现，完成分内事就知足。',
+                      M: '你偶尔会有冲劲，但懂得适可而止，不会为了工作牺牲全部生活。',
+                      H: '你对自己要求很高，总在寻找突破点，工作是你证明自我的主战场。',
                     }
                   },
                   {
                     group: '摸鱼指数', icon: '🐟', color: '#27ae60',
                     dims: ['E2','Ac1','Ac3'],
                     jokes: {
-                      L: '摸鱼？不存在的。你是那种周末加班会觉得充实的人，病得不轻。',
-                      M: '你摸鱼属于"战略性摸鱼"，该干的活也没落下，就是过程有点曲折。',
-                      H: '你上班的唯一目的就是下班。你的人生哲学是：工资到手，及时行乐。',
+                      L: '你工作时很投入，效率也不错，很少分心做其他事。',
+                      M: '你会在忙碌中找些喘息空间，但该做的事一件没落。',
+                      H: '你很擅长在规则内找到放松的方式，懂得劳逸结合的真谛。',
                     }
                   },
                   {
-                    group: '社交恐惧', icon: '😨', color: '#8e44ad',
+                    group: '社交能量', icon: '😨', color: '#8e44ad',
                     dims: ['So1','So3'],
                     jokes: {
-                      L: '你是社恐界的"卷王"，宁可开会也不愿午餐社交。你的工位就是你的安全区。',
-                      M: '你社交属于"选择性社恐"——熟人就话多，生人就装高冷。',
-                      H: '你是部门的气氛组长，午餐约饭永远有你的位置。职场政治你门儿清。',
+                      L: '你更享受独处或小圈子，社交对你来说是消耗而非充电。',
+                      M: '你看场合社交，该出现时出现，不需要时也不会勉强自己。',
+                      H: '你从人际交往中获得能量，擅长经营关系，职场人脉是你的资源。',
                     }
                   },
                   {
                     group: '向上管理', icon: '👆', color: '#e67e22',
                     dims: ['A1','A3'],
                     jokes: {
-                      L: '你对老板的态度是"惹不起躲得起"。汇报？不存在的，老板没找你就是好消息。',
-                      M: '你会适当表现，但不会太舔。你懂"老板喜欢什么"，但不想全说。',
-                      H: '你是老板肚子里的蛔虫，知道老板下一秒想要什么。你不属于你，你属于老板。',
+                      L: '你更关注事情本身，不太花心思在研究老板喜好上。',
+                      M: '你会注意沟通方式，但不会为了讨好而违背自己的原则。',
+                      H: '你善于理解上级意图，懂得在合适时机展现自己的价值。',
                     }
                   },
                   {
-                    group: '甩锅指数', icon: '🔄', color: '#2980b9',
+                    group: '责任边界', icon: '🔄', color: '#2980b9',
                     dims: ['A2','So2','E1'],
                     jokes: {
-                      L: '你是部门的背锅侠，永远在为别人的错误买单。吃亏是福，但小心福报太多。',
-                      M: '你甩锅属于"技术性甩锅"——明面上没甩，实际上甩得干干净净。',
-                      H: '你是职场太极高手，永远四两拨千斤。出了问题，你永远在"调查原因"。',
+                      L: '你倾向于承担责任，有时甚至会替别人收拾烂摊子。',
+                      M: '你懂得区分自己的责任范围，该扛的扛，不该扛的也会明确。',
+                      H: '你很清楚自己的边界，不会轻易被别人的问题牵连。',
                     }
                   },
                 ].map(({ group, dims, icon, color, jokes }) => {
@@ -754,153 +760,113 @@ export default function ZXTIPage() {
                 left: '-9999px',
                 width: 375,
                 height: 667,
-                background: 'linear-gradient(180deg, #1a2e1f 0%, #2d4a38 50%, #1a2e1f 100%)',
-                padding: '24px 20px',
+                background: 'linear-gradient(180deg, #1a2e1f 0%, #2d4a38 40%, #1a2e1f 100%)',
+                padding: '28px 24px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                gap: 16,
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
                 boxSizing: 'border-box',
               }}
             >
-              {/* Top section */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, width: '100%' }}>
-                {/* Top badge */}
-                <div style={{
-                  background: 'rgba(77,106,83,0.3)',
-                  color: '#97b59c',
-                  padding: '6px 16px',
-                  borderRadius: 999,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  letterSpacing: '0.08em',
-                }}>
-                  NBTI 职业人格测试
-                </div>
+              {/* Top badge */}
+              <div style={{
+                background: 'rgba(255,255,255,0.15)',
+                color: '#fff',
+                padding: '6px 16px',
+                borderRadius: 999,
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: '0.1em',
+              }}>
+                NBTI 职业人格测试
+              </div>
 
-                {/* Type code */}
+              {/* Type image with match percentage */}
+              <div style={{ position: 'relative' }}>
+                {result.finalType.image && (
+                  <img
+                    src={result.finalType.image}
+                    alt={result.finalType.cn}
+                    style={{ width: 160, height: 160, borderRadius: 20, objectFit: 'cover', border: '3px solid rgba(255,255,255,0.2)' }}
+                  />
+                )}
+                {!result.finalType.image && (
+                  <div style={{
+                    width: 160, height: 160, borderRadius: 20,
+                    background: 'linear-gradient(180deg, #97b59c, #5b7a62)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 48, fontWeight: 900, color: '#fff',
+                  }}>
+                    {result.finalType.code.slice(0, 4)}
+                  </div>
+                )}
+                {/* Match percentage badge */}
                 <div style={{
-                  fontSize: 56,
+                  position: 'absolute',
+                  bottom: -10,
+                  right: -10,
+                  background: 'linear-gradient(135deg, #ff6b6b, #ee5a5a)',
+                  color: '#fff',
+                  padding: '6px 12px',
+                  borderRadius: 20,
+                  fontSize: 14,
+                  fontWeight: 800,
+                  boxShadow: '0 4px 12px rgba(238,90,90,0.4)',
+                }}>
+                  {result.bestNormal?.similarity || 87}%
+                </div>
+              </div>
+
+              {/* Type code & name */}
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  fontSize: 48,
                   fontWeight: 900,
                   color: '#fff',
-                  letterSpacing: '-0.03em',
+                  letterSpacing: '-0.02em',
                   lineHeight: 1,
                   textShadow: '0 4px 20px rgba(0,0,0,0.3)',
                 }}>
                   {result.finalType.code}
                 </div>
-
-                {/* Type name */}
                 <div style={{
                   fontSize: 22,
                   fontWeight: 700,
                   color: '#97b59c',
+                  marginTop: 6,
                 }}>
                   {result.finalType.cn}
                 </div>
-
-                {/* Match badge */}
-                <div style={{
-                  background: 'linear-gradient(90deg, #4d6a53, #6b8c73)',
-                  color: '#fff',
-                  padding: '6px 16px',
-                  borderRadius: 999,
-                  fontSize: 13,
-                  fontWeight: 700,
-                }}>
-                  {result.badge}
-                </div>
               </div>
 
-              {/* Radar Chart - fixed size */}
-              <div style={{ position: 'relative', width: 220, height: 180, flexShrink: 0 }}>
-                <svg width="220" height="180" viewBox="0 0 220 180">
-                  {[45, 68, 90].map(r => (
-                    <circle key={r} cx="110" cy="90" r={r} fill="none" stroke="rgba(151,181,156,0.3)" strokeWidth="1" />
-                  ))}
-                  {[0, 1, 2, 3, 4].map(i => {
-                    const angle = (i * 72 - 90) * Math.PI / 180;
-                    return (
-                      <line
-                        key={i}
-                        x1="110" y1="90"
-                        x2={110 + 90 * Math.cos(angle)}
-                        y2={90 + 90 * Math.sin(angle)}
-                        stroke="rgba(151,181,156,0.3)" strokeWidth="1"
-                      />
-                    );
-                  })}
-                  {(() => {
-                    const groups = [
-                      { dims: ['S1','S2','S3'] },
-                      { dims: ['E2','Ac1','Ac3'] },
-                      { dims: ['So1','So3'] },
-                      { dims: ['A1','A3'] },
-                      { dims: ['A2','So2','E1'] },
-                    ];
-                    const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
-                    const points = groups.map((g, i) => {
-                      const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
-                      const angle = (i * 72 - 90) * Math.PI / 180;
-                      return `${110 + avg * 30 * Math.cos(angle)},${90 + avg * 30 * Math.sin(angle)}`;
-                    }).join(' ');
-                    return <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />;
-                  })()}
-                </svg>
-                <div style={{ position: 'absolute', top: 2, left: '50%', transform: 'translateX(-50%)', fontSize: 10, color: '#97b59c', fontWeight: 700 }}>内卷指数</div>
-                <div style={{ position: 'absolute', top: 62, right: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>摸鱼指数</div>
-                <div style={{ position: 'absolute', bottom: 2, right: 55, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>向上管理</div>
-                <div style={{ position: 'absolute', bottom: 2, left: 55, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>社交恐惧</div>
-                <div style={{ position: 'absolute', top: 62, left: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>甩锅指数</div>
-              </div>
-
-              {/* Quote section - auto height */}
+              {/* Fun tagline */}
               <div style={{
-                background: 'rgba(255,255,255,0.08)',
-                borderRadius: 16,
-                padding: '14px 18px',
+                background: 'rgba(255,255,255,0.1)',
+                borderRadius: 12,
+                padding: '10px 16px',
                 width: '100%',
                 textAlign: 'center',
-                flex: '0 1 auto',
-                minHeight: 0,
               }}>
-                <div style={{ fontSize: 12, color: '#97b59c', marginBottom: 6, fontWeight: 600 }}>💡 职场诊断</div>
-                <div style={{ fontSize: 14, color: '#fff', lineHeight: 1.5, fontWeight: 500 }}>
+                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.5, fontWeight: 500 }}>
                   {result.finalType.intro}
                 </div>
               </div>
 
-              {/* Bottom QR */}
+              {/* Share prompt */}
               <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
+                marginTop: 'auto',
                 width: '100%',
-                flexShrink: 0,
+                textAlign: 'center',
+                padding: '12px 0',
+                borderTop: '1px solid rgba(255,255,255,0.1)',
               }}>
-                <div style={{
-                  width: 64,
-                  height: 64,
-                  background: '#fff',
-                  borderRadius: 8,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 10,
-                  color: '#4d6a53',
-                  fontWeight: 700,
-                  flexShrink: 0,
-                }}>
-                  QR
+                <div style={{ fontSize: 13, color: '#97b59c', marginBottom: 4 }}>
+                  扫码测测你的职场人格
                 </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, color: '#fff', fontWeight: 700, marginBottom: 2 }}>
-                    扫码测测你的职场人格
-                  </div>
-                  <div style={{ fontSize: 11, color: '#97b59c' }}>
-                    nbittest.com
-                  </div>
+                <div style={{ fontSize: 11, color: '#6a786f' }}>
+                  nbittest.com · 分享前别忘了屏蔽老板
                 </div>
               </div>
             </div>
