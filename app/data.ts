@@ -30,6 +30,7 @@ export interface Question {
   options: Option[];
   special?: boolean;
   kind?: string;
+  reverse?: boolean;
 }
 
 export const questions: Question[] = [
@@ -43,11 +44,6 @@ export const questions: Question[] = [
     { label: '我上周也交了方案，但没人理我，是不是我不够用心？', value: 1 },
     { label: '挺好的，但和我有什么关系？', value: 2 },
     { label: '就这？我做的比他好多了，只是不想显摆。', value: 3 }
-  ]},
-  { id: 'q2b', dim: 'S1', text: '老板在群里表扬了另一个同事，没提你，你会：', options: [
-    { label: '果然我不行，下次述职我得好好表现。', value: 1 },
-    { label: '各人有各人的长处，我做好自己的事就行。', value: 2 },
-    { label: '老板眼光不行，我的贡献他根本看不到。', value: 3 }
   ]},
   { id: 'q3', dim: 'S2', text: '工资到账短信来了，你的第一反应是：', options: [
     { label: '这数字是来侮辱我的吧？我是不是该跳槽了？', value: 1 },
@@ -68,11 +64,6 @@ export const questions: Question[] = [
     { label: '规划个鬼，35岁被裁了再说，及时行乐。', value: 1 },
     { label: '有个大概方向，但走一步看一步吧，想太远没用。', value: 2 },
     { label: '未来三年我要到哪个位置，我想得非常清楚。', value: 3 }
-  ]},
-  { id: 'q6b', dim: 'S3', text: '如果明天突然中了500万，你还会上班吗？', options: [
-    { label: '立刻辞职，这班谁爱上谁上。', value: 1 },
-    { label: '可能会换个轻松点的工作，但不想完全闲着。', value: 2 },
-    { label: '继续上班，但心态会好很多，毕竟不是为了钱。', value: 3 }
   ]},
 
   // E1 打工安全感
@@ -105,11 +96,6 @@ export const questions: Question[] = [
     { label: '关机，或者回复"信号不好，先挂了"。', value: 1 },
     { label: '看一眼，能远程解决就处理，不想撕破脸。', value: 2 },
     { label: '订最早的机票回去，这种时候不表现什么时候表现？', value: 3 }
-  ]},
-  { id: 'q12b', dim: 'E3', text: '晚上11点，老板在工作群里发了一条消息，你会：', options: [
-    { label: '假装 asleep，明天早上再回，晚上11点发消息的老板都有病。', value: 1 },
-    { label: '如果@我了就回，没@我就当没看见。', value: 2 },
-    { label: '立刻回复"收到"，并追问具体需求，展现我的敬业精神。', value: 3 }
   ]},
 
   // A1 向上管理
@@ -318,3 +304,40 @@ export const DIM_EXPLANATIONS: Record<string, Record<string, string>> = {
   So2: { L: `办公室政治太复杂，我看不懂也不想参与。`, M: `能看出一部分，但不想主动趟浑水。`, H: `我很清楚谁是谁的人，局势尽在掌握。` },
   So3: { L: `朋友圈从不发工作相关内容，谁也别想知道我做什么。`, M: `偶尔转发公司宣传内容。`, H: `我的职场形象是精心经营的，展现我的专业度。` },
 };
+
+// Reverse scoring map: which question IDs use reverse scoring
+export const reverseQuestionIds = new Set<string>([
+  'q1', 'q2',           // S1 职场自我认知 (2 reverse)
+  'q3',                 // S2 工作价值观 (1 reverse)
+  'q5',                 // S3 职业驱动力 (1 reverse)
+  'q7', 'q8',           // E1 打工安全感 (2 reverse)
+  'q9',                 // E2 工作投入度 (1 reverse)
+  'q11',                // E3 边界意识 (1 reverse)
+  'q13', 'q14',         // A1 向上管理 (2 reverse)
+  'q15',                // A2 平级协作 (1 reverse)
+  'q17', 'q18b',        // A3 抗压能力 (2 reverse)
+  'q19', 'q20',         // Ac1 执行力 (2 reverse)
+  'q21',                // Ac2 决策风格 (1 reverse)
+  'q23',                // Ac3 时间感知 (1 reverse)
+  'q25', 'q26',         // So1 职场社交 (2 reverse)
+  'q27',                // So2 政治嗅觉 (1 reverse)
+  'q29',                // So3 真实指数 (1 reverse)
+]);
+
+export function isReverseQuestion(qid: string): boolean {
+  return reverseQuestionIds.has(qid);
+}
+
+export function calculateDimensionScore(dim: string, answers: Record<string, number>): number {
+  const dimQuestions = questions.filter(q => q.dim === dim);
+  if (dimQuestions.length === 0) return 0;
+
+  let total = 0;
+  for (const q of dimQuestions) {
+    const raw = answers[q.id];
+    if (raw === undefined) continue;
+    const score = isReverseQuestion(q.id) ? (4 - raw) : raw;
+    total += score;
+  }
+  return total;
+}

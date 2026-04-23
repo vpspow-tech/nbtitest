@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
+import html2canvas from 'html2canvas';
 import {
   questions,
   specialQuestions,
@@ -10,6 +11,7 @@ import {
   NORMAL_TYPES,
   DIM_EXPLANATIONS,
   DRUNK_TRIGGER_QUESTION_ID,
+  calculateDimensionScore,
 } from './data';
 
 const TYPE_IMAGE_MAP: Record<string, string> = {
@@ -52,9 +54,10 @@ function shuffle<T>(array: T[]): T[] {
   return arr;
 }
 
-function sumToLevel(score: number): string {
-  if (score <= 3) return 'L';
-  if (score <= 4) return 'M';
+function sumToLevel(score: number, count: number): string {
+  const avg = score / count;
+  if (avg <= 1.5) return 'L';
+  if (avg <= 2.5) return 'M';
   return 'H';
 }
 
@@ -82,6 +85,8 @@ export default function ZXTIPage() {
   const [shuffledQuestions, setShuffledQuestions] = useState<typeof questions>([]);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [result, setResult] = useState<ReturnType<typeof computeResult> | null>(null);
+  const shareCardRef = useRef<HTMLDivElement>(null);
+  const [generatingShare, setGeneratingShare] = useState(false);
 
   useEffect(() => {
     if (screen === 'result') {
@@ -104,17 +109,14 @@ export default function ZXTIPage() {
 
   function computeResult() {
     const rawScores: Record<string, number> = {};
-    Object.keys(dimensionMeta).forEach(dim => { rawScores[dim] = 0; });
-
-    questions.forEach(q => {
-      if (q.dim && answers[q.id]) {
-        rawScores[q.dim] += answers[q.id];
-      }
+    Object.keys(dimensionMeta).forEach(dim => { 
+      rawScores[dim] = calculateDimensionScore(dim, answers); 
     });
 
     const levels: Record<string, string> = {};
     Object.entries(rawScores).forEach(([dim, score]) => {
-      levels[dim] = sumToLevel(score);
+      const dimCount = questions.filter(q => q.dim === dim).length;
+      levels[dim] = sumToLevel(score, dimCount);
     });
 
     const userVector = dimensionOrder.map(dim => levelNum(levels[dim]));
@@ -161,6 +163,24 @@ export default function ZXTIPage() {
     }
 
     return { rawScores, levels, ranked, bestNormal, finalType, modeKicker, badge, sub, special };
+  }
+
+  async function generateShareImage() {
+    if (!shareCardRef.current) return;
+    setGeneratingShare(true);
+    try {
+      const canvas = await html2canvas(shareCardRef.current, {
+        scale: 2,
+        backgroundColor: null,
+        useCORS: true,
+      });
+      const link = document.createElement('a');
+      link.download = `NBTI-${result?.finalType?.cn || '结果'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } finally {
+      setGeneratingShare(false);
+    }
   }
 
   function handleSubmit() {
@@ -584,6 +604,8 @@ export default function ZXTIPage() {
               </div>
             </div>
 
+            </div>
+
             {/* Note */}
             <div style={{ border: '1px solid #dbe8dd', borderRadius: 18, padding: 18, background: 'linear-gradient(180deg, #ffffff, #fbfdfb)' }}>
               <h3 style={{ fontSize: 16, marginBottom: 12 }}>友情提示</h3>
@@ -594,11 +616,24 @@ export default function ZXTIPage() {
               </p>
             </div>
 
-            </div>
-
             {/* Actions */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap', padding: '0 24px 24px' }}>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <button
+                  onClick={generateShareImage}
+                  disabled={generatingShare}
+                  style={{
+                    background: generatingShare ? '#97b59c' : '#4d6a53', color: '#fff', padding: '12px 20px',
+                    borderRadius: 12, border: 0, fontWeight: 700, cursor: generatingShare ? 'wait' : 'pointer',
+                    boxShadow: '0 8px 24px rgba(77,106,83,0.25)',
+                    transition: 'all .2s',
+                    opacity: generatingShare ? 0.7 : 1,
+                  }}
+                  onMouseOver={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#3d5a43'; } }}
+                  onMouseOut={e => { if (!generatingShare) { (e.target as HTMLButtonElement).style.background = '#4d6a53'; } }}
+                >
+                  {generatingShare ? '生成中...' : '生成分享图'}
+                </button>
                 <button
                   onClick={startTest}
                   style={{
@@ -624,6 +659,159 @@ export default function ZXTIPage() {
                 >
                   回到首页
                 </button>
+              </div>
+            </div>
+
+            {/* Hidden Share Card */}
+            <div
+              ref={shareCardRef}
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                width: 375,
+                background: 'linear-gradient(180deg, #1a2e1f 0%, #2d4a38 50%, #1a2e1f 100%)',
+                padding: '32px 24px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 20,
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
+              }}
+            >
+              {/* Top badge */}
+              <div style={{
+                background: 'rgba(77,106,83,0.3)',
+                color: '#97b59c',
+                padding: '6px 16px',
+                borderRadius: 999,
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: '0.08em',
+              }}>
+                NBTI 职业人格测试
+              </div>
+
+              {/* Type code */}
+              <div style={{
+                fontSize: 64,
+                fontWeight: 900,
+                color: '#fff',
+                letterSpacing: '-0.03em',
+                lineHeight: 1,
+                textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+              }}>
+                {result.finalType.code}
+              </div>
+
+              {/* Type name */}
+              <div style={{
+                fontSize: 24,
+                fontWeight: 700,
+                color: '#97b59c',
+                marginTop: -8,
+              }}>
+                {result.finalType.cn}
+              </div>
+
+              {/* Match badge */}
+              <div style={{
+                background: 'linear-gradient(90deg, #4d6a53, #6b8c73)',
+                color: '#fff',
+                padding: '8px 20px',
+                borderRadius: 999,
+                fontSize: 14,
+                fontWeight: 700,
+              }}>
+                {result.badge}
+              </div>
+
+              {/* Radar Chart */}
+              <div style={{ position: 'relative', width: 280, height: 240, margin: '10px 0' }}>
+                <svg width="280" height="240" viewBox="0 0 280 240">
+                  {[60, 90, 120].map(r => (
+                    <circle key={r} cx="140" cy="120" r={r} fill="none" stroke="rgba(151,181,156,0.3)" strokeWidth="1" />
+                  ))}
+                  {[0, 1, 2, 3, 4].map(i => {
+                    const angle = (i * 72 - 90) * Math.PI / 180;
+                    return (
+                      <line
+                        key={i}
+                        x1="140" y1="120"
+                        x2={140 + 120 * Math.cos(angle)}
+                        y2={120 + 120 * Math.sin(angle)}
+                        stroke="rgba(151,181,156,0.3)" strokeWidth="1"
+                      />
+                    );
+                  })}
+                  {(() => {
+                    const groups = [
+                      { dims: ['S1','S2','S3'] },
+                      { dims: ['E2','Ac1','Ac3'] },
+                      { dims: ['So1','So3'] },
+                      { dims: ['A1','A3'] },
+                      { dims: ['A2','So2','E1'] },
+                    ];
+                    const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
+                    const points = groups.map((g, i) => {
+                      const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
+                      const angle = (i * 72 - 90) * Math.PI / 180;
+                      return `${140 + avg * 40 * Math.cos(angle)},${120 + avg * 40 * Math.sin(angle)}`;
+                    }).join(' ');
+                    return <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />;
+                  })()}
+                </svg>
+                <div style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)', fontSize: 11, color: '#97b59c', fontWeight: 700 }}>内卷指数</div>
+                <div style={{ position: 'absolute', top: 82, right: 0, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>摸鱼指数</div>
+                <div style={{ position: 'absolute', bottom: 0, right: 70, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>向上管理</div>
+                <div style={{ position: 'absolute', bottom: 0, left: 70, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>社交恐惧</div>
+                <div style={{ position: 'absolute', top: 82, left: 0, fontSize: 11, color: '#97b59c', fontWeight: 700 }}>甩锅指数</div>
+              </div>
+
+              {/* Fun quote */}
+              <div style={{
+                background: 'rgba(255,255,255,0.08)',
+                borderRadius: 16,
+                padding: '16px 20px',
+                width: '100%',
+                textAlign: 'center',
+              }}>
+                <div style={{ fontSize: 13, color: '#97b59c', marginBottom: 8, fontWeight: 600 }}>💡 职场诊断</div>
+                <div style={{ fontSize: 15, color: '#fff', lineHeight: 1.6, fontWeight: 500 }}>
+                  {result.finalType.desc?.slice(0, 60) || '一个神秘的职场人格'}...
+                </div>
+              </div>
+
+              {/* Bottom QR placeholder */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                marginTop: 8,
+                width: '100%',
+              }}>
+                <div style={{
+                  width: 56,
+                  height: 56,
+                  background: '#fff',
+                  borderRadius: 8,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 10,
+                  color: '#4d6a53',
+                  fontWeight: 700,
+                  flexShrink: 0,
+                }}>
+                  QR
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 14, color: '#fff', fontWeight: 700, marginBottom: 4 }}>
+                    扫码测测你的职场人格
+                  </div>
+                  <div style={{ fontSize: 11, color: '#97b59c' }}>
+                    nbittest.com · NBTI 职业人格测试
+                  </div>
+                </div>
               </div>
             </div>
           </div>
