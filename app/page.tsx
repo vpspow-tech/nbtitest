@@ -515,19 +515,19 @@ export default function ZXTIPage() {
 
               {/* Radar Chart */}
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-                <div style={{ position: 'relative', width: '100%', maxWidth: 320, aspectRatio: '320/280', margin: '0 auto' }}>
-                  <svg width="100%" height="100%" viewBox="0 0 320 280" style={{ position: 'absolute', top: 0, left: 0 }}>
-                    {[60, 90, 120].map(r => (
-                      <circle key={r} cx="160" cy="140" r={r} fill="none" stroke="#dbe8dd" strokeWidth="1" />
+                <div style={{ position: 'relative', width: '100%', maxWidth: 280, aspectRatio: '280/240', margin: '0 auto' }}>
+                  <svg width="100%" height="100%" viewBox="0 0 280 240" style={{ position: 'absolute', top: 0, left: 0 }}>
+                    {[50, 75, 100].map(r => (
+                      <circle key={r} cx="140" cy="120" r={r} fill="none" stroke="#dbe8dd" strokeWidth="1" />
                     ))}
                     {[0, 1, 2, 3, 4].map(i => {
                       const angle = (i * 72 - 90) * Math.PI / 180;
                       return (
                         <line
                           key={i}
-                          x1="160" y1="140"
-                          x2={160 + 120 * Math.cos(angle)}
-                          y2={140 + 120 * Math.sin(angle)}
+                          x1="140" y1="120"
+                          x2={140 + 100 * Math.cos(angle)}
+                          y2={120 + 100 * Math.sin(angle)}
                           stroke="#dbe8dd" strokeWidth="1"
                         />
                       );
@@ -544,18 +544,17 @@ export default function ZXTIPage() {
                       const points = groups.map((g, i) => {
                         const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
                         const angle = (i * 72 - 90) * Math.PI / 180;
-                        return `${160 + avg * 40 * Math.cos(angle)},${140 + avg * 40 * Math.sin(angle)}`;
+                        return `${140 + avg * 33 * Math.cos(angle)},${120 + avg * 33 * Math.sin(angle)}`;
                       }).join(' ');
                       return <polygon points={points} fill="rgba(77,106,83,0.25)" stroke="#4d6a53" strokeWidth="2" />;
                     })()}
                   </svg>
-                  {/* Pentagon vertices at r=120 from center (160,140): top(160,20), topRight(275,103), bottomRight(231,237), bottomLeft(89,237), topLeft(45,103) */}
-                  {/* Labels placed just outside vertices (5-8px offset) */}
-                  <div style={{ position: 'absolute', top: 12, left: '50%', transform: 'translateX(-50%)', fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>内卷指数</div>
-                  <div style={{ position: 'absolute', top: 95, right: 5, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>摸鱼指数</div>
-                  <div style={{ position: 'absolute', bottom: 5, right: 89, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>向上管理</div>
-                  <div style={{ position: 'absolute', bottom: 5, left: 89, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>社交恐惧</div>
-                  <div style={{ position: 'absolute', top: 95, left: 5, fontSize: 12, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>甩锅指数</div>
+                  {/* Labels - adjusted for mobile */}
+                  <div style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)', fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>内卷指数</div>
+                  <div style={{ position: 'absolute', top: 75, right: 8, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>摸鱼指数</div>
+                  <div style={{ position: 'absolute', bottom: 8, right: 75, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>向上管理</div>
+                  <div style={{ position: 'absolute', bottom: 8, left: 75, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>社交恐惧</div>
+                  <div style={{ position: 'absolute', top: 75, left: 8, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>甩锅指数</div>
                 </div>
               </div>
 
@@ -614,7 +613,7 @@ export default function ZXTIPage() {
                   const level: 'L' | 'M' | 'H' = avg >= 2 ? 'H' : avg >= 1.5 ? 'M' : 'L';
                   const joke = jokes[level];
                   return (
-                    <div key={group} style={{ border: '1px solid #dbe8dd', borderRadius: 14, padding: 14, background: '#fff' }}>
+                    <div key={group} style={{ border: '1px solid #dbe8dd', borderRadius: 14, padding: 14, background: '#fff', height: 'fit-content' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                         <span style={{ fontWeight: 700, fontSize: 14 }}>{icon} {group}</span>
                         <span style={{ color, fontWeight: 800, fontSize: 14 }}>{pct}%</span>
@@ -697,77 +696,80 @@ export default function ZXTIPage() {
                 position: 'absolute',
                 left: '-9999px',
                 width: 375,
-                minHeight: 667,
+                height: 667,
                 background: 'linear-gradient(180deg, #1a2e1f 0%, #2d4a38 50%, #1a2e1f 100%)',
-                padding: '28px 20px',
+                padding: '24px 20px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 16,
+                justifyContent: 'space-between',
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
+                boxSizing: 'border-box',
               }}
             >
-              {/* Top badge */}
-              <div style={{
-                background: 'rgba(77,106,83,0.3)',
-                color: '#97b59c',
-                padding: '6px 16px',
-                borderRadius: 999,
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-              }}>
-                NBTI 职业人格测试
+              {/* Top section */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, width: '100%' }}>
+                {/* Top badge */}
+                <div style={{
+                  background: 'rgba(77,106,83,0.3)',
+                  color: '#97b59c',
+                  padding: '6px 16px',
+                  borderRadius: 999,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                }}>
+                  NBTI 职业人格测试
+                </div>
+
+                {/* Type code */}
+                <div style={{
+                  fontSize: 56,
+                  fontWeight: 900,
+                  color: '#fff',
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1,
+                  textShadow: '0 4px 20px rgba(0,0,0,0.3)',
+                }}>
+                  {result.finalType.code}
+                </div>
+
+                {/* Type name */}
+                <div style={{
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: '#97b59c',
+                }}>
+                  {result.finalType.cn}
+                </div>
+
+                {/* Match badge */}
+                <div style={{
+                  background: 'linear-gradient(90deg, #4d6a53, #6b8c73)',
+                  color: '#fff',
+                  padding: '6px 16px',
+                  borderRadius: 999,
+                  fontSize: 13,
+                  fontWeight: 700,
+                }}>
+                  {result.badge}
+                </div>
               </div>
 
-              {/* Type code */}
-              <div style={{
-                fontSize: 64,
-                fontWeight: 900,
-                color: '#fff',
-                letterSpacing: '-0.03em',
-                lineHeight: 1,
-                textShadow: '0 4px 20px rgba(0,0,0,0.3)',
-              }}>
-                {result.finalType.code}
-              </div>
-
-              {/* Type name */}
-              <div style={{
-                fontSize: 24,
-                fontWeight: 700,
-                color: '#97b59c',
-                marginTop: -8,
-              }}>
-                {result.finalType.cn}
-              </div>
-
-              {/* Match badge */}
-              <div style={{
-                background: 'linear-gradient(90deg, #4d6a53, #6b8c73)',
-                color: '#fff',
-                padding: '8px 20px',
-                borderRadius: 999,
-                fontSize: 14,
-                fontWeight: 700,
-              }}>
-                {result.badge}
-              </div>
-
-              {/* Radar Chart */}
-              <div style={{ position: 'relative', width: 240, height: 200, margin: '5px 0' }}>
-                <svg width="240" height="200" viewBox="0 0 240 200">
-                  {[50, 75, 100].map(r => (
-                    <circle key={r} cx="120" cy="100" r={r} fill="none" stroke="rgba(151,181,156,0.3)" strokeWidth="1" />
+              {/* Radar Chart - fixed size */}
+              <div style={{ position: 'relative', width: 220, height: 180, flexShrink: 0 }}>
+                <svg width="220" height="180" viewBox="0 0 220 180">
+                  {[45, 68, 90].map(r => (
+                    <circle key={r} cx="110" cy="90" r={r} fill="none" stroke="rgba(151,181,156,0.3)" strokeWidth="1" />
                   ))}
                   {[0, 1, 2, 3, 4].map(i => {
                     const angle = (i * 72 - 90) * Math.PI / 180;
                     return (
                       <line
                         key={i}
-                        x1="120" y1="100"
-                        x2={120 + 100 * Math.cos(angle)}
-                        y2={100 + 100 * Math.sin(angle)}
+                        x1="110" y1="90"
+                        x2={110 + 90 * Math.cos(angle)}
+                        y2={90 + 90 * Math.sin(angle)}
                         stroke="rgba(151,181,156,0.3)" strokeWidth="1"
                       />
                     );
@@ -784,46 +786,45 @@ export default function ZXTIPage() {
                     const points = groups.map((g, i) => {
                       const avg = g.dims.reduce((s, d) => s + (scoreMap[result.levels[d]] || 2), 0) / g.dims.length;
                       const angle = (i * 72 - 90) * Math.PI / 180;
-                      return `${120 + avg * 33 * Math.cos(angle)},${100 + avg * 33 * Math.sin(angle)}`;
+                      return `${110 + avg * 30 * Math.cos(angle)},${90 + avg * 30 * Math.sin(angle)}`;
                     }).join(' ');
                     return <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />;
                   })()}
                 </svg>
-                <div style={{ position: 'absolute', top: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 10, color: '#97b59c', fontWeight: 700 }}>内卷指数</div>
-                <div style={{ position: 'absolute', top: 68, right: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>摸鱼指数</div>
-                <div style={{ position: 'absolute', bottom: 0, right: 60, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>向上管理</div>
-                <div style={{ position: 'absolute', bottom: 0, left: 60, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>社交恐惧</div>
-                <div style={{ position: 'absolute', top: 68, left: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>甩锅指数</div>
+                <div style={{ position: 'absolute', top: 2, left: '50%', transform: 'translateX(-50%)', fontSize: 10, color: '#97b59c', fontWeight: 700 }}>内卷指数</div>
+                <div style={{ position: 'absolute', top: 62, right: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>摸鱼指数</div>
+                <div style={{ position: 'absolute', bottom: 2, right: 55, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>向上管理</div>
+                <div style={{ position: 'absolute', bottom: 2, left: 55, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>社交恐惧</div>
+                <div style={{ position: 'absolute', top: 62, left: 0, fontSize: 10, color: '#97b59c', fontWeight: 700 }}>甩锅指数</div>
               </div>
 
-              {/* Fun quote */}
+              {/* Quote section - auto height */}
               <div style={{
                 background: 'rgba(255,255,255,0.08)',
                 borderRadius: 16,
-                padding: '16px 20px',
+                padding: '14px 18px',
                 width: '100%',
                 textAlign: 'center',
-                maxHeight: 140,
-                overflow: 'hidden',
+                flex: '0 1 auto',
+                minHeight: 0,
               }}>
-                <div style={{ fontSize: 13, color: '#97b59c', marginBottom: 8, fontWeight: 600 }}>💡 职场诊断</div>
+                <div style={{ fontSize: 12, color: '#97b59c', marginBottom: 6, fontWeight: 600 }}>💡 职场诊断</div>
                 <div style={{ fontSize: 14, color: '#fff', lineHeight: 1.5, fontWeight: 500 }}>
                   {result.finalType.intro}
                 </div>
               </div>
 
-              {/* Bottom QR placeholder */}
+              {/* Bottom QR */}
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 12,
-                marginTop: 'auto',
                 width: '100%',
-                paddingTop: 10,
+                flexShrink: 0,
               }}>
                 <div style={{
-                  width: 72,
-                  height: 72,
+                  width: 64,
+                  height: 64,
                   background: '#fff',
                   borderRadius: 8,
                   display: 'flex',
@@ -837,10 +838,10 @@ export default function ZXTIPage() {
                   QR
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 15, color: '#fff', fontWeight: 700, marginBottom: 4 }}>
+                  <div style={{ fontSize: 14, color: '#fff', fontWeight: 700, marginBottom: 2 }}>
                     扫码测测你的职场人格
                   </div>
-                  <div style={{ fontSize: 12, color: '#97b59c' }}>
+                  <div style={{ fontSize: 11, color: '#97b59c' }}>
                     nbittest.com
                   </div>
                 </div>
