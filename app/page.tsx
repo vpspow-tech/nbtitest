@@ -98,6 +98,8 @@ function getVisibleQuestions(shuffled: typeof questions, answers: Record<string,
 
 export default function ZXTIPage() {
   const [screen, setScreen] = useState<Screen>('intro');
+  const [stickyProgress, setStickyProgress] = useState(false);
+  const testContainerRef = useRef<HTMLDivElement>(null);
   const questionRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [skippedId, setSkippedId] = useState<string | null>(null);
   const [shuffledQuestions, setShuffledQuestions] = useState<typeof questions>([]);
@@ -107,8 +109,14 @@ export default function ZXTIPage() {
   const [generatingShare, setGeneratingShare] = useState(false);
 
   useEffect(() => {
-    if (screen === 'result') {
-      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    if (screen === 'test' && testContainerRef.current) {
+      const container = testContainerRef.current;
+      const handleScroll = () => {
+        const rect = container.getBoundingClientRect();
+        setStickyProgress(rect.top < 0);
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleScroll);
     }
   }, [screen]);
 
@@ -380,7 +388,7 @@ export default function ZXTIPage() {
 
         {/* TEST */}
         {screen === 'test' && (
-          <div className="mobile-test" style={{
+          <div ref={testContainerRef} className="mobile-test" style={{
             marginTop: 22,
             background: '#fff',
             border: '1px solid rgba(255,255,255,0.8)',
@@ -389,8 +397,18 @@ export default function ZXTIPage() {
             padding: 24,
             position: 'relative',
           }}>
-            {/* Progress - sticky */}
-            <div style={{ position: 'sticky', top: 0, zIndex: 100, background: '#fff', padding: '12px 0', margin: '-12px 0 18px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+            {/* Progress - fixed when scrolled */}
+            <div style={{ 
+              position: stickyProgress ? 'fixed' : 'relative', 
+              top: stickyProgress ? 0 : undefined,
+              left: stickyProgress ? 0 : undefined,
+              right: stickyProgress ? 0 : undefined,
+              zIndex: 100, 
+              background: '#fff', 
+              padding: '12px 24px', 
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+              margin: stickyProgress ? '0' : '0 -24px 18px',
+            }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ flex: 1, minWidth: 240, height: 10, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
                   <div style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, #97b59c, #5b7a62)', borderRadius: 'inherit', transition: 'width .22s ease' }} />
