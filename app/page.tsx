@@ -942,7 +942,7 @@ export default function ZXTIPage() {
                 const values = dims.map(dim => scoreMap[result.levels[dim] || 'M'] || 2);
                 
                 const center = 90;
-                const maxR = 100; // Reduced to keep labels inside
+                const maxR = 100;
                 const coords = values.map((v, i) => {
                   const angle = (i * 72 - 90) * Math.PI / 180;
                   const r = (v / 3) * maxR;
@@ -957,42 +957,44 @@ export default function ZXTIPage() {
                 const points = coords.map(c => `${c.x},${c.y}`).join(' ');
                 
                 return (
-                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0', position: 'relative' }}>
-                    <svg width="180" height="180" viewBox="0 0 180 180" style={{ display: 'block' }}>
-                      {/* Grid rings */}
-                      <circle cx="90" cy="90" r="40" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                      <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                      <circle cx="90" cy="90" r="120" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                      {/* Axes */}
-                      {coords.map((_, i) => {
-                        const angle = (i * 72 - 90) * Math.PI / 180;
-                        return (
-                          <line key={`axis-${i}`} x1="90" y1="90" x2={90 + 120 * Math.cos(angle)} y2={90 + 120 * Math.sin(angle)} stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                        );
-                      })}
-                      {/* Data polygon */}
-                      <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />
-                      {/* Data points */}
+                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+                    <div style={{ position: 'relative', width: 180, height: 180 }}>
+                      <svg width="180" height="180" viewBox="0 0 180 180" style={{ display: 'block' }}>
+                        {/* Grid rings */}
+                        <circle cx="90" cy="90" r="33" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                        <circle cx="90" cy="90" r="67" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                        <circle cx="90" cy="90" r="100" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                        {/* Axes */}
+                        {coords.map((_, i) => {
+                          const angle = (i * 72 - 90) * Math.PI / 180;
+                          return (
+                            <line key={`axis-${i}`} x1="90" y1="90" x2={90 + 100 * Math.cos(angle)} y2={90 + 100 * Math.sin(angle)} stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                          );
+                        })}
+                        {/* Data polygon */}
+                        <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />
+                        {/* Data points */}
+                        {coords.map((c, i) => (
+                          <circle key={`point-${i}`} cx={c.x} cy={c.y} r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
+                        ))}
+                      </svg>
+                      {/* Labels as HTML overlays */}
                       {coords.map((c, i) => (
-                        <circle key={`point-${i}`} cx={c.x} cy={c.y} r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
+                        <div key={`label-${i}`} style={{
+                          position: 'absolute',
+                          left: c.labelX,
+                          top: c.labelY,
+                          transform: 'translate(-50%, -50%)',
+                          color: '#97b59c',
+                          fontSize: 11,
+                          fontWeight: 700,
+                          textAlign: 'center',
+                          whiteSpace: 'nowrap',
+                        }}>
+                          {labels[i]}
+                        </div>
                       ))}
-                    </svg>
-                    {/* Labels as HTML overlays */}
-                    {coords.map((c, i) => (
-                      <div key={`label-${i}`} style={{
-                        position: 'absolute',
-                        left: c.labelX,
-                        top: c.labelY,
-                        transform: 'translate(-50%, -50%)',
-                        color: '#97b59c',
-                        fontSize: 11,
-                        fontWeight: 700,
-                        textAlign: 'center',
-                        whiteSpace: 'nowrap',
-                      }}>
-                        {labels[i]}
-                      </div>
-                    ))}
+                    </div>
                   </div>
                 );
               })()}
