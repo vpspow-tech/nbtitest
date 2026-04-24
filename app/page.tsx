@@ -942,15 +942,15 @@ export default function ZXTIPage() {
                 const values = dims.map(dim => scoreMap[result.levels[dim] || 'M'] || 2);
                 
                 const center = 90;
-                const maxR = 120;
+                const maxR = 100; // Reduced to keep labels inside
                 const coords = values.map((v, i) => {
                   const angle = (i * 72 - 90) * Math.PI / 180;
                   const r = (v / 3) * maxR;
                   return {
                     x: center + r * Math.cos(angle),
                     y: center + r * Math.sin(angle),
-                    labelX: center + maxR * 1.2 * Math.cos(angle),
-                    labelY: center + maxR * 1.2 * Math.sin(angle),
+                    labelX: center + (maxR + 15) * Math.cos(angle),
+                    labelY: center + (maxR + 15) * Math.sin(angle),
                   };
                 });
                 
