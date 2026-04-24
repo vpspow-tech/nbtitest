@@ -926,9 +926,11 @@ export default function ZXTIPage() {
                 borderRadius: 14,
                 padding: '14px 16px',
                 width: '100%',
+                wordWrap: 'break-word',
+                wordBreak: 'break-all',
               }}>
                 <div style={{ fontSize: 12, color: '#97b59c', marginBottom: 6, fontWeight: 700, letterSpacing: '0.05em' }}>💡 人格解析</div>
-                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.8, fontWeight: 400 }}>
+                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.8, fontWeight: 400, whiteSpace: 'pre-wrap' }}>
                   {result.finalType.desc || result.finalType.intro}
                 </div>
               </div>
