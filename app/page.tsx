@@ -934,35 +934,59 @@ export default function ZXTIPage() {
                 </div>
               </div>
 
-              {/* Radar Chart - simplified for better compatibility */}
-              <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
-                <svg width="180" height="180" viewBox="0 0 180 180" style={{ display: 'block' }}>
-                  {/* Grid rings */}
-                  <circle cx="90" cy="90" r="40" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  <circle cx="90" cy="90" r="120" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  {/* Axes */}
-                  <line x1="90" y1="90" x2="90" y2="-30" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  <line x1="90" y1="90" x2="204" y2="30" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  <line x1="90" y1="90" x2="160" y2="194" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  <line x1="90" y1="90" x2="20" y2="194" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  <line x1="90" y1="90" x2="-24" y2="30" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                  {/* Data polygon */}
-                  <polygon points="90,30 170,70 150,170 30,170 10,70" fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />
-                  {/* Data points */}
-                  <circle cx="90" cy="30" r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
-                  <circle cx="170" cy="70" r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
-                  <circle cx="150" cy="170" r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
-                  <circle cx="30" cy="170" r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
-                  <circle cx="10" cy="70" r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
-                  {/* Labels */}
-                  <text x="90" y="12" textAnchor="middle" fill="#97b59c" fontSize="11" fontWeight="700">内卷</text>
-                  <text x="186" y="24" textAnchor="middle" fill="#97b59c" fontSize="11" fontWeight="700">摸鱼</text>
-                  <text x="166" y="186" textAnchor="middle" fill="#97b59c" fontSize="11" fontWeight="700">向上</text>
-                  <text x="14" y="186" textAnchor="middle" fill="#97b59c" fontSize="11" fontWeight="700">社恐</text>
-                  <text x="-6" y="24" textAnchor="middle" fill="#97b59c" fontSize="11" fontWeight="700">甩锅</text>
-                </svg>
-              </div>
+              {/* Radar Chart - static SVG with real data */}
+              {(() => {
+                const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
+                const dims = ['S1', 'E2', 'A1', 'So1', 'A2'];
+                const labels = ['内卷', '摸鱼', '向上', '社恐', '甩锅'];
+                const values = dims.map(dim => scoreMap[result.levels[dim] || 'M'] || 2);
+                
+                // Pre-calculate all coordinates
+                const center = 90;
+                const maxR = 120;
+                const coords = values.map((v, i) => {
+                  const angle = (i * 72 - 90) * Math.PI / 180;
+                  const r = (v / 3) * maxR;
+                  return {
+                    x: center + r * Math.cos(angle),
+                    y: center + r * Math.sin(angle),
+                    labelX: center + maxR * 1.15 * Math.cos(angle),
+                    labelY: center + maxR * 1.15 * Math.sin(angle),
+                  };
+                });
+                
+                const points = coords.map(c => `${c.x},${c.y}`).join(' ');
+                
+                return (
+                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+                    <svg width="180" height="180" viewBox="0 0 180 180" style={{ display: 'block' }}>
+                      {/* Grid rings */}
+                      <circle cx="90" cy="90" r="40" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                      <circle cx="90" cy="90" r="80" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                      <circle cx="90" cy="90" r="120" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                      {/* Axes */}
+                      {coords.map((_, i) => {
+                        const angle = (i * 72 - 90) * Math.PI / 180;
+                        return (
+                          <line key={`axis-${i}`} x1="90" y1="90" x2={90 + 120 * Math.cos(angle)} y2={90 + 120 * Math.sin(angle)} stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                        );
+                      })}
+                      {/* Data polygon */}
+                      <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />
+                      {/* Data points */}
+                      {coords.map((c, i) => (
+                        <circle key={`point-${i}`} cx={c.x} cy={c.y} r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
+                      ))}
+                      {/* Labels */}
+                      {coords.map((c, i) => (
+                        <text key={`label-${i}`} x={c.labelX} y={c.labelY} textAnchor="middle" dominantBaseline="middle" fill="#97b59c" fontSize="11" fontWeight="700">
+                          {labels[i]}
+                        </text>
+                      ))}
+                    </svg>
+                  </div>
+                );
+              })()}
 
               {/* Bottom area with QR code placeholder */}
               <div style={{
