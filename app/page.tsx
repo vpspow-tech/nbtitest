@@ -334,6 +334,10 @@ export default function ZXTIPage() {
               职业人格测试NBTI来了
             </div>
             <p style={{ marginTop: 8, fontSize: 13, color: '#97b59c', fontWeight: 600 }}>分享前别忘了屏蔽你的老板</p>
+            <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(77,106,83,0.06)', padding: '8px 16px', borderRadius: 999, border: '1px solid rgba(77,106,83,0.12)' }}>
+              <span style={{ fontSize: 16 }}>👥</span>
+              <span style={{ fontSize: 14, color: '#4d6a53', fontWeight: 700 }}>已有 12,847 人参与测试</span>
+            </div>
             <div style={{ marginTop: 28, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={startTest}
