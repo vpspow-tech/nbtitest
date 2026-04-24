@@ -979,7 +979,7 @@ export default function ZXTIPage() {
                       ))}
                       {/* Labels */}
                       {coords.map((c, i) => (
-                        <text key={`label-${i}`} x={c.labelX} y={c.labelY} textAnchor="middle" dominantBaseline="middle" fill="#97b59c" fontSize="11" fontWeight="700">
+                        <text key={`label-${i}`} x={c.labelX} y={c.labelY} textAnchor="middle" fill="#97b59c" fontSize="11" fontWeight="700">
                           {labels[i]}
                         </text>
                       ))}
