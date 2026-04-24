@@ -389,8 +389,8 @@ export default function ZXTIPage() {
             padding: 24,
           }}>
             {/* Progress - sticky */}
-            <div style={{ position: 'sticky', top: 0, zIndex: 100, background: '#fff', padding: '12px 0', margin: '-24px -24px 18px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap', padding: '0 24px' }}>
+            <div style={{ position: 'sticky', top: 0, zIndex: 100, background: '#fff', padding: '12px 24px', margin: '0 -24px 18px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ flex: 1, minWidth: 240, height: 10, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
                   <div style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, #97b59c, #5b7a62)', borderRadius: 'inherit', transition: 'width .22s ease' }} />
                 </div>
@@ -786,7 +786,7 @@ export default function ZXTIPage() {
             <div
               ref={shareCardRef}
               style={{
-                position: 'absolute',
+                position: 'fixed',
                 left: '-9999px',
                 width: 375,
                 minHeight: 667,
