@@ -788,7 +788,7 @@ export default function ZXTIPage() {
                 gap: 10,
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
                 boxSizing: 'border-box',
-                overflow: 'hidden',
+                overflow: 'visible',
               }}
             >
               {/* Top badge */}
