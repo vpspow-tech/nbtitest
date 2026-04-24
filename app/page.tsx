@@ -187,11 +187,21 @@ export default function ZXTIPage() {
     if (!shareCardRef.current) return;
     setGeneratingShare(true);
     try {
+      // Temporarily move share card to visible area for capture
+      const originalStyle = shareCardRef.current.getAttribute('style') || '';
+      shareCardRef.current.style.position = 'fixed';
+      shareCardRef.current.style.left = '0';
+      shareCardRef.current.style.top = '0';
+      shareCardRef.current.style.zIndex = '-1';
+      
       const dataUrl = await toPng(shareCardRef.current, {
         quality: 1,
         pixelRatio: 2,
         cacheBust: true,
       });
+      
+      // Restore original style
+      shareCardRef.current.setAttribute('style', originalStyle);
       
       // 显示预览弹窗，让用户长按保存
       const previewDiv = document.createElement('div');
@@ -378,12 +388,14 @@ export default function ZXTIPage() {
             boxShadow: '0 20px 56px rgba(47,73,55,0.14), 0 8px 20px rgba(47,73,55,0.08)',
             padding: 24,
           }}>
-            {/* Progress */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, marginBottom: 18, flexWrap: 'wrap' }}>
-              <div style={{ flex: 1, minWidth: 240, height: 10, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
-                <div style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, #97b59c, #5b7a62)', borderRadius: 'inherit', transition: 'width .22s ease' }} />
+            {/* Progress - sticky */}
+            <div style={{ position: 'sticky', top: 0, zIndex: 100, background: '#fff', padding: '12px 0', margin: '-24px -24px 18px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap', padding: '0 24px' }}>
+                <div style={{ flex: 1, minWidth: 240, height: 10, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
+                  <div style={{ width: `${progress}%`, height: '100%', background: 'linear-gradient(90deg, #97b59c, #5b7a62)', borderRadius: 'inherit', transition: 'width .22s ease' }} />
+                </div>
+                <span style={{ color: '#6a786f', fontSize: 13, whiteSpace: 'nowrap', fontWeight: 600 }}>{doneCount} / {totalCount}</span>
               </div>
-              <span style={{ color: '#6a786f', fontSize: 13, whiteSpace: 'nowrap' }}>{doneCount} / {totalCount}</span>
             </div>
 
             {/* Questions */}
@@ -400,7 +412,7 @@ export default function ZXTIPage() {
                   background: 'linear-gradient(180deg, #ffffff, #fbfdfb)',
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                    <span style={{ fontSize: 12, color: '#6a786f' }}>维度已隐藏</span>
+                    <span style={{ fontSize: 12, color: '#6a786f' }}>第 {index + 1} 题</span>
                   </div>
                   <div className="mobile-question-text" style={{ fontSize: 'clamp(14px, 4vw, 16px)', lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: 14 }}>{q.text}</div>
                   <div style={{ display: 'grid', gap: 10 }}>
@@ -938,7 +950,7 @@ export default function ZXTIPage() {
               {(() => {
                 const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
                 const dims = ['S1', 'E2', 'A1', 'So1', 'A2'];
-                const labels = ['内卷', '摸鱼', '向上', '社恐', '甩锅'];
+                const labels = ['内卷指数', '摸鱼指数', '向上管理', '社交能量', '责任边界'];
                 const values = dims.map(dim => scoreMap[result.levels[dim] || 'M'] || 2);
                 
                 const center = 90;
@@ -949,8 +961,8 @@ export default function ZXTIPage() {
                   return {
                     x: center + r * Math.cos(angle),
                     y: center + r * Math.sin(angle),
-                    labelX: center + (maxR + 15) * Math.cos(angle),
-                    labelY: center + (maxR + 15) * Math.sin(angle),
+                    labelX: center + (maxR + 22) * Math.cos(angle),
+                    labelY: center + (maxR + 22) * Math.sin(angle),
                   };
                 });
                 
@@ -986,7 +998,7 @@ export default function ZXTIPage() {
                           top: c.labelY,
                           transform: 'translate(-50%, -50%)',
                           color: '#97b59c',
-                          fontSize: 11,
+                          fontSize: 10,
                           fontWeight: 700,
                           textAlign: 'center',
                           whiteSpace: 'nowrap',
