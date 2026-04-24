@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
+import RadarChart from './components/RadarChart';
 import html2canvas from 'html2canvas';
 import {
   questions,
@@ -802,11 +803,11 @@ export default function ZXTIPage() {
                 NBTI 职业人格测试
               </div>
 
-              {/* Type image with rarity background */}
+              {/* Type image with rarity background - enlarged */}
               <div style={{
                 position: 'relative',
-                padding: '5px',
-                borderRadius: 22,
+                padding: '8px',
+                borderRadius: 24,
                 background: result.finalType.rarity === 'SSR'
                   ? 'linear-gradient(135deg, #FFD700, #FFA500, #FF6347)'
                   : result.finalType.rarity === 'SR'
@@ -826,15 +827,15 @@ export default function ZXTIPage() {
                   <img
                     src={result.finalType.image}
                     alt={result.finalType.cn}
-                    style={{ width: 180, height: 180, borderRadius: 16, objectFit: 'cover', display: 'block' }}
+                    style={{ width: 220, height: 220, borderRadius: 18, objectFit: 'cover', display: 'block' }}
                   />
                 )}
                 {!result.finalType.image && (
                   <div style={{
-                    width: 180, height: 180, borderRadius: 16,
+                    width: 220, height: 220, borderRadius: 18,
                     background: 'linear-gradient(180deg, #97b59c, #5b7a62)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 40, fontWeight: 900, color: '#fff',
+                    fontSize: 48, fontWeight: 900, color: '#fff',
                   }}>
                     {result.finalType.code.slice(0, 4)}
                   </div>
@@ -918,19 +919,22 @@ export default function ZXTIPage() {
                 {getRarityText(result.finalType.rarity, result.bestNormal?.similarity)}
               </div>
 
-              {/* Personality description - improved readability */}
+              {/* Personality description - full text, no truncation */}
               <div style={{
-                background: 'rgba(255,255,255,0.08)',
-                borderRadius: 12,
-                padding: '10px 14px',
+                background: 'rgba(255,255,255,0.12)',
+                borderRadius: 14,
+                padding: '14px 16px',
                 width: '100%',
-                maxHeight: 110,
-                overflow: 'hidden',
               }}>
-                <div style={{ fontSize: 11, color: '#97b59c', marginBottom: 4, fontWeight: 600 }}>💡 人格解析</div>
-                <div style={{ fontSize: 12, color: '#fff', lineHeight: 1.7, fontWeight: 400 }}>
-                  {result.finalType.desc?.slice(0, 80) || result.finalType.intro}...
+                <div style={{ fontSize: 12, color: '#97b59c', marginBottom: 6, fontWeight: 700, letterSpacing: '0.05em' }}>💡 人格解析</div>
+                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.8, fontWeight: 400 }}>
+                  {result.finalType.desc || result.finalType.intro}
                 </div>
+              </div>
+
+              {/* Radar Chart */}
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+                <RadarChart levels={result.levels} size={220} />
               </div>
 
               {/* Bottom area with QR code placeholder */}
