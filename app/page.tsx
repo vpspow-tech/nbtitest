@@ -196,11 +196,15 @@ export default function ZXTIPage() {
     setGeneratingShare(true);
     try {
       // Temporarily move share card to visible area for capture
-      const originalStyle = shareCardRef.current.getAttribute('style') || '';
+      const originalPosition = shareCardRef.current.style.position;
+      const originalLeft = shareCardRef.current.style.left;
       shareCardRef.current.style.position = 'fixed';
       shareCardRef.current.style.left = '0';
       shareCardRef.current.style.top = '0';
       shareCardRef.current.style.zIndex = '-1';
+      
+      // Wait for DOM update
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       const dataUrl = await toPng(shareCardRef.current, {
         quality: 1,
@@ -209,7 +213,10 @@ export default function ZXTIPage() {
       });
       
       // Restore original style
-      shareCardRef.current.setAttribute('style', originalStyle);
+      shareCardRef.current.style.position = originalPosition;
+      shareCardRef.current.style.left = originalLeft;
+      shareCardRef.current.style.top = '';
+      shareCardRef.current.style.zIndex = '';
       
       // 显示预览弹窗，让用户长按保存
       const previewDiv = document.createElement('div');
@@ -270,6 +277,9 @@ export default function ZXTIPage() {
           document.body.removeChild(previewDiv);
         }
       };
+    } catch (err) {
+      console.error('Share image generation failed:', err);
+      alert('生成分享图失败，请重试');
     } finally {
       setGeneratingShare(false);
     }
@@ -323,7 +333,7 @@ export default function ZXTIPage() {
             .mobile-actions { padding: 0 16px 16px !important; }
             .mobile-actions > div { flex-direction: column !important; width: 100% !important; }
             .mobile-actions button { width: 100% !important; }
-            .mobile-radar { display: none !important; }
+            .mobile-radar { display: flex !important; justify-content: center; }
             .mobile-result-top { flex-direction: column !important; gap: 12px !important; }
             .mobile-type-img { width: 180px !important; height: 180px !important; }
           }
@@ -662,8 +672,8 @@ export default function ZXTIPage() {
                   <div style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)', fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>内卷指数</div>
                   <div style={{ position: 'absolute', top: 75, right: 8, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>摸鱼指数</div>
                   <div style={{ position: 'absolute', bottom: 8, right: 75, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>向上管理</div>
-                  <div style={{ position: 'absolute', bottom: 8, left: 75, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>社交恐惧</div>
-                  <div style={{ position: 'absolute', top: 75, left: 8, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>甩锅指数</div>
+                  <div style={{ position: 'absolute', bottom: 8, left: 75, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>社交能量</div>
+                  <div style={{ position: 'absolute', top: 75, left: 8, fontSize: 11, color: '#4d6a53', fontWeight: 700, whiteSpace: 'nowrap' }}>责任边界</div>
                 </div>
               </div>
 
