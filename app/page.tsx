@@ -935,9 +935,60 @@ export default function ZXTIPage() {
                 </div>
               </div>
 
-              {/* Radar Chart - compact */}
+              {/* Radar Chart - inline SVG for html2canvas compatibility */}
               <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '4px 0' }}>
-                <RadarChart levels={result.levels} size={180} />
+                <svg width="180" height="180" viewBox="0 0 180 180">
+                  {/* Grid rings */}
+                  {[60, 90, 120].map((r, i) => (
+                    <circle key={i} cx="90" cy="90" r={r} fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                  ))}
+                  {/* Axes */}
+                  {[0, 1, 2, 3, 4].map(i => {
+                    const angle = (i * 72 - 90) * Math.PI / 180;
+                    return (
+                      <line key={i} x1="90" y1="90" x2={90 + 120 * Math.cos(angle)} y2={90 + 120 * Math.sin(angle)} stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                    );
+                  })}
+                  {/* Data polygon */}
+                  {(() => {
+                    const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
+                    const dims = ['S1', 'E2', 'A1', 'So1', 'A2'];
+                    const points = dims.map((dim, i) => {
+                      const level = result.levels[dim] || 'M';
+                      const value = scoreMap[level] || 2;
+                      const angle = (i * 72 - 90) * Math.PI / 180;
+                      const r = (value / 3) * 120;
+                      return `${90 + r * Math.cos(angle)},${90 + r * Math.sin(angle)}`;
+                    }).join(' ');
+                    return <polygon points={points} fill="rgba(151,181,156,0.35)" stroke="#97b59c" strokeWidth="2" />;
+                  })()}
+                  {/* Data points */}
+                  {(() => {
+                    const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
+                    const dims = ['S1', 'E2', 'A1', 'So1', 'A2'];
+                    return dims.map((dim, i) => {
+                      const level = result.levels[dim] || 'M';
+                      const value = scoreMap[level] || 2;
+                      const angle = (i * 72 - 90) * Math.PI / 180;
+                      const r = (value / 3) * 120;
+                      const x = 90 + r * Math.cos(angle);
+                      const y = 90 + r * Math.sin(angle);
+                      return <circle key={i} cx={x} cy={y} r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />;
+                    });
+                  })()}
+                  {/* Labels */}
+                  {['内卷', '摸鱼', '向上', '社恐', '甩锅'].map((label, i) => {
+                    const angle = (i * 72 - 90) * Math.PI / 180;
+                    const r = 138;
+                    const x = 90 + r * Math.cos(angle);
+                    const y = 90 + r * Math.sin(angle);
+                    return (
+                      <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" fill="#97b59c" fontSize="11" fontWeight="700">
+                        {label}
+                      </text>
+                    );
+                  })}
+                </svg>
               </div>
 
               {/* Bottom area with QR code placeholder */}
