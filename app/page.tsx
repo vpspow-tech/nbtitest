@@ -934,14 +934,13 @@ export default function ZXTIPage() {
                 </div>
               </div>
 
-              {/* Radar Chart - static SVG with real data */}
+              {/* Radar Chart - HTML-based for maximum compatibility */}
               {(() => {
                 const scoreMap: Record<string, number> = { L: 1, M: 2, H: 3 };
                 const dims = ['S1', 'E2', 'A1', 'So1', 'A2'];
                 const labels = ['内卷', '摸鱼', '向上', '社恐', '甩锅'];
                 const values = dims.map(dim => scoreMap[result.levels[dim] || 'M'] || 2);
                 
-                // Pre-calculate all coordinates
                 const center = 90;
                 const maxR = 120;
                 const coords = values.map((v, i) => {
@@ -950,15 +949,15 @@ export default function ZXTIPage() {
                   return {
                     x: center + r * Math.cos(angle),
                     y: center + r * Math.sin(angle),
-                    labelX: center + maxR * 1.15 * Math.cos(angle),
-                    labelY: center + maxR * 1.15 * Math.sin(angle),
+                    labelX: center + maxR * 1.2 * Math.cos(angle),
+                    labelY: center + maxR * 1.2 * Math.sin(angle),
                   };
                 });
                 
                 const points = coords.map(c => `${c.x},${c.y}`).join(' ');
                 
                 return (
-                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
+                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0', position: 'relative' }}>
                     <svg width="180" height="180" viewBox="0 0 180 180" style={{ display: 'block' }}>
                       {/* Grid rings */}
                       <circle cx="90" cy="90" r="40" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
@@ -977,13 +976,23 @@ export default function ZXTIPage() {
                       {coords.map((c, i) => (
                         <circle key={`point-${i}`} cx={c.x} cy={c.y} r="4" fill="#97b59c" stroke="#fff" strokeWidth="1.5" />
                       ))}
-                      {/* Labels */}
-                      {coords.map((c, i) => (
-                        <text key={`label-${i}`} x={c.labelX} y={c.labelY} textAnchor="middle" fill="#97b59c" fontSize="11" fontWeight="700" dy="4">
-                          {labels[i]}
-                        </text>
-                      ))}
                     </svg>
+                    {/* Labels as HTML overlays */}
+                    {coords.map((c, i) => (
+                      <div key={`label-${i}`} style={{
+                        position: 'absolute',
+                        left: c.labelX,
+                        top: c.labelY,
+                        transform: 'translate(-50%, -50%)',
+                        color: '#97b59c',
+                        fontSize: 11,
+                        fontWeight: 700,
+                        textAlign: 'center',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        {labels[i]}
+                      </div>
+                    ))}
                   </div>
                 );
               })()}
