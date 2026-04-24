@@ -968,10 +968,10 @@ export default function ZXTIPage() {
                 padding: '14px 16px',
                 width: '100%',
                 wordWrap: 'break-word',
-                wordBreak: 'break-all',
+                overflow: 'hidden',
               }}>
                 <div style={{ fontSize: 12, color: '#97b59c', marginBottom: 6, fontWeight: 700, letterSpacing: '0.05em' }}>💡 人格解析</div>
-                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.8, fontWeight: 400, whiteSpace: 'pre-wrap' }}>
+                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.8, fontWeight: 400, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
                   {result.finalType.desc || result.finalType.intro}
                 </div>
               </div>
@@ -984,33 +984,33 @@ export default function ZXTIPage() {
                 const values = dims.map(dim => scoreMap[result.levels[dim] || 'M'] || 2);
                 
                 const center = 90;
-                const maxR = 100;
+                const maxR = 85;
                 const coords = values.map((v, i) => {
                   const angle = (i * 72 - 90) * Math.PI / 180;
                   const r = (v / 3) * maxR;
                   return {
                     x: center + r * Math.cos(angle),
                     y: center + r * Math.sin(angle),
-                    labelX: center + (maxR + 22) * Math.cos(angle),
-                    labelY: center + (maxR + 22) * Math.sin(angle),
+                    labelX: center + (maxR + 20) * Math.cos(angle),
+                    labelY: center + (maxR + 20) * Math.sin(angle),
                   };
                 });
                 
                 const points = coords.map(c => `${c.x},${c.y}`).join(' ');
                 
                 return (
-                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
-                    <div style={{ position: 'relative', width: 180, height: 180 }}>
-                      <svg width="180" height="180" viewBox="0 0 180 180" style={{ display: 'block' }}>
+                  <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '12px 0' }}>
+                    <div style={{ position: 'relative', width: 200, height: 200 }}>
+                      <svg width="200" height="200" viewBox="0 0 200 200" style={{ display: 'block' }}>
                         {/* Grid rings */}
-                        <circle cx="90" cy="90" r="33" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                        <circle cx="90" cy="90" r="67" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-                        <circle cx="90" cy="90" r="100" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                        <circle cx="100" cy="100" r="28" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                        <circle cx="100" cy="100" r="57" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                        <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
                         {/* Axes */}
                         {coords.map((_, i) => {
                           const angle = (i * 72 - 90) * Math.PI / 180;
                           return (
-                            <line key={`axis-${i}`} x1="90" y1="90" x2={90 + 100 * Math.cos(angle)} y2={90 + 100 * Math.sin(angle)} stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                            <line key={`axis-${i}`} x1="100" y1="100" x2={100 + 85 * Math.cos(angle)} y2={100 + 85 * Math.sin(angle)} stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
                           );
                         })}
                         {/* Data polygon */}
@@ -1028,7 +1028,7 @@ export default function ZXTIPage() {
                           top: c.labelY,
                           transform: 'translate(-50%, -50%)',
                           color: '#97b59c',
-                          fontSize: 10,
+                          fontSize: 11,
                           fontWeight: 700,
                           textAlign: 'center',
                           whiteSpace: 'nowrap',
