@@ -932,9 +932,9 @@ export default function ZXTIPage() {
                 </div>
               </div>
 
-              {/* Radar Chart */}
-              <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '8px 0' }}>
-                <RadarChart levels={result.levels} size={220} />
+              {/* Radar Chart - compact */}
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '4px 0' }}>
+                <RadarChart levels={result.levels} size={180} />
               </div>
 
               {/* Bottom area with QR code placeholder */}

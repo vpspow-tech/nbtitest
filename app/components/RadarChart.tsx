@@ -8,7 +8,7 @@ interface RadarChartProps {
 export default function RadarChart({ levels, size = 200 }: RadarChartProps) {
   const center = size / 2;
   const radius = size * 0.38;
-  const labels = ['内卷指数', '摸鱼指数', '向上管理', '社交恐惧', '甩锅指数'];
+  const labels = ['内卷', '摸鱼', '向上', '社恐', '甩锅'];
   const dims = ['S1', 'E2', 'A1', 'So1', 'A2'];
   
   const levelNum = (level: string) => {
