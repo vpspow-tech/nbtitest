@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import RadarChart from './components/RadarChart';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import {
   questions,
   specialQuestions,
@@ -187,14 +187,13 @@ export default function ZXTIPage() {
     if (!shareCardRef.current) return;
     setGeneratingShare(true);
     try {
-      const canvas = await html2canvas(shareCardRef.current, {
-        scale: 2,
-        backgroundColor: null,
-        useCORS: true,
+      const dataUrl = await toPng(shareCardRef.current, {
+        quality: 1,
+        pixelRatio: 2,
+        cacheBust: true,
       });
       
       // 显示预览弹窗，让用户长按保存
-      const dataUrl = canvas.toDataURL('image/png');
       const previewDiv = document.createElement('div');
       previewDiv.style.cssText = `
         position: fixed;
