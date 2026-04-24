@@ -408,6 +408,7 @@ export default function ZXTIPage() {
               padding: '12px 24px', 
               boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
               margin: stickyProgress ? '0' : '0 -24px 18px',
+              borderRadius: stickyProgress ? '0 0 12px 12px' : undefined,
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ flex: 1, minWidth: 240, height: 10, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
