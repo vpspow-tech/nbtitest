@@ -615,24 +615,36 @@ export default function ZXTIPage() {
           }}>
             {/* Header bar - merged title and badge */}
             <div style={{
-              background: '#2d4a38',
-              padding: '16px 24px',
+              background: 'linear-gradient(135deg, #2d4a38, #3d5a43)',
+              padding: '20px 24px',
               display: 'flex',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
               alignItems: 'center',
               borderRadius: '22px 22px 0 0',
               gap: 12,
               flexWrap: 'wrap',
+              position: 'relative',
+              overflow: 'hidden',
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                <div style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>你的主类型</div>
+              <div style={{ 
+                position: 'absolute', 
+                top: 0, 
+                left: 0, 
+                right: 0, 
+                bottom: 0, 
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.1), transparent)', 
+                pointerEvents: 'none' 
+              }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
+                <div style={{ color: '#fff', fontWeight: 800, fontSize: 18, letterSpacing: '0.05em' }}>✨ 你的主类型</div>
                 <div style={{
-                  background: '#4d6a53',
+                  background: 'rgba(255,255,255,0.2)',
                   color: '#fff',
                   padding: '4px 12px',
                   borderRadius: 999,
                   fontSize: 12,
                   fontWeight: 700,
+                  backdropFilter: 'blur(10px)',
                 }}>
                   {result.badge}
                 </div>
@@ -670,44 +682,45 @@ export default function ZXTIPage() {
               </div>
 
               {/* Type info - improved padding and hierarchy */}
-              <div style={{ width: '100%', maxWidth: 340, border: '1px solid #dbe8dd', borderRadius: 18, padding: '20px 24px', background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ fontSize: 11, color: '#999', marginBottom: 6, letterSpacing: '.08em', textTransform: 'uppercase' }}>
+              <div style={{ width: '100%', maxWidth: 340, border: '1px solid #dbe8dd', borderRadius: 18, padding: '24px 28px', background: 'linear-gradient(180deg, #ffffff, #fbfdfb)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}>
+                <div style={{ fontSize: 11, color: '#999', marginBottom: 8, letterSpacing: '.08em', textTransform: 'uppercase' }}>
                   {result.modeKicker}
                 </div>
                 {/* Chinese name emphasized, English code smaller */}
-                <div className="mobile-type-name" style={{ fontSize: 28, lineHeight: 1.2, fontWeight: 900, color: '#1a1a1a' }}>
+                <div className="mobile-type-name" style={{ fontSize: 32, lineHeight: 1.2, fontWeight: 900, color: '#1a1a1a' }}>
                   {result.finalType.cn}
                 </div>
-                <div className="mobile-type-code" style={{ fontSize: 16, lineHeight: 1.05, letterSpacing: '0.05em', fontWeight: 600, color: '#4d6a53', marginTop: 4 }}>
+                <div className="mobile-type-code" style={{ fontSize: 16, lineHeight: 1.05, letterSpacing: '0.08em', fontWeight: 700, color: '#4d6a53', marginTop: 6 }}>
                   {result.finalType.code}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
                   {result.finalType.rarity && (
                     <div style={{
                       background: rarityColors[result.finalType.rarity],
                       color: '#fff',
-                      padding: '4px 10px',
-                      borderRadius: 6,
-                      fontSize: 12,
+                      padding: '5px 12px',
+                      borderRadius: 8,
+                      fontSize: 13,
                       fontWeight: 800,
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                     }}>
                       {result.finalType.rarity}
                     </div>
                   )}
                 </div>
-                <div style={{ fontSize: 14, color: '#6a786f', marginTop: 8 }}>
+                <div style={{ fontSize: 14, color: '#6a786f', marginTop: 10, fontWeight: 500 }}>
                   {getRarityText(result.finalType.rarity, result.bestNormal?.similarity)}
                 </div>
-                <div style={{ marginTop: 10, width: '100%' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6a786f', marginBottom: 5 }}>
+                <div style={{ marginTop: 14, width: '100%' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6a786f', marginBottom: 6 }}>
                     <span>匹配度</span>
-                    <span style={{ fontWeight: 700, color: '#4d6a53' }}>{result.badge}</span>
+                    <span style={{ fontWeight: 700, color: '#4d6a53' }}>{result.bestNormal?.similarity || 0}%</span>
                   </div>
-                  <div style={{ height: 6, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
-                    <div style={{ width: '75%', height: '100%', background: 'linear-gradient(90deg, #4d6a53, #6b8c73)', borderRadius: 'inherit', transition: 'width .4s ease' }} />
+                  <div style={{ height: 8, background: '#edf3ee', borderRadius: 999, overflow: 'hidden' }}>
+                    <div style={{ width: `${result.bestNormal?.similarity || 0}%`, height: '100%', background: 'linear-gradient(90deg, #4d6a53, #6b8c73)', borderRadius: 'inherit', transition: 'width .4s ease' }} />
                   </div>
                 </div>
-                <div style={{ marginTop: 12, color: '#6a786f', fontSize: 13, lineHeight: 1.8, textAlign: 'left', width: '100%' }}>
+                <div style={{ marginTop: 14, color: '#6a786f', fontSize: 13, lineHeight: 1.8, textAlign: 'center', width: '100%', fontStyle: 'italic' }}>
                   {result.sub}
                 </div>
               </div>
@@ -914,35 +927,38 @@ export default function ZXTIPage() {
                 width: 375,
                 minHeight: 667,
                 height: 'auto',
-                background: 'linear-gradient(180deg, #1a2e1f 0%, #2d4a38 40%, #1a2e1f 100%)',
+                background: 'linear-gradient(180deg, #f8f9fa 0%, #ffffff 40%, #f1f3f4 100%)',
                 padding: '24px 20px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 10,
+                gap: 12,
                 fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
                 boxSizing: 'border-box',
                 overflow: 'visible',
+                borderRadius: 24,
+                boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
               }}
             >
               {/* Top badge */}
               <div style={{
-                background: 'rgba(255,255,255,0.15)',
-                color: '#fff',
-                padding: '5px 14px',
+                background: '#fff',
+                color: '#2d4a38',
+                padding: '6px 16px',
                 borderRadius: 999,
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: '0.1em',
+                fontSize: 12,
+                fontWeight: 800,
+                letterSpacing: '0.05em',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
               }}>
-                NBTI 职业人格测试
+                💚 NBTI 职场人格测试
               </div>
 
               {/* Type image with rarity background - enlarged */}
               <div style={{
                 position: 'relative',
-                padding: '8px',
-                borderRadius: 24,
+                padding: '12px',
+                borderRadius: 28,
                 background: result.finalType.rarity === 'SSR'
                   ? 'linear-gradient(135deg, #FFD700, #FFA500, #FF6347)'
                   : result.finalType.rarity === 'SR'
@@ -957,6 +973,7 @@ export default function ZXTIPage() {
                   : result.finalType.rarity === 'R'
                   ? '0 8px 32px rgba(65, 105, 225, 0.4)'
                   : '0 8px 32px rgba(128, 128, 128, 0.3)',
+                marginTop: 8,
               }}>
                 {result.finalType.image && (
                   <img
@@ -1019,22 +1036,21 @@ export default function ZXTIPage() {
               </div>
 
               {/* Type name - Chinese emphasized */}
-              <div style={{ textAlign: 'center' }}>
+              <div style={{ textAlign: 'center', marginTop: 16 }}>
                 <div style={{
-                  fontSize: 28,
+                  fontSize: 32,
                   fontWeight: 900,
-                  color: '#fff',
+                  color: '#1a1a1a',
                   lineHeight: 1.2,
-                  textShadow: '0 4px 20px rgba(0,0,0,0.3)',
                 }}>
                   {result.finalType.cn}
                 </div>
                 <div style={{
-                  fontSize: 14,
-                  fontWeight: 600,
-                  color: '#97b59c',
-                  marginTop: 4,
-                  letterSpacing: '0.05em',
+                  fontSize: 16,
+                  fontWeight: 700,
+                  color: '#4d6a53',
+                  marginTop: 6,
+                  letterSpacing: '0.08em',
                 }}>
                   {result.finalType.code}
                 </div>
@@ -1042,27 +1058,33 @@ export default function ZXTIPage() {
 
               {/* Rarity text */}
               <div style={{
-                fontSize: 12,
-                color: result.finalType.rarity === 'SSR' ? '#FFD700'
-                  : result.finalType.rarity === 'SR' ? '#9370DB'
-                  : result.finalType.rarity === 'R' ? '#4169E1'
-                  : '#808080',
+                fontSize: 14,
+                color: result.finalType.rarity === 'SSR' ? '#B8860B'
+                  : result.finalType.rarity === 'SR' ? '#6B3FA0'
+                  : result.finalType.rarity === 'R' ? '#2E5C8A'
+                  : '#666',
                 fontWeight: 700,
                 textAlign: 'center',
                 padding: '0 8px',
+                marginTop: 8,
               }}>
                 {getRarityText(result.finalType.rarity, result.bestNormal?.similarity)}
               </div>
 
               {/* Personality description - full text, no truncation */}
               <div style={{
-                background: 'rgba(255,255,255,0.12)',
-                borderRadius: 14,
-                padding: '14px 16px',
+                background: 'linear-gradient(135deg, #f8f9fa, #e9ecef)',
+                borderRadius: 16,
+                padding: '16px 18px',
                 width: '100%',
+                marginTop: 8,
+                border: '1px solid #e9ecef',
               }}>
-                <div style={{ fontSize: 12, color: '#97b59c', marginBottom: 6, fontWeight: 700, letterSpacing: '0.05em' }}>💡 人格解析</div>
-                <div style={{ fontSize: 13, color: '#fff', lineHeight: 1.8, fontWeight: 400 }}>
+                <div style={{ fontSize: 13, color: '#4d6a53', marginBottom: 8, fontWeight: 800, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span>💡</span>
+                  <span>人格解析</span>
+                </div>
+                <div style={{ fontSize: 14, color: '#304034', lineHeight: 1.8, fontWeight: 400 }}>
                   {result.finalType.desc || result.finalType.intro}
                 </div>
               </div>
@@ -1139,15 +1161,15 @@ export default function ZXTIPage() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '12px 0 0',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
+                padding: '16px 0 0',
+                borderTop: '2px solid #e9ecef',
                 gap: 12,
               }}>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 13, color: '#97b59c', marginBottom: 4, fontWeight: 600 }}>
-                    扫码测测你的职场人格
+                  <div style={{ fontSize: 13, color: '#4d6a53', marginBottom: 4, fontWeight: 700 }}>
+                    扫码测测你的职场人格 👇
                   </div>
-                  <div style={{ fontSize: 10, color: '#6a786f' }}>
+                  <div style={{ fontSize: 10, color: '#97b59c' }}>
                     nbittest.com · 分享前别忘了屏蔽老板
                   </div>
                 </div>
@@ -1156,14 +1178,14 @@ export default function ZXTIPage() {
                   width: 56,
                   height: 56,
                   borderRadius: 8,
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1.5px dashed rgba(255,255,255,0.25)',
+                  background: '#fff',
+                  border: '2px solid #4d6a53',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
                 }}>
-                  <span style={{ fontSize: 20 }}>📱</span>
+                  <span style={{ fontSize: 20, color: '#4d6a53' }}>📱</span>
                 </div>
               </div>
             </div>
