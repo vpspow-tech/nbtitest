@@ -108,19 +108,47 @@ export default function ZXTIPage() {
   const shareCardRef = useRef<HTMLDivElement>(null);
   const [generatingShare, setGeneratingShare] = useState(false);
 
+  // 本地存储：保存和恢复进度
   useEffect(() => {
-    if (screen === 'test' && testContainerRef.current) {
-      const container = testContainerRef.current;
-      const handleScroll = () => {
-        const rect = container.getBoundingClientRect();
-        setStickyProgress(rect.top < 0);
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      return () => window.removeEventListener('scroll', handleScroll);
+    if (typeof window === 'undefined') return;
+    const saved = localStorage.getItem('nbti-progress');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        if (data.shuffledQuestions && data.answers && data.screen) {
+          setShuffledQuestions(data.shuffledQuestions);
+          setAnswers(data.answers);
+          setScreen(data.screen);
+          if (data.result) setResult(data.result);
+        }
+      } catch (e) {
+        console.error('Failed to restore progress:', e);
+      }
     }
-  }, [screen]);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (screen === 'test' || screen === 'result') {
+      const data = {
+        shuffledQuestions,
+        answers,
+        screen,
+        result,
+        timestamp: Date.now(),
+      };
+      localStorage.setItem('nbti-progress', JSON.stringify(data));
+    }
+  }, [screen, answers, shuffledQuestions, result]);
+
+  function clearProgress() {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('nbti-progress');
+    }
+  }
 
   function startTest() {
+    clearProgress();
     const shuffled = shuffle(questions);
     const insertIndex = Math.floor(Math.random() * shuffled.length) + 1;
     const final = [
@@ -366,6 +394,10 @@ export default function ZXTIPage() {
               <span style={{ fontSize: 16 }}>👥</span>
               <span style={{ fontSize: 14, color: '#4d6a53', fontWeight: 700 }}>已有 12,847 人参与测试</span>
             </div>
+            <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(77,106,83,0.04)', padding: '6px 14px', borderRadius: 999, border: '1px solid rgba(77,106,83,0.08)' }}>
+              <span style={{ fontSize: 14 }}>⏱️</span>
+              <span style={{ fontSize: 13, color: '#6a786f', fontWeight: 600 }}>34 道题 · 约 5 分钟</span>
+            </div>
             <div style={{ marginTop: 28, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={startTest}
@@ -392,6 +424,67 @@ export default function ZXTIPage() {
               </a>
               <span>专为职场人设计的性格测试</span>
             </div>
+
+            {/* 恢复进度提示 */}
+            {(() => {
+              if (typeof window === 'undefined') return null;
+              const saved = localStorage.getItem('nbti-progress');
+              if (saved) {
+                try {
+                  const data = JSON.parse(saved);
+                  if (data.screen === 'test' && data.answers) {
+                    const done = Object.keys(data.answers).length;
+                    const total = data.shuffledQuestions?.length || 34;
+                    return (
+                      <div style={{ marginTop: 16, padding: '12px 16px', background: '#fff8e1', borderRadius: 12, border: '1px solid #ffe0b2' }}>
+                        <div style={{ fontSize: 14, color: '#e65100', fontWeight: 600 }}>⏳ 你有未完成的测试</div>
+                        <div style={{ fontSize: 13, color: '#bf360c', marginTop: 4 }}>已完成 {done}/{total} 题</div>
+                        <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                          <button
+                            onClick={() => {
+                              setShuffledQuestions(data.shuffledQuestions);
+                              setAnswers(data.answers);
+                              setScreen('test');
+                            }}
+                            style={{
+                              background: '#4d6a53',
+                              color: '#fff',
+                              border: 0,
+                              padding: '8px 16px',
+                              borderRadius: 8,
+                              fontWeight: 600,
+                              fontSize: 13,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            继续测试
+                          </button>
+                          <button
+                            onClick={() => {
+                              clearProgress();
+                              startTest();
+                            }}
+                            style={{
+                              background: '#fff',
+                              color: '#4d6a53',
+                              border: '1px solid #dbe8dd',
+                              padding: '8px 16px',
+                              borderRadius: 8,
+                              fontWeight: 600,
+                              fontSize: 13,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            重新开始
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
+                } catch (e) {}
+              }
+              return null;
+            })()}
 
           </div>
         )}
